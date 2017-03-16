@@ -10,16 +10,13 @@
     <link href="Content/fa_icons.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css?1.0.3" />
     <script src="Scripts/Adminsitrador.js"></script>
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
-    <script>
-        
-    </script>
+<body style="background-color: #eee">
     <div id="page-wrapper">
         <div id="header-wrapper">
             <div class="container">
@@ -27,7 +24,7 @@
                     <div class="12u">
                         <header id="header">
                             
-                            <h1 style="text-transform:none; font-weight:bold"><a href="Inicio.aspx" >MGSoluciones Integrales</a></h1>
+                            <h1 style="text-transform:none; font-weight:bold"><a id="logo" href="Inicio.aspx" >MG Soluciones Integrales</a></h1>
                             
                             <nav style="text-transform: none; width:62%; right:0%; font-size:22px;" id="nav">
                                 <a id="C1" href="Inicio.aspx">Inicio</a>
@@ -66,7 +63,7 @@
                         <%--<div id="copyright">
                             &copy; Untitled. All rights reserved. | Design: <a href="http://html5up.net">HTML5 UP</a>
                         </div>--%>
-                        <div id="copyright">MG Soluciones Integrales LTDA</div>
+                        <div id="copyright" style="color: black; border-top: solid 1px black;">MG Soluciones Integrales LTDA @2017</div>
                     </div>
                 </div>
             </div>
