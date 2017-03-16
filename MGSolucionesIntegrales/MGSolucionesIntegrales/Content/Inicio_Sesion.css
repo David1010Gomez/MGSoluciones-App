@@ -1,0 +1,83 @@
+﻿body {
+}
+
+.Caja1 {
+    margin-left: 2.5%;
+    width:90%;
+    /*border: 0.1px solid #cccccc;*/
+    /*margin-top: 10%;*/
+    
+    background: #e4e3e3;
+    /*border-radius: 10px;*/
+    padding:10px;
+    color:black; 
+    font-size: 24px;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-weight: bold;
+    /*min-width: 350px;*/ 
+}
+.Datos1 {
+    top: 14%;
+    position: relative;
+    /*border: 1px solid;*/
+    width: 100%;
+    /*margin-left:2%;*/
+    text-align:center;
+}
+
+.Caja2 {
+    margin-left: 2.5%;
+    width:90%;
+    /*border: 0.1px solid #cccccc;*/
+    margin-top: -10px;
+    height: 200px;
+    background: #007294;
+    /*border-radius: 10px;*/
+    padding:10px;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    /*min-width: 350px;*/ 
+    
+}
+.Datos2 {
+    top: 14%;
+    position: relative;
+    text-align:center;
+    /*margin-right: 5px;*/
+    width: 90%;
+    margin-left: 5%;
+}
+
+.Texto {
+    font-size: 18px;
+    font-weight: 400;
+    color:white;
+    font-weight: normal;
+    margin-left:10px;
+}
+.Datos2 input{
+    background: white;  
+    width:95%; 
+    height: 20px; 
+    padding: 5px;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    border:none;
+    font-size: 15px;
+}
+.Datos2 input .button {
+    font-size:10px;
+}
+
+#banner-wrapper {
+    background: #eee url(/assets/css/images/bg2.png);
+    margin: -8px;
+    padding: 20px;
+    margin-top: 10%;
+}
+
+.Container {
+    background: white;
+    width: 20%;
+    margin-left: 40%;
+    border-radius: 20px;
+    padding:20px 10px 20px 10px;
+}
