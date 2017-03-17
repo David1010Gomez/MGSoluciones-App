@@ -11,6 +11,7 @@
     </script>
     <div id="main">
         <div class="container">
+            <h2 style="text-transform: none; font-weight: bold">Configuracion de Cuenta</h2>
         </div>
     </div>
 </asp:Content>

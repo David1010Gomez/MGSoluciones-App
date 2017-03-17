@@ -8,6 +8,6 @@
 .right-content table:hover
 {
     color:gray;
-    background: #f7f6f6;
+    /*//background: #f7f6f6;*/
     transition: 0.5s;
 }

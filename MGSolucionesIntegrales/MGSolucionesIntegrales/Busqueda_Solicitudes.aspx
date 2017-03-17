@@ -10,6 +10,9 @@
         document.getElementById('C4').classList.remove('current-page-item');
     </script>
     <link href="Content/Busqueda_Solicitudes.css" rel="stylesheet" />
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <script src="assets/js/jquery.datetimepicker.full.js"></script>
+    <link href="Content/jquery.datetimepicker.css" rel="stylesheet" />
     <div id="main">
         <div class="container">
             <div class="row main-row">
@@ -20,25 +23,24 @@
                         <hr />
                         <asp:Panel runat="server" Style="padding: 10px; overflow: hidden;">
                             
-                                <table>
-                                    <tr>
-                                        <td style="width: 180px;">
-                                            <asp:Label CssClass="Texto" runat="server">Seleccione un rango de fechas </asp:Label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input class="input" type="text" placeholder="Fecha 1" />
-                                        </td>
-                                        <td>
-                                            <input class="input" type="text" placeholder="Fecha 2" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            
-                            <table >
+                            <table>
                                 <tr>
-                                    <td >
+                                    <td style="width: 180px;">
+                                        <asp:Label CssClass="Texto" runat="server">Seleccione un rango de fechas </asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input id="Fecha_Inicial" class="input" type="text" placeholder="Fecha Inicial" />
+                                    </td>
+                                    <td>
+                                        <input id="Fecha_Final" class="input" type="text" placeholder="Fecha Final" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td>
                                         <asp:Label CssClass="Texto" runat="server">Digite Exp.: </asp:Label>
                                     </td>
                                 </tr>
@@ -48,9 +50,9 @@
                                     </td>
                                 </tr>
                             </table>
-                            <table >
+                            <table>
                                 <tr>
-                                    <td >
+                                    <td>
                                         <asp:Label CssClass="Texto" runat="server">Cédula del coordinador </asp:Label>
                                     </td>
                                 </tr>
@@ -62,7 +64,26 @@
                             </table>
                         </asp:Panel>
                     </section>
+                    <script>
+                        $('#Fecha_Inicial').datetimepicker({
+                            format: 'Y/m/d',
+                            minDate: '2016/09/01',
+                            maxDate: '+0d',
+                            timepicker: false
+                        });
 
+                        $('#Fecha_Final').datetimepicker({
+                            format: 'Y/m/d',
+                            onShow: function (ct) {
+                                this.setOptions({
+                                    minDate: $('#CCH_Fecha_Inicial').val() ? $('#CCH_Fecha_Inicial').val() : false
+                                })
+                            },
+                            maxDate: '+0d',
+                            timepicker: false
+                        });
+                    </script>
+                    
                 </div>
             </div>
         </div>

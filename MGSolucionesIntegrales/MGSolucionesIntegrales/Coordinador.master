@@ -1,11 +1,12 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Administrador.master.cs" Inherits="MasterPage" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Coordinador.master.cs" Inherits="Coordinador" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Administrador</title>
+    <title>Coordinador</title>
     <meta charset="utf-8" />
     <link href="Content/fa_icons.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="assets/css/main.css?1.0.3" />
     <script src="Scripts/Adminsitrador.js"></script>
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-    <asp:ContentPlaceHolder ID="head" runat="server">
+    <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body style="background-color: #eee">
@@ -24,20 +25,19 @@
                     <div class="12u">
                         <header id="header">
                             
-                            <h1 style="text-transform:none; font-weight:bold"><a id="logo" href="Inicio_Admin.aspx" >MG Soluciones Integrales</a></h1>
+                            <h1 style="text-transform:none; font-weight:bold"><a id="logo" href="Inicio_Coordinador.aspx" >MG Soluciones Integrales</a></h1>
                             
                             <nav style="text-transform: none; width:62%; right:0%; font-size:22px;" id="nav">
-                                <a id="C1" href="Inicio_Admin.aspx">Inicio</a>
-                                <a id="C2" href="Busqueda_Solicitudes.aspx"><i class="fa fa-search-plus"></i> &nbsp;Busqueda</a>
-                                <a id="C3" href="Usuarios.aspx"><i class="fa fa-users"></i> &nbsp;Usuarios</a>
-                                <a id="C4" href="Configuracion.aspx"><i class="fa fa-cogs"></i> &nbsp;Configuracion</a>
+                                <a id="C1" href="Inicio_Coordinador.aspx">Inicio</a>
+                                <a id="C2" href="Solicitud.aspx"><i class="fa fa-pencil"></i> &nbsp;Solicitud</a>
+                                <a id="C3" href="Busqueda_Coordinador.aspx"><i class="fa fa-search-plus"></i> &nbsp;Busqueda</a>
+                                <a id="C4" href="Configuracion_Coordinador.aspx"><i class="fa fa-cogs"></i> &nbsp;Configuracion</a>
                                 <a href="Inicio_Sesion.aspx">
                                     <div style="font-size:16px; top: -25px; position: absolute; height: 0; right: 2%;">
                                         Cerrar Sesion &nbsp;&nbsp;<i class="fa fa-sign-out"></i>
                                     </div>
                                 </a>
-                            </nav>
-                            
+                            </nav>                            
                         </header>
                     </div>
                 </div>
@@ -79,8 +79,4 @@
     <script src="assets/js/main.js"></script>
 
 </body>
-
-
-
-
 </html>

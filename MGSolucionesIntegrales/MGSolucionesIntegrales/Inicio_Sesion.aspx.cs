@@ -13,7 +13,14 @@ public partial class Inicio_Sesion : System.Web.UI.Page
     }
     protected void Ingresar_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Inicio.aspx");
+        if (Cedula.Value == "1")
+        {
+            Response.Redirect("Inicio_Admin.aspx");
+        }
+        else
+        {
+            Response.Redirect("Inicio_Coordinador.aspx");
+        }
     }
     
 }

@@ -32,7 +32,7 @@
                             <asp:Label CssClass="Texto" runat="server">Cédula: </asp:Label>
                         </td>--%>
                         <td>
-                            <input class="input" type="text" placeholder="Cédula"/><i class="fa fa-user" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
+                            <input id="Cedula" runat="server" class="input" type="text" placeholder="Cédula"/><i class="fa fa-user" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
                         </td>
                     </tr>
                 </table>
@@ -42,7 +42,7 @@
                             <asp:Label CssClass="Texto" runat="server">Contraseña: </asp:Label>
                          </td>--%>
                         <td>
-                            <input class="input" type="password" placeholder="Contraseña"/><i class="fa fa-lock" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
+                            <input id="Contraseña" runat="server" class="input" type="password" placeholder="Contraseña"/><i class="fa fa-lock" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
                         </td>
 
                     </tr>

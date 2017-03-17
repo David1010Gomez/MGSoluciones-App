@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Administrador.master" AutoEventWireup="true" CodeFile="Inicio.aspx.cs" Inherits="Inicio" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Administrador.master" AutoEventWireup="true" CodeFile="Inicio_Admin.aspx.cs" Inherits="Inicio" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -21,7 +21,7 @@
         </div>--%>
         <div id="main">
             <div class="container">
-                
+                <h2 style="text-transform: none; font-weight: bold">Pagina de Inicio Perfil Administrador</h2>
             </div>
         </div>
 </asp:Content>
