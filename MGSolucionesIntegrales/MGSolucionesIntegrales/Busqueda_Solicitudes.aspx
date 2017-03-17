@@ -9,21 +9,62 @@
         document.getElementById('C3').classList.remove('current-page-item');
         document.getElementById('C4').classList.remove('current-page-item');
     </script>
+    <link href="Content/Busqueda_Solicitudes.css" rel="stylesheet" />
     <div id="main">
         <div class="container">
             <div class="row main-row">
-						<div class="12u" style="text-align: justify;">
+                <div class="12u" style="text-align: justify;">
+                    <section class="right-content">
+                        <h2 style="text-transform: none; font-weight: bold">Formulario para la Consulta de Solicitudes</h2>
+                        <%--<p>Seleccione segun desee consultar:</p>--%>
+                        <hr />
+                        <asp:Panel runat="server" Style="padding: 10px; overflow: hidden;">
                             
-							
-							<section class="right-content">
-								<h2 style="text-transform:none; font-weight:bold">Two Column #2 (left-hand sidebar)</h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ante ante, viverra a ornare sed, convallis sed est. Proin felis sapien, adipiscing quis eleifend vel, sodales vitae sapien. Donec vel lacus leo, eu convallis metus. Cras egestas feugiat tortor, vitae interdum augue aliquam a. Sed nec augue id orci egestas commodo in eget magna. Nunc eleifend diam non odio laoreet placerat gravida nulla bibendum. Phasellus tempus imperdiet suscipit.</p>
-								<p>Mauris risus nulla, pulvinar vitae sagittis a, pharetra nec tellus. Suspendisse varius enim ac felis mattis aliquam. Aenean et justo quis ipsum gravida lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia bibendum cursus. Nullam nec pellentesque lacus. In porta erat in tortor rhoncus quis accumsan magna pretium. Nulla posuere magna eget mauris lacinia in mollis sem fermentum. Donec mollis adipiscing mauris, ut posuere enim rhoncus ut. Nunc commodo vestibulum orci vel placerat. Cras sed risus libero. Donec ac lacus vitae lectus mattis commodo id vitae libero. Etiam lorem odio, volutpat nec pulvinar sit amet, tincidunt ut lacus. Pellentesque consequat arcu vel nisi lobortis in pellentesque orci sollicitudin. Cras gravida lacus turpis, consectetur porttitor lectus. Cras malesuada tortor id neque porta ut semper quam iaculis.</p>
-								<p>Nulla ut tortor quam, a luctus nunc. Nulla condimentum diam porttitor arcu placerat tincidunt. Nunc non augue ipsum. Nulla facilisi. Phasellus feugiat augue in ipsum egestas semper. Suspendisse blandit, nisl ullamcorper blandit sollicitudin, sem leo auctor lectus, et volutpat mauris elit et odio. Ut elementum risus in metus mollis tristique vulputate nulla interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae orci dui, ut facilisis dui.</p>
-							</section>
+                                <table>
+                                    <tr>
+                                        <td style="width: 180px;">
+                                            <asp:Label CssClass="Texto" runat="server">Seleccione un rango de fechas </asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input class="input" type="text" placeholder="Fecha 1" />
+                                        </td>
+                                        <td>
+                                            <input class="input" type="text" placeholder="Fecha 2" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            
+                            <table >
+                                <tr>
+                                    <td >
+                                        <asp:Label CssClass="Texto" runat="server">Digite Exp.: </asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="input" type="text" placeholder="Exp." />
+                                    </td>
+                                </tr>
+                            </table>
+                            <table >
+                                <tr>
+                                    <td >
+                                        <asp:Label CssClass="Texto" runat="server">Cédula del coordinador </asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="input" type="text" placeholder="Cedula Coordinador" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:Panel>
+                    </section>
 
-						</div>
-					</div>
+                </div>
+            </div>
         </div>
     </div>
 </asp:Content>

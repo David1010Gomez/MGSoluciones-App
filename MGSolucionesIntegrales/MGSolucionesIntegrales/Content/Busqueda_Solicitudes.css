@@ -1,0 +1,13 @@
+﻿.right-content table {
+    float: left; 
+    padding: 5px;
+    /*border: 1px solid black;*/
+    margin-left: 1%;
+    transition: 1s;
+}
+.right-content table:hover
+{
+    color:gray;
+    background: #f7f6f6;
+    transition: 0.5s;
+}

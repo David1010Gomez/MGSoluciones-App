@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MGSolucionesIntegrales(1)", "..\MGSolucionesIntegrales\", "{29401B3E-59E6-40C3-AFA1-CE464BD1291B}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_62965"
 		Debug.AspNetCompiler.PhysicalPath = "..\MGSolucionesIntegrales\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62965\"
@@ -21,6 +21,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MGSolucionesIntegrales(1)",
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "62965"
+		SlnRelativePath = "..\MGSolucionesIntegrales\"
 	EndProjectSection
 EndProject
 Global
