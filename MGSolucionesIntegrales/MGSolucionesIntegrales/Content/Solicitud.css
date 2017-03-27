@@ -1,0 +1,29 @@
+﻿
+.right-content table {
+
+    width:100%; 
+
+}
+.right-content table td {
+    padding:3px;
+    
+}
+.right-content table .inp_form, .Lista_Tecnicos {
+    
+    border-radius: 5px;
+    border: 1px solid transparent;    
+    padding: 4px;
+    width: 100%;
+    min-width:50px;
+    transition: 0.3s;
+}
+.right-content table .inp_form:hover, .Lista_Tecnicos:hover{
+    border-color: #0c95e5;
+    transition: 0.2s;
+}
+.right-content .Div_Table{
+    background-color: rgba(200,200,200,0.3);
+    border-radius: 5px;
+    padding:15px;
+}
+

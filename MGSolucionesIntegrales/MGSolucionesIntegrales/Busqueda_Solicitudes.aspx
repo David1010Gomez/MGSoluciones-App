@@ -64,6 +64,9 @@
                             </table>
                         </asp:Panel>
                     </section>
+                    <section class="left-content">
+                        <h2 style="text-transform: none; font-weight: bold">Casos para Asignar</h2>
+                    </section>
                     <script>
                         $('#Fecha_Inicial').datetimepicker({
                             format: 'Y/m/d',

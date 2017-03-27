@@ -11,7 +11,7 @@
     <%--<link rel="stylesheet" href="assets/css/main.css" />--%>
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <title>MG Soluciones Integrales</title>
-    <link href="Content/Inicio_Sesion.css?1.0.1" rel="stylesheet" />
+    <link href="Content/Inicio_Sesion.css?1.0.2" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -19,7 +19,7 @@
         <div class="Container">
         <div class="Caja1">
             <div class="Datos1">
-                LOGIN 
+                INICIO DE SESIÓN
             </div>
         </div>
         <br />
@@ -51,7 +51,7 @@
                 <table style="width:100%;">
                     <tr>
                         <td>
-                            <asp:Button runat="server" class="button" Text="INGRESAR" style="background: white; color:black; width:40%; height:40px; font-weight:BOLD" OnClick="Ingresar_Click"/>
+                            <asp:Button runat="server" CssClass="btnInicio" Text="INGRESAR" OnClick="Ingresar_Click"/>
                         </td>
                     </tr>
                 </table>
