@@ -15,7 +15,7 @@
             <div class="row main-row">
                 <div class="3u 12u(mobile)"  style="margin-top:50px;">
                     <section>
-                        <h3 style="text-transform: none; font-weight: bold"> Casos para Agendar</h3>
+                        <h3 style="text-transform: none; font-weight: bold"> Agendar Casos</h3>
                         <asp:GridView ID="GridView2" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False">
                             <Columns>
                                 <asp:BoundField DataField="Fila1" HeaderText="Fila 1" />
@@ -128,11 +128,10 @@
                             </table>
                         </div>
                     </section>
-
                 </div>
                 <div class="3u 12u(mobile)" style="margin-top:50px;">
                     <section>
-                        <h3 style="text-transform: none; font-weight: bold">Casos para Asignar</h3>
+                        <h3 style="text-transform: none; font-weight: bold">Asignar Tecnico</h3>
                         <asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False">
                             <Columns>
                                 <asp:BoundField DataField="Fila1" HeaderText="Fila 1" />
@@ -142,6 +141,19 @@
                         </asp:GridView>
                     </section>
                 </div>
+                <div class="12u">
+					    <section >
+					    <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
+                            <asp:GridView ID="GridView3" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False">
+                            <Columns>
+                                <asp:BoundField DataField="Fila1" HeaderText="Fila 1" />
+                                <asp:BoundField DataField="Fila2" HeaderText="Fila 2" />
+                            </Columns>
+                            <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                        </asp:GridView>
+                    </section>
+                </div>
+
             </div>
         </div>
     </div>
@@ -153,7 +165,7 @@
             <hr />
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
-                    <p class="comments">:</p>
+                    <p class="comments">Marque los materiales a agregar: </p>
 
                 </ContentTemplate>
             </asp:UpdatePanel>

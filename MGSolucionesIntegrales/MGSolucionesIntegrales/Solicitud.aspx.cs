@@ -12,7 +12,7 @@ public partial class Solicitud : System.Web.UI.Page
     {
         GridView1.DataBind();
         GridView2.DataBind();
-
+        GridView3.DataBind();
 
     }
 }

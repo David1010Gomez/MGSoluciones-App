@@ -79,7 +79,7 @@
                             format: 'Y/m/d',
                             onShow: function (ct) {
                                 this.setOptions({
-                                    minDate: $('#CCH_Fecha_Inicial').val() ? $('#CCH_Fecha_Inicial').val() : false
+                                    minDate: $('#Fecha_Inicial').val() ? $('#Fecha_Inicial').val() : false
                                 })
                             },
                             maxDate: '+0d',
