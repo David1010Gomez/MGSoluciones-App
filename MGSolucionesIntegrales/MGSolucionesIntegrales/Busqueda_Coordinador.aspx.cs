@@ -9,6 +9,6 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        GridView1.DataBind();
     }
 }
