@@ -57,9 +57,10 @@
                                         <asp:TextBox  CssClass="inp_form" runat="server" placeholder="Exp"></asp:TextBox>
                                     </td>
                                     <td>
-                                         <asp:DropDownList CssClass="Lista_Tecnicos"  style="width: 125%;"  runat="server">
+                                         <asp:DropDownList CssClass="Lista_Tecnicos"  style="width: 125%;"  runat="server" DataSourceID="Tecnicos" DataTextField="NOMBRE" DataValueField="CEDULA" AutoPostBack="True">
                                             <asp:ListItem>Técnico 1</asp:ListItem>
                                         </asp:DropDownList>
+                                         <asp:SqlDataSource ID="Tecnicos" runat="server" ConnectionString="<%$ ConnectionStrings:Connection %>" SelectCommand="SELECT [NOMBRE], [CEDULA] FROM [USUARIOS]"></asp:SqlDataSource>
                                     </td>
                                 </tr>
                             </table>
