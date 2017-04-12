@@ -79,10 +79,12 @@
                                         <asp:TextBox CssClass="inp_form" runat="server"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:DropDownList CssClass="Lista_Tecnicos" runat="server" DataSourceID="SqlDataSource1" DataTextField="NOMBRE" DataValueField="CEDULA">
+                                        <asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos" runat="server">
                                             
                                         </asp:DropDownList>
-                                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Connection %>" SelectCommand="SELECT [CEDULA], [NOMBRE] FROM [USUARIOS]"></asp:SqlDataSource>
+                                        
+                                        
+                                        
                                     </td>
                                 </tr>
                                 <tr>

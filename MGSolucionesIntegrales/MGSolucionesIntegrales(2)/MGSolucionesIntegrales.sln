@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MGSolucionesIntegrales(1)", "..\MGSolucionesIntegrales\", "{29401B3E-59E6-40C3-AFA1-CE464BD1291B}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{f821c45e-1a35-4465-81bd-6d2e3dd8a119}|Datos.dll;{6196727a-0118-406c-a42a-c60b3be1bc7e}|Entidades.dll;{1f320802-6286-4292-9769-fa71d24ffc04}|Negocios.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_62965"
 		Debug.AspNetCompiler.PhysicalPath = "..\MGSolucionesIntegrales\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62965\"
@@ -24,13 +25,34 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MGSolucionesIntegrales(1)",
 		SlnRelativePath = "..\MGSolucionesIntegrales\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{6196727A-0118-406C-A42A-C60B3BE1BC7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocios", "Negocios\Negocios.csproj", "{1F320802-6286-4292-9769-FA71D24FFC04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj", "{F821C45E-1A35-4465-81BD-6D2E3DD8A119}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{29401B3E-59E6-40C3-AFA1-CE464BD1291B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{29401B3E-59E6-40C3-AFA1-CE464BD1291B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29401B3E-59E6-40C3-AFA1-CE464BD1291B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{29401B3E-59E6-40C3-AFA1-CE464BD1291B}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6196727A-0118-406C-A42A-C60B3BE1BC7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6196727A-0118-406C-A42A-C60B3BE1BC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6196727A-0118-406C-A42A-C60B3BE1BC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6196727A-0118-406C-A42A-C60B3BE1BC7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F320802-6286-4292-9769-FA71D24FFC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F320802-6286-4292-9769-FA71D24FFC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F320802-6286-4292-9769-FA71D24FFC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F320802-6286-4292-9769-FA71D24FFC04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F821C45E-1A35-4465-81BD-6D2E3DD8A119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F821C45E-1A35-4465-81BD-6D2E3DD8A119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F821C45E-1A35-4465-81BD-6D2E3DD8A119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F821C45E-1A35-4465-81BD-6D2E3DD8A119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

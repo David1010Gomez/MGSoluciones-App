@@ -1,0 +1,7 @@
+C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Negocios.dll
+C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Negocios.pdb
+C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Debug\Negocios.csprojResolveAssemblyReference.cache
+C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Debug\Negocios.dll
+C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Debug\Negocios.pdb
+C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Datos.dll
+C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Datos.pdb
