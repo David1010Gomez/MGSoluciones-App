@@ -48,6 +48,10 @@
       <Project>{f821c45e-1a35-4465-81bd-6d2e3dd8a119}</Project>
       <Name>Datos</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{6196727a-0118-406c-a42a-c60b3be1bc7e}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
