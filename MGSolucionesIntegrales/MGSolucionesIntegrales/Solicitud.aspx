@@ -20,11 +20,30 @@
         }
     </script>
     <script type="text/javascript">
+        function mensaje3() {
+            alert('Seleccione un Técnico disponible');
+        }
+    </script>
+    <script type="text/javascript">
+        function mensaje4() {
+            alert('Digite un Caso EXP.');
+        }
+    </script>
+    <script type="text/javascript">
+        function mensaje5() {
+            alert('Existe un error al seleccionar este registro');
+        }
+    </script>
+    <script type="text/javascript">
         function editar(obj) {
-
-            var imageID = document.getElementById('imagen' + obj);
-            window.location.href = 'Depuracion_de_Casos.aspx?id=' + obj;
-        };
+            $('#<%=ID_CASO.ClientID%>').val(obj);
+            var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
+            x.click();
+        }
+         function Bucar_Tecni() {
+            var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
+            x.click();
+        }
     </script>
     <link href="Content/Solicitud.css?1.0.6" rel="stylesheet" />
     <div id="main">
@@ -55,7 +74,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:TextBox CssClass="inp_form" ID="Exp" runat="server"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Exp" runat="server" ></asp:TextBox>
                                     </td>
                                     <td>
                                         <asp:TextBox CssClass="inp_form" ID="Poliza" runat="server"></asp:TextBox>
@@ -92,11 +111,8 @@
                                         <asp:TextBox CssClass="inp_form" runat="server" ID="Fact"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos" runat="server">
-                                        </asp:DropDownList>
-
-
-
+                                            <div id="Tecni" onclick="Carga_Tecni()"><asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos" runat="server">
+                                            </asp:DropDownList></div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -152,8 +168,6 @@
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
                                 <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
                                 <asp:BoundField DataField="POLIZA" HeaderText="Poliza" />
-                                <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
-                                <asp:BoundField DataField="DIRECCION" HeaderText="Direccion" />
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                         <ItemTemplate>
                                             <a href='javascript:editar("<%# Eval("ID") %>");'>
@@ -191,7 +205,11 @@
             </div>
         </div>
     </div>
-
+    <asp:TextBox runat="server" type="text" ID="ID_CASO">0</asp:TextBox>
+    <asp:TextBox runat="server" type="text" ID="Estado_Caso_Creacion" Text="Abierto"></asp:TextBox>
+    <asp:TextBox runat="server" type="text" ID="Accion">INSERTAR</asp:TextBox>
+    <asp:Button runat="server" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
+    <asp:Button runat="server" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor">
             <a class="Materiales-cerrar" href="#">X</a>

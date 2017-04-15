@@ -24,6 +24,9 @@ namespace Negocios
         {
             return DN_Solicitud.Casos_Abiertos();
         }
-        
+        public DataSet Selecciona_Solicitudes(int pId)
+        {
+            return DN_Solicitud.Seleccionar_Solicitudes(pId);
+        }
     }
 }
