@@ -115,5 +115,57 @@ namespace Datos
             }
             return ds;
         }
+
+        public int abc_Turnos(string pAccion, E_Turnos Obj_Turnos)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("ABC_TURNO_TECNICO", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Accion", pAccion);
+            cmd.Parameters.AddWithValue("@ID", Obj_Turnos.Id);
+            cmd.Parameters.AddWithValue("@NUM_EXP", Obj_Turnos.Num_Exp);
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Turnos.Cedula_Tecnico);
+            cmd.Parameters.AddWithValue("@FECHA_TURNO", Obj_Turnos.Fecha_Turno);
+            
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar almacenar,modificar o eliminar datos de la tabla Turnos", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+        public DataSet Casos_Asignados()
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_CASOS_ASIGNADOS]";
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los casos asignados", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
     }
 }

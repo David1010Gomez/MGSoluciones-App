@@ -28,5 +28,13 @@ namespace Negocios
         {
             return DN_Solicitud.Seleccionar_Solicitudes(pId);
         }
+        public int abc_Turnos(string pAccion, E_Turnos Obj_Turnos)
+        {
+            return DN_Solicitud.abc_Turnos(pAccion, Obj_Turnos);
+        }
+        public DataSet Casos_Asignados()
+        {
+            return DN_Solicitud.Casos_Asignados();
+        }
     }
 }
