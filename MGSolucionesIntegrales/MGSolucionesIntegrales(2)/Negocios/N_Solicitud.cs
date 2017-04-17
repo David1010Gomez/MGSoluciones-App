@@ -36,5 +36,9 @@ namespace Negocios
         {
             return DN_Solicitud.Casos_Asignados();
         }
+        public DataSet Casos_Agendados()
+        {
+            return DN_Solicitud.Casos_Agendados();
+        }
     }
 }

@@ -23,6 +23,7 @@ public partial class Solicitud : System.Web.UI.Page
         Exp.Attributes.Add("onchange", "Bucar_Tecni();");
         Casos_Abiertos();
         Casos_Asignados();
+        Casos_Agendados();
     }
     private void Listar_Tecnicos()
     {
@@ -141,6 +142,22 @@ public partial class Solicitud : System.Web.UI.Page
         {
             GridView2.DataSource = null;
             GridView2.DataBind();
+        }
+    }
+    private void Casos_Agendados()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Casos_Agendados();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            GridView3.DataSource = dt.Tables[0];
+            GridView3.DataBind();
+        }
+        else
+        {
+            GridView3.DataSource = null;
+            GridView3.DataBind();
         }
     }
 

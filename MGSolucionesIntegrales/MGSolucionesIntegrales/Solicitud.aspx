@@ -244,12 +244,36 @@
                 <div class="12u">
                     <section>
                         <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
-                        <asp:GridView ID="GridView3" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False">
+                        <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
                             <Columns>
-                                <asp:BoundField DataField="Fila1" HeaderText="Fila 1" />
-                                <asp:BoundField DataField="Fila2" HeaderText="Fila 2" />
+                                <asp:BoundField DataField="ID" HeaderText="Id" />
+                                <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
+                                <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
+                                <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
+                                <asp:BoundField DataField="FACT" HeaderText="Fact." />
+                                <asp:BoundField DataField="TECNICO" HeaderText="Tecnico" />
+                                <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
+                                <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
+                                <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
+                                <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
+                                <asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                                    <ItemTemplate>
+                                        <a href='javascript:editar("<%# Eval("ID") %>");'>
+                                            <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <RowStyle BackColor="White" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#808080" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
                     </section>
                 </div>
