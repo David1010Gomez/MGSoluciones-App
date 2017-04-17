@@ -107,7 +107,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Cedula_Usuario_Creacion = 1076;
 
         E_Turnos.Id = Convert.ToInt32(ID_TURNO.Text);
-        E_Turnos.Cedula_Tecnico = 789;
+        E_Turnos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
         E_Turnos.Num_Exp = Convert.ToInt32(Exp.Text);
         E_Turnos.Fecha_Turno = Fecha_Agendamiento.Text;
     }

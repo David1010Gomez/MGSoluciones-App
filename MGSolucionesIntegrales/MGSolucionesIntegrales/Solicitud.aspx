@@ -258,7 +258,7 @@
                                 <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
-                                        <a href='javascript:editar("<%# Eval("ID") %>");'>
+                                        <a href='javascript:editar2("<%# Eval("ID") %>");'>
                                             <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
                                         </a>
                                     </ItemTemplate>

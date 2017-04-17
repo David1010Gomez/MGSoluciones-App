@@ -7,3 +7,12 @@ C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrale
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Datos.pdb
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Entidades.dll
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Entidades.pdb
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Negocios.dll
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Negocios.pdb
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Datos.dll
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Entidades.dll
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Datos.pdb
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Debug\Entidades.pdb
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Debug\Negocios.csprojResolveAssemblyReference.cache
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Debug\Negocios.dll
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Debug\Negocios.pdb
