@@ -48,9 +48,18 @@
             var x = document.getElementById('<%=Cargar_Caso_Asignado.ClientID%>');
             x.click();
         }
+        function editar3(obj) {
+            $('#<%=ID_CASO.ClientID%>').val(obj);
+            var x = document.getElementById('<%=Cargar_Caso_Agendado.ClientID%>');
+            x.click();
+        }
         function Bucar_Tecni() {
             var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
              x.click();
+        }
+        function Cambia_Estado() {
+            if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked)
+            { alert(); } else { alert('s'); }
          }
     </script>
     <link href="Content/Solicitud.css?1.0.6" rel="stylesheet" />
@@ -199,6 +208,14 @@
                                 </tr>
                             </table>
                             <br />
+                            <table>
+                                <tr>
+                                    <td colspan="3">
+                                        <asp:Label ID="lblCerrarCaso" style="display:none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>
+                                        <asp:CheckBox ID="CHCerrarCaso" runat="server" style="display:none;" />
+                                    </td>
+                                </tr>
+                            </table>
                             <br />
                             <table>
                                 <tr>
@@ -261,7 +278,7 @@
                                 <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
-                                        <a href='javascript:editar2("<%# Eval("ID") %>");'>
+                                        <a href='javascript:editar3("<%# Eval("ID") %>");'>
                                             <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
                                         </a>
                                     </ItemTemplate>
@@ -291,6 +308,7 @@
     <asp:TextBox runat="server" type="text" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
     <asp:Button runat="server" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
     <asp:Button runat="server" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
+    <asp:Button runat="server" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
     <asp:Button runat="server" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor">

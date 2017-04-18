@@ -16,7 +16,7 @@ namespace Datos
 
         public D_Conexion_BD()
         {
-            Conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["Conexion"].ConnectionString);
+            Conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["Conexion2"].ConnectionString);
         }
         public void Abrir_Conexion()
         {

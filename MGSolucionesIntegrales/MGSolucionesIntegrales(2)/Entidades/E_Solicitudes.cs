@@ -20,7 +20,7 @@ namespace Entidades
         private string _Direccion;
         private string _Estado_Caso;
         private int _Cedula_Usuario_Creacion;
-        private string _Fecha_Cierre;
+        private DateTime _Fecha_Cierre;
         private int _Cedula_Usuario_Cierre;
         private int _Usuario_Ultima_Actualizacion;
         #endregion
@@ -38,7 +38,7 @@ namespace Entidades
             _Direccion = string.Empty;
             _Estado_Caso = string.Empty;
             _Cedula_Usuario_Creacion = 0;
-            _Fecha_Cierre = string.Empty;
+            _Fecha_Cierre = DateTime.Now;
             _Cedula_Usuario_Cierre = 0;
             _Usuario_Ultima_Actualizacion = 0;
         }
@@ -187,7 +187,7 @@ namespace Entidades
             }
         }
 
-        public string Fecha_Cierre
+        public DateTime Fecha_Cierre
         {
             get
             {

@@ -22,6 +22,7 @@ public partial class Solicitud : System.Web.UI.Page
         GridView4.DataBind();
         Exp.Attributes.Add("onblur", "Bucar_Tecni();");
         Exp.Attributes.Add("onchange", "Bucar_Tecni();");
+        CHCerrarCaso.Attributes.Add("onchange", "Cambia_Estado();");
         Casos_Abiertos();
         Casos_Asignados();
         Casos_Agendados();
@@ -111,8 +112,9 @@ public partial class Solicitud : System.Web.UI.Page
             E_Solicitud.Estado_Caso = "ABIERTO";
         }
         else { if (Fecha_Agendamiento.Text != "") { E_Solicitud.Estado_Caso = "AGENDADO"; } else { E_Solicitud.Estado_Caso = "ASIGNADO"; } }
+        if (CHCerrarCaso.Checked == true) { E_Solicitud.Estado_Caso = "CERRADO"; }
         E_Solicitud.Cedula_Usuario_Creacion = 1076;
-        E_Solicitud.Fecha_Cierre = Convert.ToString(DateTime.Now);
+        E_Solicitud.Fecha_Cierre = DateTime.Now;
         E_Solicitud.Cedula_Usuario_Cierre = 2569;
         E_Solicitud.Usuario_Ultima_Actualizacion = 555;
 
@@ -192,8 +194,11 @@ public partial class Solicitud : System.Web.UI.Page
         Accion.Text = "INSERTAR";
         Accion_Tecnico.Text = "INSERTAR";
         Fecha_Agendamiento.Text = string.Empty;
+        CHCerrarCaso.Checked = false;
         Fecha_Agendamiento.Attributes.CssStyle.Add("display", "none");
         lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "none");
+        CHCerrarCaso.Attributes.CssStyle.Add("display", "none");
+        lblCerrarCaso.Attributes.CssStyle.Add("display", "none");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -275,4 +280,44 @@ public partial class Solicitud : System.Web.UI.Page
 
         }
     }
+
+    protected void Cargar_Caso_Agendado_Click(object sender, EventArgs e)
+    {
+        E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+        Limpiar_Controles();
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
+            Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+            Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
+            Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
+            Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
+            Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
+            Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
+            Estado_Caso_Creacion.Text = "CERRADO";
+            Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["TECNICO"].ToString(), "0"));
+            Accion.Text = "UPDATE";
+            Accion_Tecnico.Text = "UPDATE";
+            Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+            lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+            lblCerrarCaso.Attributes.CssStyle.Add("display", "block");
+            CHCerrarCaso.Attributes.CssStyle.Add("display", "block");
+            DataSet ds = new DataSet();
+            ds = O_Neg_Solicitud.Seleccionar_Turnos(Convert.ToInt32(ID_CASO.Text));
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                Fecha_Agendamiento.Text = ds.Tables[0].Rows[0]["FECHA_TURNO"].ToString(); ;
+            }
+        }
+        else
+        {
+            string script3 = "mensaje5();";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje5", script3, true);
+
+        }
+    }
+
+    
 }

@@ -44,5 +44,9 @@ namespace Negocios
         {
             return DN_Solicitud.Inserta_Notas_Solicitudes(pAccion, Obj_Notas_Solicitudes);
         }
+        public DataSet Seleccionar_Turnos(int pId)
+        {
+            return DN_Solicitud.Seleccionar_Turnos(pId);
+        }
     }
 }
