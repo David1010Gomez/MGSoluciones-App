@@ -248,14 +248,17 @@
                             <Columns>
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
                                 <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
+                                <asp:BoundField DataField="POLIZA" HeaderText="Poliza" />
                                 <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
                                 <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
                                 <asp:BoundField DataField="FACT" HeaderText="Fact." />
                                 <asp:BoundField DataField="TECNICO" HeaderText="Tecnico" />
                                 <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
-                                <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
                                 <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
                                 <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
+                                <asp:BoundField DataField="FECHA_CIERRE" HeaderText="Fecha de Cierre" />
+                                <asp:BoundField DataField="CEDULA_USUARIO_CIERRE" HeaderText="Usuario Cierre" />
+                                <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
                                         <a href='javascript:editar2("<%# Eval("ID") %>");'>

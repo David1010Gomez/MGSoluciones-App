@@ -40,5 +40,9 @@ namespace Negocios
         {
             return DN_Solicitud.Casos_Agendados();
         }
+        public int Inserta_Notas_Solicitudes(string pAccion, E_Notas_Solicitudes Obj_Notas_Solicitudes)
+        {
+            return DN_Solicitud.Inserta_Notas_Solicitudes(pAccion, Obj_Notas_Solicitudes);
+        }
     }
 }

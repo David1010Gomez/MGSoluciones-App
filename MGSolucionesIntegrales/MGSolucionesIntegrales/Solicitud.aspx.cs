@@ -13,6 +13,7 @@ public partial class Solicitud : System.Web.UI.Page
     public N_Solicitud O_Neg_Solicitud = new N_Solicitud();
     public E_Solicitudes E_Solicitud = new E_Solicitudes();
     public E_Turnos E_Turnos = new E_Turnos();
+    public E_Notas_Solicitudes E_Notas_Solicitudes = new E_Notas_Solicitudes();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -64,12 +65,13 @@ public partial class Solicitud : System.Web.UI.Page
                 {
                     if (E_Solicitud.Tecnico != string.Empty) { Guarda_Turno_Tecnico(); } 
                       
-                    //CC_Guardar_Datos_Log();
+                    Guardar_Notas();
                     Limpiar_Controles();
                     string script1 = "mensaje1();";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
                     Casos_Abiertos();
                     Casos_Asignados();
+                    Casos_Agendados();
                     //Response.Redirect("Solicitud.aspx");
                 }
                 else
@@ -88,6 +90,12 @@ public partial class Solicitud : System.Web.UI.Page
         }
     }
 
+    private void Guardar_Notas()
+    {
+        var Guardar_Datos = -1;
+        Guardar_Datos = O_Neg_Solicitud.Inserta_Notas_Solicitudes("INSERTAR", E_Notas_Solicitudes);
+    }
+
     private void Controles_Objetos()
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
@@ -98,18 +106,26 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Fact = Fact.Text;
         if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Solicitud.Tecnico = Convert.ToString(Lista_Tecnicos.SelectedItem); } else { E_Solicitud.Tecnico = string.Empty; }
         E_Solicitud.Direccion = Direccion.Text;
-        E_Solicitud.Observaciones = Observaciones.Text;
         if ((Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -"))
         {
             E_Solicitud.Estado_Caso = "ABIERTO";
         }
         else { if (Fecha_Agendamiento.Text != "") { E_Solicitud.Estado_Caso = "AGENDADO"; } else { E_Solicitud.Estado_Caso = "ASIGNADO"; } }
         E_Solicitud.Cedula_Usuario_Creacion = 1076;
+        E_Solicitud.Fecha_Cierre = Convert.ToString(DateTime.Now);
+        E_Solicitud.Cedula_Usuario_Cierre = 2569;
+        E_Solicitud.Usuario_Ultima_Actualizacion = 555;
 
         E_Turnos.Id = Convert.ToInt32(ID_TURNO.Text);
-        E_Turnos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
-        E_Turnos.Num_Exp = Convert.ToInt32(Exp.Text);
+        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Turnos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue); }
+        //E_Turnos.Cedula_Tecnico = Convert.ToInt32(E_Solicitud.Tecnico);
+        E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
         E_Turnos.Fecha_Turno = Fecha_Agendamiento.Text;
+
+        E_Notas_Solicitudes.Fecha_nota = "";
+        E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(Exp.Text);
+        E_Notas_Solicitudes.Observaciones = Observaciones.Text;
+        E_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
     }
 
     private void Casos_Abiertos()
@@ -246,7 +262,7 @@ public partial class Solicitud : System.Web.UI.Page
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Estado_Caso_Creacion.Text = "AGENDADO";
-            Lista_Tecnicos.Items.Insert(0, dt.Tables[0].Rows[0]["TECNICO"].ToString());
+            Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["TECNICO"].ToString(),"0"));
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "UPDATE";
             Fecha_Agendamiento.Attributes.CssStyle.Add("display","block");

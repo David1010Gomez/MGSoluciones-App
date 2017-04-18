@@ -48,10 +48,12 @@ namespace Datos
             cmd.Parameters.AddWithValue("@FACT", Obj_Solicitudes.Fact);
             cmd.Parameters.AddWithValue("@TECNICO", Obj_Solicitudes.Tecnico);
             cmd.Parameters.AddWithValue("@DIRECCION", Obj_Solicitudes.Direccion);
-            cmd.Parameters.AddWithValue("@OBSERVACIONES", Obj_Solicitudes.Observaciones);
             cmd.Parameters.AddWithValue("@ESTADO_CASO", Obj_Solicitudes.Estado_Caso);
             cmd.Parameters.AddWithValue("@CEDULA_USUARIO_CREACION", Obj_Solicitudes.Cedula_Usuario_Creacion);
-            
+            cmd.Parameters.AddWithValue("@FECHA_CIERRE", Obj_Solicitudes.Fecha_Cierre);
+            cmd.Parameters.AddWithValue("@CEDULA_USUARIO_CIERRE", Obj_Solicitudes.Cedula_Usuario_Cierre);
+            cmd.Parameters.AddWithValue("@USUARIO_ULTIMA_ACTUALIZACION", Obj_Solicitudes.Usuario_Ultima_Actualizacion);
+
             try
             {
                 Abrir_Conexion();
@@ -60,6 +62,35 @@ namespace Datos
             catch (Exception e)
             {
                 throw new Exception("Error al intentar almacenar,modificar o eliminar datos de la tabla Solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+        public int Inserta_Notas_Solicitudes(string pAccion, E_Notas_Solicitudes Obj_Notas_Solicitudes)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("INSERTA_NOTAS_SOLICITUDES", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Accion", pAccion);
+            cmd.Parameters.AddWithValue("@ID", Obj_Notas_Solicitudes.Id);
+            cmd.Parameters.AddWithValue("@FECHA_NOTA", Obj_Notas_Solicitudes.Fecha_nota);
+            cmd.Parameters.AddWithValue("@NUM_EXP", Obj_Notas_Solicitudes.Num_Exp);
+            cmd.Parameters.AddWithValue("@OBSERVACIONES", Obj_Notas_Solicitudes.Observaciones);
+            cmd.Parameters.AddWithValue("@CEDULA_USUARIO_INSERTO_NOTA", Obj_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota);
+            
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar almacenar,modificar o eliminar datos de la tabla Notas Solicitudes", e);
             }
             finally
             {
@@ -124,7 +155,7 @@ namespace Datos
 
             cmd.Parameters.AddWithValue("@Accion", pAccion);
             cmd.Parameters.AddWithValue("@ID", Obj_Turnos.Id);
-            cmd.Parameters.AddWithValue("@NUM_EXP", Obj_Turnos.Num_Exp);
+            cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Turnos.Num_Exp);
             cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Turnos.Cedula_Tecnico);
             cmd.Parameters.AddWithValue("@FECHA_TURNO", Obj_Turnos.Fecha_Turno);
             

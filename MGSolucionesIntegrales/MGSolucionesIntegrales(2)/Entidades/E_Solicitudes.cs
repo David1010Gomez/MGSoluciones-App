@@ -18,9 +18,11 @@ namespace Entidades
         private string _Tecnico;
         private string _Notas;
         private string _Direccion;
-        private string _Observaciones;
         private string _Estado_Caso;
         private int _Cedula_Usuario_Creacion;
+        private string _Fecha_Cierre;
+        private int _Cedula_Usuario_Cierre;
+        private int _Usuario_Ultima_Actualizacion;
         #endregion
         #region Constructor
         public E_Solicitudes()
@@ -34,9 +36,11 @@ namespace Entidades
             _Tecnico = string.Empty;
             _Notas = string.Empty;
             _Direccion = string.Empty;
-            _Observaciones = string.Empty;
             _Estado_Caso = string.Empty;
             _Cedula_Usuario_Creacion = 0;
+            _Fecha_Cierre = string.Empty;
+            _Cedula_Usuario_Cierre = 0;
+            _Usuario_Ultima_Actualizacion = 0;
         }
         #endregion
         #region Encapsulamiento
@@ -157,19 +161,6 @@ namespace Entidades
             }
         }
 
-        public string Observaciones
-        {
-            get
-            {
-                return _Observaciones;
-            }
-
-            set
-            {
-                _Observaciones = value;
-            }
-        }
-
         public string Estado_Caso
         {
             get
@@ -195,6 +186,47 @@ namespace Entidades
                 _Cedula_Usuario_Creacion = value;
             }
         }
+
+        public string Fecha_Cierre
+        {
+            get
+            {
+                return _Fecha_Cierre;
+            }
+
+            set
+            {
+                _Fecha_Cierre = value;
+            }
+        }
+
+        public int Cedula_Usuario_Cierre
+        {
+            get
+            {
+                return _Cedula_Usuario_Cierre;
+            }
+
+            set
+            {
+                _Cedula_Usuario_Cierre = value;
+            }
+        }
+
+        public int Usuario_Ultima_Actualizacion
+        {
+            get
+            {
+                return _Usuario_Ultima_Actualizacion;
+            }
+
+            set
+            {
+                _Usuario_Ultima_Actualizacion = value;
+            }
+        }
+
+
         #endregion
     }
 }
