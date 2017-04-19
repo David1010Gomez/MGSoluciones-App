@@ -48,5 +48,10 @@ namespace Negocios
         {
             return DN_Solicitud.Seleccionar_Turnos(pId);
         }
+        public DataSet Seleccionar_Maximo_ID(int pExp)
+        {
+            return DN_Solicitud.Seleccionar_Maximo_ID(pExp);
+        }
+        
     }
 }

@@ -59,7 +59,13 @@
         }
         function Cambia_Estado() {
             if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked)
-            { alert(); } else { alert('s'); }
+            {
+                $('#<%=Accion.ClientID%>').val('CIERRE');
+            }
+            else
+            {
+                $('#<%=Accion.ClientID%>').val('CIERRE UPDATE');
+            }
          }
     </script>
     <link href="Content/Solicitud.css?1.0.6" rel="stylesheet" />

@@ -79,7 +79,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@Accion", pAccion);
             cmd.Parameters.AddWithValue("@ID", Obj_Notas_Solicitudes.Id);
             cmd.Parameters.AddWithValue("@FECHA_NOTA", Obj_Notas_Solicitudes.Fecha_nota);
-            cmd.Parameters.AddWithValue("@NUM_EXP", Obj_Notas_Solicitudes.Num_Exp);
+            cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Notas_Solicitudes.Num_Exp);
             cmd.Parameters.AddWithValue("@OBSERVACIONES", Obj_Notas_Solicitudes.Observaciones);
             cmd.Parameters.AddWithValue("@CEDULA_USUARIO_INSERTO_NOTA", Obj_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota);
             
@@ -238,6 +238,30 @@ namespace Datos
             }
             catch (Exception e)
             { throw new Exception("Error al seleccionar los Turnos", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Seleccionar_Maximo_ID(int pExp)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_MAXIMO_ID]";
+                cmd.Parameters.AddWithValue("@NUM_EXP", pExp);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar el maximo Id de la tabla Solicitudes", e); }
             finally
             {
                 Conexion.Close();

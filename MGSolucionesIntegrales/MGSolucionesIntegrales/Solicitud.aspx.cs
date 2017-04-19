@@ -65,7 +65,6 @@ public partial class Solicitud : System.Web.UI.Page
                 if (Guardar_Datos != -1)
                 {
                     if (E_Solicitud.Tecnico != string.Empty) { Guarda_Turno_Tecnico(); } 
-                      
                     Guardar_Notas();
                     Limpiar_Controles();
                     string script1 = "mensaje1();";
@@ -93,8 +92,19 @@ public partial class Solicitud : System.Web.UI.Page
 
     private void Guardar_Notas()
     {
+        if (E_Solicitud.Id == 0)
+        {
+            Selecciona_Max_ID();
+        }
         var Guardar_Datos = -1;
         Guardar_Datos = O_Neg_Solicitud.Inserta_Notas_Solicitudes("INSERTAR", E_Notas_Solicitudes);
+    }
+    private void Selecciona_Max_ID()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Seleccionar_Maximo_ID(Convert.ToInt32(Exp.Text));
+        E_Solicitud.Id = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
+        E_Turnos.Num_Exp = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
     }
 
     private void Controles_Objetos()
@@ -235,6 +245,10 @@ public partial class Solicitud : System.Web.UI.Page
 
     private void Guarda_Turno_Tecnico()
     {
+        if (E_Solicitud.Id == 0)
+        {
+            Selecciona_Max_ID();
+        }
         var Guardar_Datos = -1;
         Guardar_Datos = O_Neg_Solicitud.abc_Turnos(Accion_Tecnico.Text, E_Turnos);
         if (Guardar_Datos != -1)
