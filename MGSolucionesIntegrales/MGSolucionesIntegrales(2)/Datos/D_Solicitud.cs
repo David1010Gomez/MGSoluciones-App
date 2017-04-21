@@ -158,7 +158,8 @@ namespace Datos
             cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Turnos.Num_Exp);
             cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Turnos.Cedula_Tecnico);
             cmd.Parameters.AddWithValue("@FECHA_TURNO", Obj_Turnos.Fecha_Turno);
-            
+            cmd.Parameters.AddWithValue("@TRABAJO", Obj_Turnos.Trabajo);
+
             try
             {
                 Abrir_Conexion();

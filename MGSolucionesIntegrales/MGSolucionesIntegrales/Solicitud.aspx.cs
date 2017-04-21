@@ -133,6 +133,8 @@ public partial class Solicitud : System.Web.UI.Page
         //E_Turnos.Cedula_Tecnico = Convert.ToInt32(E_Solicitud.Tecnico);
         E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
         E_Turnos.Fecha_Turno = Fecha_Agendamiento.Text;
+        if (E_Solicitud.Estado_Caso == "ABIERTO" || E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO") { E_Turnos.Trabajo = "OCUPADO"; }
+        if (E_Solicitud.Estado_Caso == "CERRADO") { E_Turnos.Trabajo = "TERMINADO"; }
 
         E_Notas_Solicitudes.Fecha_nota = "";
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(Exp.Text);

@@ -13,6 +13,7 @@ namespace Entidades
         private int _Cedula_Tecnico;
         private int _Num_Exp;
         private string _Fecha_Turno;
+        private string _Trabajo;
         #endregion
         #region Constructor
         public E_Turnos()
@@ -20,7 +21,8 @@ namespace Entidades
             _Id = 0;
             _Num_Exp = 0;
             _Cedula_Tecnico = 0;
-            Fecha_Turno = string.Empty;
+            _Fecha_Turno = string.Empty;
+            _Trabajo = string.Empty;
         }
         #endregion
         #region Encapsulamiento
@@ -73,6 +75,19 @@ namespace Entidades
             set
             {
                 _Fecha_Turno = value;
+            }
+        }
+
+        public string Trabajo
+        {
+            get
+            {
+                return _Trabajo;
+            }
+
+            set
+            {
+                _Trabajo = value;
             }
         }
         #endregion
