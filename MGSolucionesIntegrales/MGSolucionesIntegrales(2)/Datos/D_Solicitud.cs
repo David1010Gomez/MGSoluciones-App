@@ -53,6 +53,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@FECHA_CIERRE", Obj_Solicitudes.Fecha_Cierre);
             cmd.Parameters.AddWithValue("@CEDULA_USUARIO_CIERRE", Obj_Solicitudes.Cedula_Usuario_Cierre);
             cmd.Parameters.AddWithValue("@USUARIO_ULTIMA_ACTUALIZACION", Obj_Solicitudes.Usuario_Ultima_Actualizacion);
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Solicitudes.Cedula_Tecnico);
 
             try
             {
@@ -263,6 +264,84 @@ namespace Datos
             }
             catch (Exception e)
             { throw new Exception("Error al seleccionar el maximo Id de la tabla Solicitudes", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Materiales_a_Agregar()
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_MATERIALES_A_AGREGAR]";
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los Materiales a agregar", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public int Abc_Materiales_Solicitudes(string pAccion, E_Materiales_Solicitudes Obj_Materiales_Solicitudes)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("ABC_MATERIALES_SOLICITUDES", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Accion", pAccion);
+            cmd.Parameters.AddWithValue("@ID", Obj_Materiales_Solicitudes.Id);
+            cmd.Parameters.AddWithValue("@FECHA_INGRESO", Obj_Materiales_Solicitudes.Fecha_Ingreso);
+            cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Materiales_Solicitudes.Id_Solicitud);
+            cmd.Parameters.AddWithValue("@ID_MATERIAL", Obj_Materiales_Solicitudes.Id_Material);
+            cmd.Parameters.AddWithValue("@CANTIDAD", Obj_Materiales_Solicitudes.Cantidad); 
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Materiales_Solicitudes.Cedula_Tecnico);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar almacenar,modificar o eliminar datos de la tabla Turnos", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+        public DataSet Seleccionar_Materiales_Solicitud(int pId_Solicitud, int PCedula_Tecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONAR_MATERIALES_SOLICITUD]";
+                cmd.Parameters.AddWithValue("@ID_SOLICITUD", pId_Solicitud); 
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", PCedula_Tecnico);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los materiales de la solicitud", e); }
             finally
             {
                 Conexion.Close();

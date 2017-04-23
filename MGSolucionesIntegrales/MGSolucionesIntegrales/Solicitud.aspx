@@ -38,6 +38,26 @@
         }
     </script>
     <script type="text/javascript">
+        function mensaje6() {
+            alert('No se puede guardar, no hay una solicitud asociada');
+        }
+    </script>
+    <script type="text/javascript">
+        function mensaje7() {
+            alert('Agregado exitosamente');
+        }
+    </script>
+    <script type="text/javascript">
+        function mensaje8() {
+            alert('Elija un material Antes de Guardar');
+        }
+    </script>
+    <script type="text/javascript">
+        function mensaje9() {
+            alert('Digite una Cantidad');
+        }
+    </script>
+    <script type="text/javascript">
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
             var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
@@ -55,20 +75,23 @@
         }
         function Bucar_Tecni() {
             var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
-             x.click();
+            x.click();
         }
         function Cambia_Estado() {
-            if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked)
-            {
+            if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked) {
                 $('#<%=Accion.ClientID%>').val('CIERRE');
             }
-            else
-            {
+            else {
                 $('#<%=Accion.ClientID%>').val('CIERRE UPDATE');
             }
-         }
+        }
+        function Consulta_Cantidad() {
+            alert();
+        }
+        
+        
     </script>
-    <link href="Content/Solicitud.css?1.0.6" rel="stylesheet" />
+    <link href="Content/Solicitud.css?1.0.7" rel="stylesheet" />
     <div id="main">
         <div class="container">
             <div class="row main-row">
@@ -173,12 +196,12 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:Label ID="lblFecha_Agendamiento" runat="server" style="display:none">Fecha de Agendamiento:</asp:Label>
+                                        <asp:Label ID="lblFecha_Agendamiento" runat="server" Style="display: none">Fecha de Agendamiento:</asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" style="display:none" ></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -217,8 +240,8 @@
                             <table>
                                 <tr>
                                     <td colspan="3">
-                                        <asp:Label ID="lblCerrarCaso" style="display:none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>
-                                        <asp:CheckBox ID="CHCerrarCaso" runat="server" style="display:none;" />
+                                        <asp:Label ID="lblCerrarCaso" Style="display: none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>
+                                        <asp:CheckBox ID="CHCerrarCaso" runat="server" Style="display: none;" />
                                     </td>
                                 </tr>
                             </table>
@@ -279,8 +302,6 @@
                                 <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
                                 <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
                                 <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
-                                <asp:BoundField DataField="FECHA_CIERRE" HeaderText="Fecha de Cierre" />
-                                <asp:BoundField DataField="CEDULA_USUARIO_CIERRE" HeaderText="Usuario Cierre" />
                                 <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
@@ -316,16 +337,44 @@
     <asp:Button runat="server" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
     <asp:Button runat="server" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />
+
+
     <div class="modal-wrapper" id="Materiales">
-        <div class="Materiales-contenedor">
+        <div class="Materiales-contenedor" style="margin-top: 80px;">
             <a class="Materiales-cerrar" href="#">X</a>
             <h2 style="text-transform: none;">Materiales de Solicitud</h2>
             <hr />
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
-                    <p class="comments">Marque los materiales a agregar: </p>
+                    <table class="tablas" >
+                        <tr>
+                            <td>
+                                <asp:Label runat="server" class="comments">Material: </asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label runat="server" class="comments">Cantidad: </asp:Label>
+                            </td>
+                            <%--<td></td>--%>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;">
+                                <asp:DropDownList ID="Select_Materiales" CssClass="Lista_Tecnicos" runat="server" >
+                                </asp:DropDownList>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="Cantidad" CssClass="inp_form" runat="server" style="width:30%;"></asp:TextBox>
+                            </td>
+                            <td style="text-align:center">
+                                <asp:Button runat="server" CssClass="button" Text="Agregar Material" OnClick="Guarda_Material_Caso_Click" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
                     <asp:GridView ID="GridView4" AutoGenerateColumns="false" runat="server">
                         <Columns>
+                            <asp:BoundField DataField="ID" HeaderText="ID" />
+                            <asp:BoundField DataField="ID_SOLICITUD" HeaderText="ID SOLICITUD" />
                             <asp:BoundField DataField="ID_MATERIAL" HeaderText="ID MATERIAL" />
                             <asp:BoundField DataField="CANTIDAD" HeaderText="CANTIDAD" />
 

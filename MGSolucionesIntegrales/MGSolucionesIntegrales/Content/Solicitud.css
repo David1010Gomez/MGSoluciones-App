@@ -1,14 +1,14 @@
 ﻿
-.middle-content table {
+.middle-content table, .tablas {
 
     width:100%; 
 
 }
-.middle-content table td {
+.middle-content table td, .tablas td {
     padding:3px;
-    
+    /*width:100%;*/
 }
-.middle-content table .inp_form, .Lista_Tecnicos {
+.middle-content table .inp_form, .Lista_Tecnicos, .tablas .inp_form {
     
     border-radius: 5px;
     border: 1px solid transparent;    
@@ -60,13 +60,15 @@
   overflow-y: auto;
 }
 .Materiales-contenedor {
-   position: relative;
-   margin:7% auto;
-   padding:30px 50px;
-   background-color: #fafafa;
-   color:#333;
-   border-radius: 3px;
-   width:50%;
+    position: relative;
+    margin: 7% auto;
+    padding: 30px 50px;
+    background-color: #eee;
+    color: #333;
+    border-radius: 3px;
+    width: 50%;
+    min-width: 300px;
+    /*background: url('../images/Imagen.png') repeat center;*/
 }
 a.Materiales-cerrar {
   -moz-transition:1s;

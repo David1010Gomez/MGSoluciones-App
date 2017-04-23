@@ -12,6 +12,7 @@ public partial class Solicitud : System.Web.UI.Page
 {
     public N_Solicitud O_Neg_Solicitud = new N_Solicitud();
     public E_Solicitudes E_Solicitud = new E_Solicitudes();
+    public E_Materiales_Solicitudes E_Materiales_Solicitudes = new E_Materiales_Solicitudes();
     public E_Turnos E_Turnos = new E_Turnos();
     public E_Notas_Solicitudes E_Notas_Solicitudes = new E_Notas_Solicitudes();
 
@@ -23,10 +24,34 @@ public partial class Solicitud : System.Web.UI.Page
         Exp.Attributes.Add("onblur", "Bucar_Tecni();");
         Exp.Attributes.Add("onchange", "Bucar_Tecni();");
         CHCerrarCaso.Attributes.Add("onchange", "Cambia_Estado();");
+        //Cantidad.Attributes.Add("onblur", "Consulta_Cantidad();");
         Casos_Abiertos();
         Casos_Asignados();
         Casos_Agendados();
+        
     }
+
+    private void Materiales_A_Agregar()
+    {
+        DataSet dt = new DataSet();
+
+        dt = O_Neg_Solicitud.Materiales_a_Agregar();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            Select_Materiales.DataSource = dt;
+            Select_Materiales.DataTextField = "MATERIAL";
+            Select_Materiales.DataValueField = "ID";
+            Select_Materiales.DataBind();
+            Select_Materiales.Items.Insert(0, "- - SELECCIONE - -");
+        }
+        else
+        {
+            Select_Materiales.Items.Clear();
+            Select_Materiales.Items.Insert(0, "- - NO HAY MATERIALES - -");
+        }
+    }
+
     private void Listar_Tecnicos()
     {
         DataSet dt = new DataSet();
@@ -127,6 +152,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Fecha_Cierre = DateTime.Now;
         E_Solicitud.Cedula_Usuario_Cierre = 2569;
         E_Solicitud.Usuario_Ultima_Actualizacion = 555;
+        E_Solicitud.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
 
         E_Turnos.Id = Convert.ToInt32(ID_TURNO.Text);
         if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Turnos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue); }
@@ -140,6 +166,11 @@ public partial class Solicitud : System.Web.UI.Page
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(Exp.Text);
         E_Notas_Solicitudes.Observaciones = Observaciones.Text;
         E_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
+
+        E_Materiales_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
+        E_Materiales_Solicitudes.Id_Material = Convert.ToInt32(Select_Materiales.SelectedValue);
+        E_Materiales_Solicitudes.Cantidad = Cantidad.Text;
+        E_Materiales_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
     }
 
     private void Casos_Abiertos()
@@ -283,11 +314,14 @@ public partial class Solicitud : System.Web.UI.Page
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Estado_Caso_Creacion.Text = "AGENDADO";
-            Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["TECNICO"].ToString(),"0"));
+            var Cedula_Tecnico = dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString();
+            Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["TECNICO"].ToString(), ""+Cedula_Tecnico ));
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "UPDATE";
             Fecha_Agendamiento.Attributes.CssStyle.Add("display","block");
             lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+            Materiales_A_Agregar();
+            Tabla_Materiales_Solicitud();
         }
         else
         {
@@ -313,7 +347,8 @@ public partial class Solicitud : System.Web.UI.Page
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Estado_Caso_Creacion.Text = "CERRADO";
-            Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["TECNICO"].ToString(), "0"));
+            var Cedula_Tecnico = dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString();
+            Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["TECNICO"].ToString(), "" + Cedula_Tecnico));
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "UPDATE";
             Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
@@ -326,6 +361,8 @@ public partial class Solicitud : System.Web.UI.Page
             {
                 Fecha_Agendamiento.Text = ds.Tables[0].Rows[0]["FECHA_TURNO"].ToString(); ;
             }
+            Materiales_A_Agregar();
+            Tabla_Materiales_Solicitud();
         }
         else
         {
@@ -335,5 +372,63 @@ public partial class Solicitud : System.Web.UI.Page
         }
     }
 
-    
+
+
+    protected void Guarda_Material_Caso_Click(object sender, EventArgs e)
+    {
+        if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -")
+        {
+            if (Cantidad.Text != "")
+            {
+                Controles_Objetos();
+                var Guardar_Datos = -1;
+                Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("INSERTAR", E_Materiales_Solicitudes);
+                if (Guardar_Datos != -1)
+                {
+                    Limpiar_Controles_Materiales();
+                    string script1 = "mensaje7();";
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje7", script1, true);
+                    Materiales_A_Agregar();
+                }
+                else
+                {
+                    string script = "mensaje6();";
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje6", script, true);
+                }
+            }
+            else {
+                string script = "mensaje9();";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje9", script, true);
+            }
+        }
+        else {
+            string script = "mensaje8();";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje8", script, true);
+        }
+        
+
+    }
+
+    private void Limpiar_Controles_Materiales()
+    {
+        Select_Materiales.ClearSelection();
+        Select_Materiales.Items.Clear();
+        Cantidad.Text = "";
+    }
+    private void Tabla_Materiales_Solicitud()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Seleccionar_Materiales_Solicitud(Convert.ToInt32(ID_CASO.Text), Convert.ToInt32(Lista_Tecnicos.SelectedValue));
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            GridView4.DataSource = dt.Tables[0];
+            GridView4.DataBind();
+        }
+        else
+        {
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+        }
+    }
 }

@@ -52,6 +52,18 @@ namespace Negocios
         {
             return DN_Solicitud.Seleccionar_Maximo_ID(pExp);
         }
+        public DataSet Materiales_a_Agregar()
+        {
+            return DN_Solicitud.Materiales_a_Agregar();
+        }
+        public int Abc_Materiales_Solicitudes(string pAccion, E_Materiales_Solicitudes obj_Materiales_Solicitudes)
+        {
+            return DN_Solicitud.Abc_Materiales_Solicitudes(pAccion, obj_Materiales_Solicitudes);
+        }
+        public DataSet Seleccionar_Materiales_Solicitud(int pId_Solicitud, int PCedula_Tecnico)
+        {
+            return DN_Solicitud.Seleccionar_Materiales_Solicitud(pId_Solicitud, PCedula_Tecnico);
+        }
         
     }
 }

@@ -23,6 +23,7 @@ namespace Entidades
         private DateTime _Fecha_Cierre;
         private int _Cedula_Usuario_Cierre;
         private int _Usuario_Ultima_Actualizacion;
+        private int _Cedula_Tecnico;
         #endregion
         #region Constructor
         public E_Solicitudes()
@@ -41,6 +42,7 @@ namespace Entidades
             _Fecha_Cierre = DateTime.Now;
             _Cedula_Usuario_Cierre = 0;
             _Usuario_Ultima_Actualizacion = 0;
+            _Cedula_Tecnico = 0;
         }
         #endregion
         #region Encapsulamiento
@@ -223,6 +225,19 @@ namespace Entidades
             set
             {
                 _Usuario_Ultima_Actualizacion = value;
+            }
+        }
+
+        public int Cedula_Tecnico
+        {
+            get
+            {
+                return _Cedula_Tecnico;
+            }
+
+            set
+            {
+                _Cedula_Tecnico = value;
             }
         }
 
