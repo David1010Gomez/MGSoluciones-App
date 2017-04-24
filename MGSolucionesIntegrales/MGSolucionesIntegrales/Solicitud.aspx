@@ -1,97 +1,55 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Coordinador.master" AutoEventWireup="true" CodeFile="Solicitud.aspx.cs" Inherits="Solicitud" %>
 
+<script runat="server">
+
+    protected void Cantidad_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/jquery.datetimepicker.full.js"></script>
     <link href="Content/jquery.datetimepicker.css" rel="stylesheet" />
-    <script>
-        document.getElementById('C2').classList.add('current-page-item');
-        document.getElementById('C1').classList.remove('current-page-item');
-        document.getElementById('C3').classList.remove('current-page-item');
-        document.getElementById('C4').classList.remove('current-page-item');
-    </script>
-    <script type="text/javascript">
-        function mensaje1() {
-            alert('Solicitud Guardada Exitosamente');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje2() {
-            alert('Solicitud No Guardada. Existe Algun Error');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje3() {
-            alert('Seleccione un Técnico disponible');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje4() {
-            alert('Digite un Caso EXP.');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje5() {
-            alert('Existe un error al seleccionar este registro');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje6() {
-            alert('No se puede guardar, no hay una solicitud asociada');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje7() {
-            alert('Agregado exitosamente');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje8() {
-            alert('Elija un material Antes de Guardar');
-        }
-    </script>
-    <script type="text/javascript">
-        function mensaje9() {
-            alert('Digite una Cantidad');
-        }
-    </script>
+    <script src="Scripts/Solicitud.js?1.0.1"></script>
+    <link href="Content/Solicitud.css?1.0.7" rel="stylesheet" />
     <script type="text/javascript">
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
-            var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
-            x.click();
+        var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
+        x.click();
+    }
+    function editar2(obj) {
+        $('#<%=ID_CASO.ClientID%>').val(obj);
+        var x = document.getElementById('<%=Cargar_Caso_Asignado.ClientID%>');
+        x.click();
+    }
+    function editar3(obj) {
+        $('#<%=ID_CASO.ClientID%>').val(obj);
+        var x = document.getElementById('<%=Cargar_Caso_Agendado.ClientID%>');
+        x.click();
+    }
+    function Bucar_Tecni() {
+        var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
+        x.click();
+    }
+    function Cambia_Estado() {
+        if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked) {
+            $('#<%=Accion.ClientID%>').val('CIERRE');
+    }
+        else {
+            $('#<%=Accion.ClientID%>').val('CIERRE UPDATE');
         }
-        function editar2(obj) {
-            $('#<%=ID_CASO.ClientID%>').val(obj);
-            var x = document.getElementById('<%=Cargar_Caso_Asignado.ClientID%>');
-            x.click();
-        }
-        function editar3(obj) {
-            $('#<%=ID_CASO.ClientID%>').val(obj);
-            var x = document.getElementById('<%=Cargar_Caso_Agendado.ClientID%>');
-            x.click();
-        }
-        function Bucar_Tecni() {
-            var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
-            x.click();
-        }
-        function Cambia_Estado() {
-            if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked) {
-                $('#<%=Accion.ClientID%>').val('CIERRE');
-            }
-            else {
-                $('#<%=Accion.ClientID%>').val('CIERRE UPDATE');
-            }
-        }
-        function Consulta_Cantidad() {
-            alert();
-        }
-        
-        
+    }
+    function Consulta_Cantidad() {
+        alert();
+    }
     </script>
-    <link href="Content/Solicitud.css?1.0.7" rel="stylesheet" />
+
     <div id="main">
         <div class="container">
             <div class="row main-row">
@@ -216,46 +174,46 @@
                                     maxDate: '+0d',
                                 });
                             </script>
-                            <br />
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div id="Div_Materiales" runat="server" style="text-align: center;"><a href="#Materiales">Agregar Materiales</a></div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table>
-                                <tr>
-                                    <td colspan="3">
-                                        <asp:Label runat="server">Observaciones:</asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">
-                                        <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off"></asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                            <br />
-                            <table>
-                                <tr>
-                                    <td colspan="3">
-                                        <asp:Label ID="lblCerrarCaso" Style="display: none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>
-                                        <asp:CheckBox ID="CHCerrarCaso" runat="server" Style="display: none;" />
-                                    </td>
-                                </tr>
-                            </table>
-                            <br />
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div class="controls" style="float: right;">
-                                            <asp:Button runat="server" CssClass="button" Text="Guardar" Style="text-transform: none;" OnClick="Guardar_Datos_Click" />
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+    <br />
+    <table>
+        <tr>
+            <td>
+                <div id="Div_Materiales" runat="server" style="text-align: center;"><a href="#Materiales">Agregar Materiales</a></div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td colspan="3">
+                <asp:Label runat="server">Observaciones:</asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off"></asp:TextBox>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <td colspan="3">
+                <asp:Label ID="lblCerrarCaso" Style="display: none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>
+                <asp:CheckBox ID="CHCerrarCaso" runat="server" Style="display: none;" />
+            </td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <td>
+                <div class="controls" style="float: right;">
+                    <asp:Button runat="server" CssClass="button" Text="Guardar" Style="text-transform: none;" OnClick="Guardar_Datos_Click" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    </div>
                     </section>
                 </div>
                 <div class="3u 12u(mobile)" style="margin-top: 50px;">
@@ -287,45 +245,45 @@
                         </asp:GridView>
                     </section>
                 </div>
-                <div class="12u">
-                    <section>
-                        <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
-                        <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
-                            <Columns>
-                                <asp:BoundField DataField="ID" HeaderText="Id" />
-                                <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
-                                <asp:BoundField DataField="POLIZA" HeaderText="Poliza" />
-                                <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
-                                <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
-                                <asp:BoundField DataField="FACT" HeaderText="Fact." />
-                                <asp:BoundField DataField="TECNICO" HeaderText="Tecnico" />
-                                <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
-                                <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
-                                <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
-                                <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
-                                <asp:TemplateField ShowHeader="False" HeaderText="Editar">
-                                    <ItemTemplate>
-                                        <a href='javascript:editar3("<%# Eval("ID") %>");'>
-                                            <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
-                                        </a>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
-                            <FooterStyle BackColor="#CCCCCC" />
-                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
-                            <RowStyle BackColor="White" />
-                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
-                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                            <SortedAscendingHeaderStyle BackColor="#808080" />
-                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                            <SortedDescendingHeaderStyle BackColor="#383838" />
-                        </asp:GridView>
-                    </section>
-                </div>
+    <div class="12u">
+        <section>
+            <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
+            <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                <Columns>
+                    <asp:BoundField DataField="ID" HeaderText="Id" />
+                    <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
+                    <asp:BoundField DataField="POLIZA" HeaderText="Poliza" />
+                    <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
+                    <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
+                    <asp:BoundField DataField="FACT" HeaderText="Fact." />
+                    <asp:BoundField DataField="TECNICO" HeaderText="Tecnico" />
+                    <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
+                    <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
+                    <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
+                    <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
+                    <asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                        <ItemTemplate>
+                            <a href='javascript:editar3("<%# Eval("ID") %>");'>
+                                <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                <FooterStyle BackColor="#CCCCCC" />
+                <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                <RowStyle BackColor="White" />
+                <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                <SortedAscendingHeaderStyle BackColor="#808080" />
+                <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                <SortedDescendingHeaderStyle BackColor="#383838" />
+            </asp:GridView>
+        </section>
+    </div>
 
-            </div>
+    </div>
         </div>
     </div>
     <asp:TextBox runat="server" type="text" ID="ID_CASO">0</asp:TextBox>
@@ -346,7 +304,7 @@
             <hr />
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
-                    <table class="tablas" >
+                    <table class="tablas">
                         <tr>
                             <td>
                                 <asp:Label runat="server" class="comments">Material: </asp:Label>
@@ -358,20 +316,25 @@
                         </tr>
                         <tr>
                             <td style="width: 50%;">
-                                <asp:DropDownList ID="Select_Materiales" CssClass="Lista_Tecnicos" runat="server" >
+                                <asp:DropDownList ID="Select_Materiales" CssClass="Lista_Tecnicos" runat="server">
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:TextBox ID="Cantidad" CssClass="inp_form" runat="server" style="width:30%;"></asp:TextBox>
+                                <asp:TextBox ID="Cantidad" CssClass="inp_form" runat="server" Style="width: 30%;" ></asp:TextBox>
                             </td>
-                            <td style="text-align:center">
+                            <td style="text-align: center">
                                 <asp:Button runat="server" CssClass="button" Text="Agregar Material" OnClick="Guarda_Material_Caso_Click" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />
                             </td>
                         </tr>
                     </table>
                     <br />
+                    
+                    
+                    <hr />
                     <br />
-                    <asp:GridView ID="GridView4" AutoGenerateColumns="false" runat="server">
+                    <asp:Label runat="server" class="comments">Modifique la siguiente tabla si desea Eliminar/Agregar cantidad de material a la solicitud: </asp:Label>
+                    <br /><br />
+                    <asp:GridView ID="GridView4" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
                         <Columns>
                             <asp:BoundField DataField="ID" HeaderText="ID" />
                             <asp:BoundField DataField="ID_SOLICITUD" HeaderText="ID SOLICITUD" />
@@ -380,6 +343,15 @@
 
                         </Columns>
                         <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                        <FooterStyle BackColor="#CCCCCC" />
+                        <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="White" />
+                        <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                        <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                        <SortedAscendingHeaderStyle BackColor="#808080" />
+                        <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                        <SortedDescendingHeaderStyle BackColor="#383838" />
                     </asp:GridView>
                 </ContentTemplate>
             </asp:UpdatePanel>

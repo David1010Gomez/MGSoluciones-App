@@ -24,7 +24,7 @@ public partial class Solicitud : System.Web.UI.Page
         Exp.Attributes.Add("onblur", "Bucar_Tecni();");
         Exp.Attributes.Add("onchange", "Bucar_Tecni();");
         CHCerrarCaso.Attributes.Add("onchange", "Cambia_Estado();");
-        //Cantidad.Attributes.Add("onblur", "Consulta_Cantidad();");
+        Cantidad.Attributes.Add("onblur", "Consulta_Cantidad();");
         Casos_Abiertos();
         Casos_Asignados();
         Casos_Agendados();
@@ -431,4 +431,5 @@ public partial class Solicitud : System.Web.UI.Page
             GridView1.DataBind();
         }
     }
+    
 }
