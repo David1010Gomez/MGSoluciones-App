@@ -20,11 +20,11 @@
     <script type="text/javascript">
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
-        var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
-        x.click();
-    }
-    function editar2(obj) {
-        $('#<%=ID_CASO.ClientID%>').val(obj);
+            var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
+            x.click();
+        }
+        function editar2(obj) {
+            $('#<%=ID_CASO.ClientID%>').val(obj);
         var x = document.getElementById('<%=Cargar_Caso_Asignado.ClientID%>');
         x.click();
     }
@@ -40,13 +40,30 @@
     function Cambia_Estado() {
         if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked) {
             $('#<%=Accion.ClientID%>').val('CIERRE');
-    }
+        }
         else {
             $('#<%=Accion.ClientID%>').val('CIERRE UPDATE');
         }
     }
     function Consulta_Cantidad() {
-        alert();
+
+        $.ajax({
+            type: "POST",
+            url: 'Solicitud.aspx/BuscarNumAleatorio',
+            dat: null,
+            contentType: "application/json; charset=utf-8",            
+            success: function (result) {
+                var num = result.d;
+                $('#Error').text('' + num);
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                var error = eval("(" + XMLHttpRequest.responseText + ")");
+                alert(error.Message);
+            }
+        });
+
     }
     </script>
 
@@ -174,46 +191,46 @@
                                     maxDate: '+0d',
                                 });
                             </script>
-    <br />
-    <table>
-        <tr>
-            <td>
-                <div id="Div_Materiales" runat="server" style="text-align: center;"><a href="#Materiales">Agregar Materiales</a></div>
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td colspan="3">
-                <asp:Label runat="server">Observaciones:</asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off"></asp:TextBox>
-            </td>
-        </tr>
-    </table>
-    <br />
-    <table>
-        <tr>
-            <td colspan="3">
-                <asp:Label ID="lblCerrarCaso" Style="display: none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>
-                <asp:CheckBox ID="CHCerrarCaso" runat="server" Style="display: none;" />
-            </td>
-        </tr>
-    </table>
-    <br />
-    <table>
-        <tr>
-            <td>
-                <div class="controls" style="float: right;">
-                    <asp:Button runat="server" CssClass="button" Text="Guardar" Style="text-transform: none;" OnClick="Guardar_Datos_Click" />
-                </div>
-            </td>
-        </tr>
-    </table>
-    </div>
+                            <br />
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id="Div_Materiales" runat="server" style="text-align: center;"><a href="#Materiales">Agregar Materiales</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td colspan="3">
+                                        <asp:Label runat="server">Observaciones:</asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table>
+                                <tr>
+                                    <td colspan="3">
+                                        <asp:Label ID="lblCerrarCaso" Style="display: none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>
+                                        <asp:CheckBox ID="CHCerrarCaso" runat="server" Style="display: none;" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="controls" style="float: right;">
+                                            <asp:Button runat="server" CssClass="button" Text="Guardar" Style="text-transform: none;" OnClick="Guardar_Datos_Click" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </section>
                 </div>
                 <div class="3u 12u(mobile)" style="margin-top: 50px;">
@@ -245,45 +262,45 @@
                         </asp:GridView>
                     </section>
                 </div>
-    <div class="12u">
-        <section>
-            <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
-            <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
-                <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="Id" />
-                    <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
-                    <asp:BoundField DataField="POLIZA" HeaderText="Poliza" />
-                    <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
-                    <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
-                    <asp:BoundField DataField="FACT" HeaderText="Fact." />
-                    <asp:BoundField DataField="TECNICO" HeaderText="Tecnico" />
-                    <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
-                    <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
-                    <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
-                    <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
-                    <asp:TemplateField ShowHeader="False" HeaderText="Editar">
-                        <ItemTemplate>
-                            <a href='javascript:editar3("<%# Eval("ID") %>");'>
-                                <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
-                            </a>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-                <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
-                <FooterStyle BackColor="#CCCCCC" />
-                <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
-                <RowStyle BackColor="White" />
-                <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                <SortedAscendingHeaderStyle BackColor="#808080" />
-                <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                <SortedDescendingHeaderStyle BackColor="#383838" />
-            </asp:GridView>
-        </section>
-    </div>
+                <div class="12u">
+                    <section>
+                        <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
+                        <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                            <Columns>
+                                <asp:BoundField DataField="ID" HeaderText="Id" />
+                                <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
+                                <asp:BoundField DataField="POLIZA" HeaderText="Poliza" />
+                                <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
+                                <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
+                                <asp:BoundField DataField="FACT" HeaderText="Fact." />
+                                <asp:BoundField DataField="TECNICO" HeaderText="Tecnico" />
+                                <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
+                                <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
+                                <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
+                                <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
+                                <asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                                    <ItemTemplate>
+                                        <a href='javascript:editar3("<%# Eval("ID") %>");'>
+                                            <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <RowStyle BackColor="White" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#808080" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#383838" />
+                        </asp:GridView>
+                    </section>
+                </div>
 
-    </div>
+            </div>
         </div>
     </div>
     <asp:TextBox runat="server" type="text" ID="ID_CASO">0</asp:TextBox>
@@ -320,7 +337,7 @@
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:TextBox ID="Cantidad" CssClass="inp_form" runat="server" Style="width: 30%;" ></asp:TextBox>
+                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server" OnTextChanged="CantidadMaterial_TextChanged" AutoPostBack="true"></asp:TextBox><i id="Ok" class="fa fa-check" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i><i id="Error" class="fa fa-times" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i>
                             </td>
                             <td style="text-align: center">
                                 <asp:Button runat="server" CssClass="button" Text="Agregar Material" OnClick="Guarda_Material_Caso_Click" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />
@@ -328,12 +345,13 @@
                         </tr>
                     </table>
                     <br />
-                    
-                    
+
+
                     <hr />
                     <br />
                     <asp:Label runat="server" class="comments">Modifique la siguiente tabla si desea Eliminar/Agregar cantidad de material a la solicitud: </asp:Label>
-                    <br /><br />
+                    <br />
+                    <br />
                     <asp:GridView ID="GridView4" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
                         <Columns>
                             <asp:BoundField DataField="ID" HeaderText="ID" />
@@ -353,6 +371,7 @@
                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                         <SortedDescendingHeaderStyle BackColor="#383838" />
                     </asp:GridView>
+                    <asp:TextBox ID="MaterialDisponible" runat="server" Style="display:none;"></asp:TextBox>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

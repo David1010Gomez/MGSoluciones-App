@@ -1,10 +1,9 @@
-C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.dll
-C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.pdb
-C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.dll
-C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.pdb
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.dll
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.pdb
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.dll
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.pdb
 C:\Users\dagom\OneDrive\Documentos\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.csprojResolveAssemblyReference.cache
-C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.csprojResolveAssemblyReference.cache
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.dll
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.pdb
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.dll
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.pdb

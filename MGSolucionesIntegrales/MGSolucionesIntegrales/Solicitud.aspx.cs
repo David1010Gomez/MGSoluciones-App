@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -24,7 +26,7 @@ public partial class Solicitud : System.Web.UI.Page
         Exp.Attributes.Add("onblur", "Bucar_Tecni();");
         Exp.Attributes.Add("onchange", "Bucar_Tecni();");
         CHCerrarCaso.Attributes.Add("onchange", "Cambia_Estado();");
-        Cantidad.Attributes.Add("onblur", "Consulta_Cantidad();");
+        //CantidadMaterial.Attributes.Add("onblur", "Consulta_Cantidad();");
         Casos_Abiertos();
         Casos_Asignados();
         Casos_Agendados();
@@ -92,6 +94,7 @@ public partial class Solicitud : System.Web.UI.Page
                     if (E_Solicitud.Tecnico != string.Empty) { Guarda_Turno_Tecnico(); } 
                     Guardar_Notas();
                     Limpiar_Controles();
+                    Limpiar_Controles_Materiales();
                     string script1 = "mensaje1();";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
                     Casos_Abiertos();
@@ -166,10 +169,13 @@ public partial class Solicitud : System.Web.UI.Page
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(Exp.Text);
         E_Notas_Solicitudes.Observaciones = Observaciones.Text;
         E_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
-
+        
+    }
+    private void Controles_Objetos_Solicitud()
+    {
         E_Materiales_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Materiales_Solicitudes.Id_Material = Convert.ToInt32(Select_Materiales.SelectedValue);
-        E_Materiales_Solicitudes.Cantidad = Cantidad.Text;
+        E_Materiales_Solicitudes.Cantidad = CantidadMaterial.Text;
         E_Materiales_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
     }
 
@@ -376,34 +382,56 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Guarda_Material_Caso_Click(object sender, EventArgs e)
     {
-        if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -")
+        if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -" && Convert.ToString(Select_Materiales.SelectedItem) != "" && Convert.ToString(Select_Materiales.SelectedItem) != null)
         {
-            if (Cantidad.Text != "")
+            if (CantidadMaterial.Text != "")
             {
-                Controles_Objetos();
-                var Guardar_Datos = -1;
-                Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("INSERTAR", E_Materiales_Solicitudes);
-                if (Guardar_Datos != -1)
+                if (MaterialDisponible.Text != "")
                 {
-                    Limpiar_Controles_Materiales();
-                    string script1 = "mensaje7();";
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje7", script1, true);
-                    Materiales_A_Agregar();
+                    if (Convert.ToInt32(CantidadMaterial.Text) <= Convert.ToInt32(MaterialDisponible.Text))
+                    {
+                        Controles_Objetos_Solicitud();
+                        var Guardar_Datos = -1;
+                        Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("INSERTAR", E_Materiales_Solicitudes);
+                        if (Guardar_Datos != -1)
+                        {
+                            Limpiar_Controles_Materiales();
+                            string script1 = "mensaje7();";
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje7", script1, true);
+                            Materiales_A_Agregar();
+                            Tabla_Materiales_Solicitud();
+                        }
+                        else
+                        {
+                            string script = "mensaje6();";
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje6", script, true);
+                            
+                        }
+                    }
+                    else
+                    {
+                        string script = "mensaje10();";
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje9", script, true);
+                        Tabla_Materiales_Solicitud();
+                    }
                 }
                 else
                 {
-                    string script = "mensaje6();";
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje6", script, true);
+                    string script = "mensaje12();";
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje9", script, true);
+                    Tabla_Materiales_Solicitud();
                 }
             }
             else {
                 string script = "mensaje9();";
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje9", script, true);
+                Tabla_Materiales_Solicitud();
             }
         }
         else {
             string script = "mensaje8();";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje8", script, true);
+            Tabla_Materiales_Solicitud();
         }
         
 
@@ -413,7 +441,9 @@ public partial class Solicitud : System.Web.UI.Page
     {
         Select_Materiales.ClearSelection();
         Select_Materiales.Items.Clear();
-        Cantidad.Text = "";
+        CantidadMaterial.Text = "";
+        Error.Attributes.CssStyle.Add("display", "none");
+        Ok.Attributes.CssStyle.Add("display", "none");
     }
     private void Tabla_Materiales_Solicitud()
     {
@@ -431,5 +461,39 @@ public partial class Solicitud : System.Web.UI.Page
             GridView1.DataBind();
         }
     }
-    
+    protected void CantidadMaterial_TextChanged(object sender, EventArgs e)
+    {
+        if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -" && CantidadMaterial.Text!= "")
+        {
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Seleccionar_Cantidad_Material(Convert.ToInt32(Select_Materiales.SelectedValue));
+            if (dt.Tables[0].Rows.Count > 0)
+            {
+                MaterialDisponible.Text = dt.Tables[0].Rows[0]["CANTIDAD"].ToString();
+                if (Convert.ToInt32(CantidadMaterial.Text) > Convert.ToInt32(MaterialDisponible.Text))
+                {
+                    Ok.Attributes.CssStyle.Add("display", "none");
+                    Error.Attributes.CssStyle.Add("display", "inline-block");
+                }
+                else
+                {
+                    Error.Attributes.CssStyle.Add("display", "none");
+                    Ok.Attributes.CssStyle.Add("display", "inline-block");
+                }
+            }
+            else
+            {
+                string script = "mensaje8();";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje8", script, true);
+                Limpiar_Controles_Materiales();
+
+            }
+        }
+        else
+        {
+            string script = "mensaje8();";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje8", script, true);
+        }
+        Tabla_Materiales_Solicitud();
+    }
 }

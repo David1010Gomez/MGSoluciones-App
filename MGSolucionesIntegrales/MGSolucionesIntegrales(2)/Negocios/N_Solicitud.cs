@@ -64,6 +64,9 @@ namespace Negocios
         {
             return DN_Solicitud.Seleccionar_Materiales_Solicitud(pId_Solicitud, PCedula_Tecnico);
         }
-        
+        public DataSet Seleccionar_Cantidad_Material(int pId)
+        {
+            return DN_Solicitud.Seleccionar_Cantidad_Material(pId);
+        }
     }
 }

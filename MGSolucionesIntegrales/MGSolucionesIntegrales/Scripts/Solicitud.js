@@ -33,10 +33,18 @@ function mensaje7() {
 }
 
 function mensaje8() {
-    alert('Elija un material Antes de Guardar');
+    alert('Elija un Material Antes de Guardar');
 }
 
 function mensaje9() {
     alert('Digite una Cantidad');
 }
-
+function mensaje10() {
+    alert('La Cantidad Supera lo que Existe en Inventario. Digite un Numero Menor');
+}
+function mensaje11() {
+    alert('Ya no existe este Material en el inventario');
+}
+function mensaje12() {
+    alert('Consulte primero la Disponibilidad de la Cantidad');
+}
