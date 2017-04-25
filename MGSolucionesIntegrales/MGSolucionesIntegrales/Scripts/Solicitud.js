@@ -29,7 +29,7 @@ function mensaje6() {
 }
 
 function mensaje7() {
-    alert('Agregado exitosamente');
+    alert('Material Agregado');
 }
 
 function mensaje8() {

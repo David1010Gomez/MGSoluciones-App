@@ -68,5 +68,10 @@ namespace Negocios
         {
             return DN_Solicitud.Seleccionar_Cantidad_Material(pId);
         }
+        public int Abc_Materiales(string pAccion, E_Materiales obj_Materiales)
+        {
+            return DN_Solicitud.Abc_Materiales(pAccion, obj_Materiales);
+        }
+        
     }
 }

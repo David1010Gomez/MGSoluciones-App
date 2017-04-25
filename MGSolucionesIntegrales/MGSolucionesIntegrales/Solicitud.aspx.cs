@@ -17,6 +17,7 @@ public partial class Solicitud : System.Web.UI.Page
     public E_Materiales_Solicitudes E_Materiales_Solicitudes = new E_Materiales_Solicitudes();
     public E_Turnos E_Turnos = new E_Turnos();
     public E_Notas_Solicitudes E_Notas_Solicitudes = new E_Notas_Solicitudes();
+    public E_Materiales E_Materiales = new E_Materiales();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -26,7 +27,6 @@ public partial class Solicitud : System.Web.UI.Page
         Exp.Attributes.Add("onblur", "Bucar_Tecni();");
         Exp.Attributes.Add("onchange", "Bucar_Tecni();");
         CHCerrarCaso.Attributes.Add("onchange", "Cambia_Estado();");
-        //CantidadMaterial.Attributes.Add("onblur", "Consulta_Cantidad();");
         Casos_Abiertos();
         Casos_Asignados();
         Casos_Agendados();
@@ -71,7 +71,7 @@ public partial class Solicitud : System.Web.UI.Page
         else
         {
             Lista_Tecnicos.Items.Clear();
-            Lista_Tecnicos.Items.Insert(0, "- - NO HAY TÉCNICOS DISPONIBLES - -");
+            Lista_Tecnicos.Items.Insert(0, new ListItem("- - NO HAY TÉCNICOS DISPONIBLES - -", "0"));
         }
     }
 
@@ -248,6 +248,7 @@ public partial class Solicitud : System.Web.UI.Page
         lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "none");
         CHCerrarCaso.Attributes.CssStyle.Add("display", "none");
         lblCerrarCaso.Attributes.CssStyle.Add("display", "none");
+        Div_Materiales.Attributes.CssStyle.Add("display", "none");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -292,15 +293,9 @@ public partial class Solicitud : System.Web.UI.Page
         Guardar_Datos = O_Neg_Solicitud.abc_Turnos(Accion_Tecnico.Text, E_Turnos);
         if (Guardar_Datos != -1)
         {
-            //string script1 = "mensaje1();";
-            //ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
-            //Casos_Abiertos();
-            ////Response.Redirect("Solicitud.aspx");
         }
         else
         {
-            //string script = "mensaje2();";
-            //ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
         }
     }
 
@@ -326,6 +321,7 @@ public partial class Solicitud : System.Web.UI.Page
             Accion_Tecnico.Text = "UPDATE";
             Fecha_Agendamiento.Attributes.CssStyle.Add("display","block");
             lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+            Div_Materiales.Attributes.CssStyle.Add("display","block");
             Materiales_A_Agregar();
             Tabla_Materiales_Solicitud();
         }
@@ -361,6 +357,7 @@ public partial class Solicitud : System.Web.UI.Page
             lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
             lblCerrarCaso.Attributes.CssStyle.Add("display", "block");
             CHCerrarCaso.Attributes.CssStyle.Add("display", "block");
+            Div_Materiales.Attributes.CssStyle.Add("display", "block");
             DataSet ds = new DataSet();
             ds = O_Neg_Solicitud.Seleccionar_Turnos(Convert.ToInt32(ID_CASO.Text));
             if (ds.Tables[0].Rows.Count > 0)
@@ -386,15 +383,18 @@ public partial class Solicitud : System.Web.UI.Page
         {
             if (CantidadMaterial.Text != "")
             {
+                CantidadMaterial_TextChanged();
                 if (MaterialDisponible.Text != "")
                 {
                     if (Convert.ToInt32(CantidadMaterial.Text) <= Convert.ToInt32(MaterialDisponible.Text))
                     {
+                        
                         Controles_Objetos_Solicitud();
                         var Guardar_Datos = -1;
                         Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("INSERTAR", E_Materiales_Solicitudes);
                         if (Guardar_Datos != -1)
                         {
+                            Actualiza_Inventario();
                             Limpiar_Controles_Materiales();
                             string script1 = "mensaje7();";
                             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje7", script1, true);
@@ -437,6 +437,20 @@ public partial class Solicitud : System.Web.UI.Page
 
     }
 
+    private void Actualiza_Inventario()
+    {
+        Controles_a_Objeto_Inventario();
+        var Guardar_Datos = -1;
+        Guardar_Datos = O_Neg_Solicitud.Abc_Materiales("UPDATE", E_Materiales);
+    }
+
+    private void Controles_a_Objeto_Inventario()
+    {
+        E_Materiales.Id = Convert.ToInt32(Select_Materiales.SelectedValue);
+        E_Materiales.Cantidad = Convert.ToString((Convert.ToInt32(MaterialDisponible.Text))-(Convert.ToInt32(CantidadMaterial.Text)));
+        E_Materiales.Material = Convert.ToString(Select_Materiales.SelectedItem);
+    }
+
     private void Limpiar_Controles_Materiales()
     {
         Select_Materiales.ClearSelection();
@@ -457,11 +471,11 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            GridView1.DataSource = null;
-            GridView1.DataBind();
+            GridView4.DataSource = null;
+            GridView4.DataBind();
         }
     }
-    protected void CantidadMaterial_TextChanged(object sender, EventArgs e)
+    public void CantidadMaterial_TextChanged()
     {
         if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -" && CantidadMaterial.Text!= "")
         {

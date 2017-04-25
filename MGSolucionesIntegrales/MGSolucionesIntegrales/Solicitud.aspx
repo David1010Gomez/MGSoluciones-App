@@ -16,7 +16,7 @@
     <script src="assets/js/jquery.datetimepicker.full.js"></script>
     <link href="Content/jquery.datetimepicker.css" rel="stylesheet" />
     <script src="Scripts/Solicitud.js?1.0.1"></script>
-    <link href="Content/Solicitud.css?1.0.7" rel="stylesheet" />
+    <link href="Content/Solicitud.css?1.0.8" rel="stylesheet" />
     <script type="text/javascript">
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
@@ -195,7 +195,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div id="Div_Materiales" runat="server" style="text-align: center;"><a href="#Materiales">Agregar Materiales</a></div>
+                                        <div id="Div_Materiales" runat="server" style="text-align: center; display:none;"><a href="#Materiales">Agregar Materiales</a></div>
                                     </td>
                                 </tr>
                             </table>
@@ -337,7 +337,7 @@
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server" OnTextChanged="CantidadMaterial_TextChanged" AutoPostBack="true"></asp:TextBox><i id="Ok" class="fa fa-check" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i><i id="Error" class="fa fa-times" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i>
+                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server"></asp:TextBox><i id="Ok" class="fa fa-check" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i><i id="Error" class="fa fa-times" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i>
                             </td>
                             <td style="text-align: center">
                                 <asp:Button runat="server" CssClass="button" Text="Agregar Material" OnClick="Guarda_Material_Caso_Click" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />

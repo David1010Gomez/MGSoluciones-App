@@ -7,7 +7,7 @@ using Entidades;
 
 namespace Datos
 {
-    public class D_Solicitud: D_Conexion_BD
+    public class D_Solicitud : D_Conexion_BD
     {
         public D_Solicitud() { }
         public DataSet Tecnicos_Libres()
@@ -33,7 +33,7 @@ namespace Datos
             }
             return ds;
         }
-        public int Abc_Solicitudes (string pAccion, E_Solicitudes Obj_Solicitudes)
+        public int Abc_Solicitudes(string pAccion, E_Solicitudes Obj_Solicitudes)
         {
             int Resultado = 0;
             SqlCommand cmd = new SqlCommand("ABC_SOLICITUDES", Conexion);
@@ -83,7 +83,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Notas_Solicitudes.Num_Exp);
             cmd.Parameters.AddWithValue("@OBSERVACIONES", Obj_Notas_Solicitudes.Observaciones);
             cmd.Parameters.AddWithValue("@CEDULA_USUARIO_INSERTO_NOTA", Obj_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota);
-            
+
             try
             {
                 Abrir_Conexion();
@@ -305,7 +305,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@FECHA_INGRESO", Obj_Materiales_Solicitudes.Fecha_Ingreso);
             cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Materiales_Solicitudes.Id_Solicitud);
             cmd.Parameters.AddWithValue("@ID_MATERIAL", Obj_Materiales_Solicitudes.Id_Material);
-            cmd.Parameters.AddWithValue("@CANTIDAD", Obj_Materiales_Solicitudes.Cantidad); 
+            cmd.Parameters.AddWithValue("@CANTIDAD", Obj_Materiales_Solicitudes.Cantidad);
             cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Materiales_Solicitudes.Cedula_Tecnico);
 
             try
@@ -335,7 +335,7 @@ namespace Datos
                 cmd.Connection = Conexion;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[dbo].[SELECCIONAR_MATERIALES_SOLICITUD]";
-                cmd.Parameters.AddWithValue("@ID_SOLICITUD", pId_Solicitud); 
+                cmd.Parameters.AddWithValue("@ID_SOLICITUD", pId_Solicitud);
                 cmd.Parameters.AddWithValue("@CEDULA_TECNICO", PCedula_Tecnico);
                 dt.SelectCommand = cmd;
                 dt.Fill(ds);
@@ -373,5 +373,33 @@ namespace Datos
             }
             return ds;
         }
+        public int Abc_Materiales(string pAccion, E_Materiales Obj_Materiales)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("ABC_MATERIALES", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Accion", pAccion);
+            cmd.Parameters.AddWithValue("@ID", Obj_Materiales.Id);
+            cmd.Parameters.AddWithValue("@MATERIAL", Obj_Materiales.Material);
+            cmd.Parameters.AddWithValue("@CANTIDAD", Obj_Materiales.Cantidad);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al Insertar o Actualizar la tabla Materiales", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+
     }
 }

@@ -44,6 +44,7 @@
     <Compile Include="E_Notas_Solicitudes.cs" />
     <Compile Include="E_Solicitudes.cs" />
     <Compile Include="E_Turnos.cs" />
+    <Compile Include="E_Materiales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
