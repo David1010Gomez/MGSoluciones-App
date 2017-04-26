@@ -25,11 +25,11 @@
         }
         function editar2(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
-        var x = document.getElementById('<%=Cargar_Caso_Asignado.ClientID%>');
-        x.click();
-    }
-    function editar3(obj) {
-        $('#<%=ID_CASO.ClientID%>').val(obj);
+            var x = document.getElementById('<%=Cargar_Caso_Asignado.ClientID%>');
+            x.click();
+        }
+        function editar3(obj) {
+            $('#<%=ID_CASO.ClientID%>').val(obj);
         var x = document.getElementById('<%=Cargar_Caso_Agendado.ClientID%>');
         x.click();
     }
@@ -51,14 +51,13 @@
             type: "POST",
             url: 'Solicitud.aspx/BuscarNumAleatorio',
             dat: null,
-            contentType: "application/json; charset=utf-8",            
+            contentType: "application/json; charset=utf-8",
             success: function (result) {
                 var num = result.d;
                 $('#Error').text('' + num);
 
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown)
-            {
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
                 var error = eval("(" + XMLHttpRequest.responseText + ")");
                 alert(error.Message);
             }
@@ -195,7 +194,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <div id="Div_Materiales" runat="server" style="text-align: center; display:none;"><a href="#Materiales">Agregar Materiales</a></div>
+                                        <div id="Div_Materiales" runat="server" style="text-align: center; display: none;"><a href="#Materiales">Agregar Materiales</a></div>
                                     </td>
                                 </tr>
                             </table>
@@ -337,7 +336,7 @@
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server"></asp:TextBox><i id="Ok" class="fa fa-check" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i><i id="Error" class="fa fa-times" style="margin-left:-20px; position: absolute; margin-top: 5px; display:none" runat="server"></i>
+                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server"></asp:TextBox><i id="Ok" class="fa fa-check" style="margin-left: -20px; position: absolute; margin-top: 5px; display: none" runat="server"></i><i id="Error" class="fa fa-times" style="margin-left: -20px; position: absolute; margin-top: 5px; display: none" runat="server"></i>
                             </td>
                             <td style="text-align: center">
                                 <asp:Button runat="server" CssClass="button" Text="Agregar Material" OnClick="Guarda_Material_Caso_Click" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />
@@ -352,12 +351,17 @@
                     <asp:Label runat="server" class="comments">Modifique la siguiente tabla si desea Eliminar/Agregar cantidad de material a la solicitud: </asp:Label>
                     <br />
                     <br />
-                    <asp:GridView ID="GridView4" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                    <asp:GridView ID="GridView4" runat="server" DataKeyNames="ID" OnPageIndexChanging="GridView4_PageIndexChanging" OnRowCancelingEdit="GridView4_RowCancelingEdit" 
+                        OnRowDeleting="GridView4_RowDeleting" OnRowEditing="GridView4_RowEditing"
+                        OnRowUpdating="GridView4_RowUpdating" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black"
+                        AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;" AutoPostBack="true">
                         <Columns>
                             <asp:BoundField DataField="ID" HeaderText="ID" />
                             <asp:BoundField DataField="ID_SOLICITUD" HeaderText="ID SOLICITUD" />
                             <asp:BoundField DataField="ID_MATERIAL" HeaderText="ID MATERIAL" />
                             <asp:BoundField DataField="CANTIDAD" HeaderText="CANTIDAD" />
+                            <asp:CommandField ShowEditButton="true" />
+                            <asp:CommandField ShowDeleteButton="true" />
 
                         </Columns>
                         <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
@@ -371,7 +375,7 @@
                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                         <SortedDescendingHeaderStyle BackColor="#383838" />
                     </asp:GridView>
-                    <asp:TextBox ID="MaterialDisponible" runat="server" Style="display:none;"></asp:TextBox>
+                    <asp:TextBox ID="MaterialDisponible" runat="server" Style="display: none;"></asp:TextBox>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

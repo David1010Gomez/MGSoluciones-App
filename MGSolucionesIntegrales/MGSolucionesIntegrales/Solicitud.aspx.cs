@@ -510,4 +510,47 @@ public partial class Solicitud : System.Web.UI.Page
         }
         Tabla_Materiales_Solicitud();
     }
+
+    protected void GridView4_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        GridView4.EditIndex = -1;
+        Tabla_Materiales_Solicitud();
+    }
+
+    protected void GridView4_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        //GridViewRow row = (GridViewRow)GridView4.Rows[e.RowIndex];
+        string id = (GridView4.DataKeys[e.RowIndex].Value.ToString());
+        //Label lbldeleteid = (Label)GridView4.Rows[e.RowIndex].FindControl("lblID");
+        //TextBox txtName = (TextBox)GridView4.Rows[e.RowIndex].FindControl("txtName");
+        Tabla_Materiales_Solicitud();
+    }
+
+    protected void GridView4_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        GridView4.EditIndex = e.NewEditIndex;
+        Tabla_Materiales_Solicitud();
+    }
+
+    protected void GridView4_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        int userid = Convert.ToInt32(GridView4.DataKeys[e.RowIndex].Value.ToString());
+        GridViewRow row = (GridViewRow)GridView4.Rows[e.RowIndex];
+
+        Label lblID = (Label)row.FindControl("lblID");
+        //TextBox txtname=(TextBox)gr.cell[].control[];
+        TextBox textName = (TextBox)row.Cells[0].Controls[0];
+        TextBox textadd = (TextBox)row.Cells[1].Controls[0];
+        TextBox textc = (TextBox)row.Cells[2].Controls[0];
+        //TextBox textadd = (TextBox)row.FindControl("txtadd");
+        //TextBox textc = (TextBox)row.FindControl("txtc");
+        GridView1.EditIndex = -1;
+        Tabla_Materiales_Solicitud();
+    }
+
+    protected void GridView4_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView4.PageIndex = e.NewPageIndex;
+        Tabla_Materiales_Solicitud();
+    }
 }
