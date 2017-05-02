@@ -474,6 +474,7 @@ public partial class Solicitud : System.Web.UI.Page
             GridView4.DataSource = null;
             GridView4.DataBind();
         }
+        Div_Grid4.Attributes.CssStyle.Add("display","block");
     }
     public void CantidadMaterial_TextChanged()
     {
@@ -511,46 +512,99 @@ public partial class Solicitud : System.Web.UI.Page
         Tabla_Materiales_Solicitud();
     }
 
-    protected void GridView4_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-    {
-        GridView4.EditIndex = -1;
-        Tabla_Materiales_Solicitud();
-    }
-
-    protected void GridView4_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-        //GridViewRow row = (GridViewRow)GridView4.Rows[e.RowIndex];
-        string id = (GridView4.DataKeys[e.RowIndex].Value.ToString());
-        //Label lbldeleteid = (Label)GridView4.Rows[e.RowIndex].FindControl("lblID");
-        //TextBox txtName = (TextBox)GridView4.Rows[e.RowIndex].FindControl("txtName");
-        Tabla_Materiales_Solicitud();
-    }
-
-    protected void GridView4_RowEditing(object sender, GridViewEditEventArgs e)
-    {
-        GridView4.EditIndex = e.NewEditIndex;
-        Tabla_Materiales_Solicitud();
-    }
-
-    protected void GridView4_RowUpdating(object sender, GridViewUpdateEventArgs e)
-    {
-        int userid = Convert.ToInt32(GridView4.DataKeys[e.RowIndex].Value.ToString());
-        GridViewRow row = (GridViewRow)GridView4.Rows[e.RowIndex];
-
-        Label lblID = (Label)row.FindControl("lblID");
-        //TextBox txtname=(TextBox)gr.cell[].control[];
-        TextBox textName = (TextBox)row.Cells[0].Controls[0];
-        TextBox textadd = (TextBox)row.Cells[1].Controls[0];
-        TextBox textc = (TextBox)row.Cells[2].Controls[0];
-        //TextBox textadd = (TextBox)row.FindControl("txtadd");
-        //TextBox textc = (TextBox)row.FindControl("txtc");
-        GridView1.EditIndex = -1;
-        Tabla_Materiales_Solicitud();
-    }
+    
 
     protected void GridView4_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView4.PageIndex = e.NewPageIndex;
         Tabla_Materiales_Solicitud();
+    }
+
+    protected void Actualiza_Registro_Inventario_Click(object sender, EventArgs e)
+    {
+        var Guardar_Datos = -1;
+        E_Materiales_Solicitudes.Id = Convert.ToInt32(Act_Id.Text);
+        E_Materiales_Solicitudes.Cantidad = Act_Cantidad.Text;
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Seleccionar_Cantidad_Material(Convert.ToInt32(Act_Id_Material.Text));
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            MaterialDisponible.Text = dt.Tables[0].Rows[0]["CANTIDAD"].ToString();
+            //Ok2.Attributes.CssStyle.Add("display", "inline-block");
+            //Error2.Attributes.CssStyle.Add("display", "none");
+            var operacion = 0;
+            if (Convert.ToInt32(Act_Cantidad.Text) > Convert.ToInt32(Act_CantidadInicial.Text))
+            {
+                operacion = Convert.ToInt32(Act_Cantidad.Text) - Convert.ToInt32(Act_CantidadInicial.Text);
+            }
+
+            if ((operacion <= Convert.ToInt32(MaterialDisponible.Text)) )
+            {
+                
+                Calculos();
+                Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("UPDATE", E_Materiales_Solicitudes);
+                if (Guardar_Datos != -1)
+                {
+                    string script = "Oculta_Div_Actualiza();";
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Oculta_Div_Actualiza", script, true);
+
+                }
+                else
+                {
+                    string script = "mensaje13();";
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje13", script, true);
+                    Limpiar_Controles_Materiales();
+
+                }
+            }
+            else
+            {
+                Error2.Attributes.CssStyle.Add("display", "inline-block");
+                Ok2.Attributes.CssStyle.Add("display", "none");
+                Div_Actualiza.Attributes.CssStyle.Add("display","block");
+                Div_Grid4.Attributes.CssStyle.Add("display","none");
+                string script = "mensaje10();";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje9", script, true);
+            }
+        } 
+        else
+        {
+            string script = "mensaje14();";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje8", script, true);
+            Limpiar_Controles_Materiales();
+
+        }
+    }
+    protected void Actualiza_Tabla_Materiales_Solicitud_Click1(object sender, EventArgs e)
+    {
+        Act_Id.Text = string.Empty;
+        Act_Material.Text = string.Empty;
+        Act_Cantidad.Text = string.Empty;
+        Limpiar_Controles_Materiales();
+        Materiales_A_Agregar();
+        Tabla_Materiales_Solicitud();
+        Div_Actualiza.Attributes.CssStyle.Add("display","none");
+        Error2.Attributes.CssStyle.Add("display","none");
+    }
+    private void Calculos()
+    {
+        if (Convert.ToInt32(Act_CantidadInicial.Text) > Convert.ToInt32(Act_Cantidad.Text))
+        {
+            var Calculo = Convert.ToInt32(Act_CantidadInicial.Text) - Convert.ToInt32(Act_Cantidad.Text);
+            var CantidadFinal = Calculo + Convert.ToInt32(MaterialDisponible.Text);
+            E_Materiales.Id = Convert.ToInt32(Act_Id_Material.Text);
+            E_Materiales.Cantidad = Convert.ToString(CantidadFinal);
+            var Guardar_Datos = -1;
+            Guardar_Datos = O_Neg_Solicitud.Abc_Materiales("UPDATE", E_Materiales);
+        }
+        if (Convert.ToInt32(Act_CantidadInicial.Text) < Convert.ToInt32(Act_Cantidad.Text))
+        {
+            var Calculo = Convert.ToInt32(Act_Cantidad.Text) - Convert.ToInt32(Act_CantidadInicial.Text);
+            var CantidadFinal = Convert.ToInt32(MaterialDisponible.Text) - Calculo;
+            E_Materiales.Id = Convert.ToInt32(Act_Id_Material.Text);
+            E_Materiales.Cantidad = Convert.ToString(CantidadFinal);
+            var Guardar_Datos = -1;
+            Guardar_Datos = O_Neg_Solicitud.Abc_Materiales("UPDATE", E_Materiales);
+        }
     }
 }

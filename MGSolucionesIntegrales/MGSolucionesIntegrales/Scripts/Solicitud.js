@@ -48,3 +48,9 @@ function mensaje11() {
 function mensaje12() {
     alert('Consulte primero la Disponibilidad de la Cantidad');
 }
+function mensaje13() {
+    alert('Registro no Actualizado');
+}
+function mensaje14() {
+    alert('Error');
+}

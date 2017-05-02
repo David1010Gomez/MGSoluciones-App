@@ -1,14 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Coordinador.master" AutoEventWireup="true" CodeFile="Solicitud.aspx.cs" Inherits="Solicitud" %>
 
-<script runat="server">
-
-    protected void Cantidad_TextChanged(object sender, EventArgs e)
-    {
-
-    }
-</script>
-
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -30,15 +21,32 @@
         }
         function editar3(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
-        var x = document.getElementById('<%=Cargar_Caso_Agendado.ClientID%>');
-        x.click();
-    }
-    function Bucar_Tecni() {
-        var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
-        x.click();
-    }
-    function Cambia_Estado() {
-        if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked) {
+            var x = document.getElementById('<%=Cargar_Caso_Agendado.ClientID%>');
+            x.click();
+        }
+        function editarListaMateriales(Id, Material, Cantidad, Id_Material) {
+            document.getElementById("<%=Div_Actualiza.ClientID%>").style.display = "block";
+            document.getElementById("<%=GridView4.ClientID%>").style.display = "none";
+            $("#<%=Act_Id.ClientID%>").val(Id);
+            $("#<%=Act_Material.ClientID%>").val(Material);
+            $("#<%=Act_Cantidad.ClientID%>").val(Cantidad);
+            $("#<%=Act_Id_Material.ClientID%>").val(Id_Material);
+            $("#<%=Act_CantidadInicial.ClientID%>").val(Cantidad);
+            
+        }
+        function Oculta_Div_Actualiza()
+        {
+            document.getElementById("<%=Div_Actualiza.ClientID%>").style.display = "none";
+            var x = document.getElementById("<%=Actualiza_Tabla_Materiales_Solicitud.ClientID%>");
+            x.click();
+            
+        }
+        function Bucar_Tecni() {
+            var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
+            x.click();
+        }
+        function Cambia_Estado() {
+            if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked) {
             $('#<%=Accion.ClientID%>').val('CIERRE');
         }
         else {
@@ -206,7 +214,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3">
-                                        <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off" style="text-transform: uppercase;"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -311,6 +319,7 @@
     <asp:Button runat="server" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
     <asp:Button runat="server" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />
+    
 
 
     <div class="modal-wrapper" id="Materiales">
@@ -336,7 +345,9 @@
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server"></asp:TextBox><i id="Ok" class="fa fa-check" style="margin-left: -20px; position: absolute; margin-top: 5px; display: none" runat="server"></i><i id="Error" class="fa fa-times" style="margin-left: -20px; position: absolute; margin-top: 5px; display: none" runat="server"></i>
+                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server"></asp:TextBox>
+                                <i id="Ok" class="fa fa-check" style="margin-left: -20px; position: absolute; margin-top: 5px; display: none" runat="server"></i>
+                                <i id="Error" class="fa fa-times" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
                             </td>
                             <td style="text-align: center">
                                 <asp:Button runat="server" CssClass="button" Text="Agregar Material" OnClick="Guarda_Material_Caso_Click" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />
@@ -351,18 +362,22 @@
                     <asp:Label runat="server" class="comments">Modifique la siguiente tabla si desea Eliminar/Agregar cantidad de material a la solicitud: </asp:Label>
                     <br />
                     <br />
-                    <asp:GridView ID="GridView4" runat="server" DataKeyNames="ID" OnPageIndexChanging="GridView4_PageIndexChanging" OnRowCancelingEdit="GridView4_RowCancelingEdit" 
-                        OnRowDeleting="GridView4_RowDeleting" OnRowEditing="GridView4_RowEditing"
-                        OnRowUpdating="GridView4_RowUpdating" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black"
-                        AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;" AutoPostBack="true">
+                    <div id="Div_Grid4" runat="server">
+                    <asp:GridView ID="GridView4" runat="server" OnPageIndexChanging="GridView4_PageIndexChanging" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black"
+                        AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
                         <Columns>
                             <asp:BoundField DataField="ID" HeaderText="ID" />
                             <asp:BoundField DataField="ID_SOLICITUD" HeaderText="ID SOLICITUD" />
                             <asp:BoundField DataField="ID_MATERIAL" HeaderText="ID MATERIAL" />
+                            <asp:BoundField DataField="MATERIAL" HeaderText="MATERIAL" />
                             <asp:BoundField DataField="CANTIDAD" HeaderText="CANTIDAD" />
-                            <asp:CommandField ShowEditButton="true" />
-                            <asp:CommandField ShowDeleteButton="true" />
-
+                            <asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                                <ItemTemplate>
+                                    <a href='javascript:editarListaMateriales("<%# Eval("ID") %>","<%# Eval("MATERIAL") %>", "<%# Eval("CANTIDAD") %>", "<%# Eval("ID_MATERIAL")%>");'>
+                                        <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
+                                    </a>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                         <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
                         <FooterStyle BackColor="#CCCCCC" />
@@ -375,11 +390,52 @@
                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                         <SortedDescendingHeaderStyle BackColor="#383838" />
                     </asp:GridView>
+                        </div>
                     <asp:TextBox ID="MaterialDisponible" runat="server" Style="display: none;"></asp:TextBox>
+                    <div id="Div_Actualiza" runat="server" style="display:none" >
+                        <small onclick="Oculta_Div_Actualiza()" style="float: right; margin-right: 10px; text-decoration: underline; color: #008dad; cursor: pointer;">Cancelar</small>
+                        <table class="tablas">
+                            <tr>
+                                <td>
+                                    <asp:Label runat="server">Id</asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label runat="server">Id Material</asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label runat="server">Material</asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label runat="server">Cantidad</asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:TextBox ID="Act_Id" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="Act_Id_Material" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="Act_Material" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="Act_Cantidad" runat="server" CssClass="inp_form"></asp:TextBox>
+                                    <i id="Ok2" class="fa fa-check" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
+                                    <i id="Error2" class="fa fa-times" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
+                                </td>
+                                <td style="text-align: center">
+                                <asp:Button ID="Actualiza_Registro_Inventario" runat="server" OnClick="Actualiza_Registro_Inventario_Click" CssClass="button" Text="Actualiza Registro" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />
+                            </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <asp:Button runat="server" ID="Actualiza_Tabla_Materiales_Solicitud" OnClick="Actualiza_Tabla_Materiales_Solicitud_Click1" style="display:none;" />
+                    <asp:TextBox ID="Act_CantidadInicial" runat="server" style="display:none"></asp:TextBox>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
     </div>
-
 </asp:Content>
 
