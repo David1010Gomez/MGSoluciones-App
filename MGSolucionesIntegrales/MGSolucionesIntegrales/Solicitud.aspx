@@ -188,14 +188,31 @@
                                 </tr>
                             </table>
                             <script>
+                                $.datetimepicker.setLocale('es');
                                 $('#<%=Fecha_Agendamiento.ClientID%>').datetimepicker({
-                                    format: 'Y/m/d',
-                                    onShow: function (ct) {
-                                        this.setOptions({
-                                            minDate: $('#Fecha_Inicial').val() ? $('#Fecha_Inicial').val() : false
-                                        })
-                                    },
-                                    maxDate: '+0d',
+                                    lang: 'es',
+                                    format: 'd-m-Y H:00',
+                                    minDate: '0',
+                                    timepicker: true,
+                                    allowTimes: [
+                                           '07:00',
+                                           '08:00',
+                                           '09:00',
+                                           '10:00',
+                                           '11:00',
+                                           '12:00',
+                                           '13:00',
+                                           '14:00',
+                                           '15:00',
+                                           '16:00',
+                                           '17:00',
+                                           '18:00']
+                                    
+                                    //onShow: function (ct) {
+                                    //    this.setOptions({
+                                    //        minDate: $('#Fecha_Inicial').val() ? $('#Fecha_Inicial').val() : false
+                                    //    })
+                                    //}
                                 });
                             </script>
                             <br />
@@ -310,17 +327,15 @@
             </div>
         </div>
     </div>
-    <asp:TextBox runat="server" type="text" ID="ID_CASO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" ID="ID_TURNO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" ID="Estado_Caso_Creacion"> ABIERTO</asp:TextBox>
-    <asp:TextBox runat="server" type="text" ID="Accion">INSERTAR</asp:TextBox>
-    <asp:TextBox runat="server" type="text" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
-    <asp:Button runat="server" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
-    <asp:Button runat="server" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
-    <asp:Button runat="server" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
-    <asp:Button runat="server" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />
-    
-
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_CASO">0</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_TURNO">0</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Caso_Creacion"> ABIERTO</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
+    <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
+    <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
+    <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
+    <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />
 
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor" style="margin-top: 80px;">
