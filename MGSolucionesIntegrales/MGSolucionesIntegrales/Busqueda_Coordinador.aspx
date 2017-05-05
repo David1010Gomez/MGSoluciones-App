@@ -48,19 +48,18 @@
                                 </tr>--%>
                                 <tr>
                                     <td>
-                                        <asp:TextBox ID="Fecha_Inicial" CssClass="inp_form" placeholder="Fecha Inicial" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="Fecha_Inicial" CssClass="inp_form" placeholder="Fecha Inicial" runat="server" OnTextChanged="Fecha_Inicial_TextChanged"></asp:TextBox>
                                     </td >
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox ID="Fecha_Final" CssClass="inp_form" placeholder="Fecha Final" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="Fecha_Final" CssClass="inp_form" placeholder="Fecha Final" runat="server" OnTextChanged="Fecha_Final_TextChanged"></asp:TextBox>
                                     </td>
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox  CssClass="inp_form" runat="server" placeholder="Exp"></asp:TextBox>
+                                        <asp:TextBox ID="Exp"  CssClass="inp_form" runat="server" placeholder="Exp"></asp:TextBox>
                                     </td>
                                     <td>
-                                         <asp:DropDownList CssClass="Lista_Tecnicos"  style="width: 125%;"  runat="server" DataSourceID="Tecnicos" DataTextField="NOMBRE" DataValueField="CEDULA" AutoPostBack="True">
-                                            <asp:ListItem>Técnico 1</asp:ListItem>
+                                         <asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos"  style="width: 125%;"  runat="server" >
+                                            
                                         </asp:DropDownList>
-                                         <asp:SqlDataSource ID="Tecnicos" runat="server" ConnectionString="<%$ ConnectionStrings:Connection %>" SelectCommand="SELECT [NOMBRE], [CEDULA] FROM [USUARIOS]"></asp:SqlDataSource>
                                     </td>
                                 </tr>
                             </table>

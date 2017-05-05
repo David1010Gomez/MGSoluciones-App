@@ -72,6 +72,9 @@ namespace Negocios
         {
             return DN_Solicitud.Abc_Materiales(pAccion, obj_Materiales);
         }
-        
+        public DataSet Tecnicos()
+        {
+            return DN_Solicitud.Tecnicos();
+        }
     }
 }
