@@ -11,7 +11,11 @@
     </script>
     <div id="main">
         <div class="container">
-            <h2 style="text-transform: none; font-weight: bold">Configuracion de Cuenta</h2>
+            <div class="row main-row">
+                <div class="12u">
+                    <h2 style="text-transform: none; font-weight: bold">CONFIGURACIÓN DE CUENTA</h2>
+                </div>
+            </div>
         </div>
     </div>
 </asp:Content>
