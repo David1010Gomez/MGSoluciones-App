@@ -15,7 +15,6 @@ namespace Entidades
         private string _Asegurado;
         private string _Contacto;
         private string _Fact;
-        private string _Tecnico;
         private string _Notas;
         private string _Direccion;
         private string _Estado_Caso;
@@ -23,7 +22,6 @@ namespace Entidades
         private DateTime _Fecha_Cierre;
         private int _Cedula_Usuario_Cierre;
         private int _Usuario_Ultima_Actualizacion;
-        private int _Cedula_Tecnico;
         #endregion
         #region Constructor
         public E_Solicitudes()
@@ -34,7 +32,6 @@ namespace Entidades
             _Asegurado = string.Empty;
             _Contacto = string.Empty;
             _Fact = string.Empty;
-            _Tecnico = string.Empty;
             _Notas = string.Empty;
             _Direccion = string.Empty;
             _Estado_Caso = string.Empty;
@@ -42,7 +39,7 @@ namespace Entidades
             _Fecha_Cierre = DateTime.Now;
             _Cedula_Usuario_Cierre = 0;
             _Usuario_Ultima_Actualizacion = 0;
-            _Cedula_Tecnico = 0;
+            
         }
         #endregion
         #region Encapsulamiento
@@ -123,20 +120,6 @@ namespace Entidades
                 _Fact = value;
             }
         }
-
-        public string Tecnico
-        {
-            get
-            {
-                return _Tecnico;
-            }
-
-            set
-            {
-                _Tecnico = value;
-            }
-        }
-
         public string Notas
         {
             get
@@ -227,21 +210,6 @@ namespace Entidades
                 _Usuario_Ultima_Actualizacion = value;
             }
         }
-
-        public int Cedula_Tecnico
-        {
-            get
-            {
-                return _Cedula_Tecnico;
-            }
-
-            set
-            {
-                _Cedula_Tecnico = value;
-            }
-        }
-
-
         #endregion
     }
 }

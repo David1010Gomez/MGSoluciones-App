@@ -6,3 +6,4 @@ C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MG
 C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.pdb
 C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.dll
 C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.pdb
+C:\Users\David Gomez\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.csprojResolveAssemblyReference.cache

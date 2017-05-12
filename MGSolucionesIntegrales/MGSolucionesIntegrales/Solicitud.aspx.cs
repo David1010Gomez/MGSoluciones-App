@@ -18,6 +18,8 @@ public partial class Solicitud : System.Web.UI.Page
     public E_Turnos E_Turnos = new E_Turnos();
     public E_Notas_Solicitudes E_Notas_Solicitudes = new E_Notas_Solicitudes();
     public E_Materiales E_Materiales = new E_Materiales();
+    public E_Usuarios E_Usuarios = new E_Usuarios();
+    public E_Tecnicos_Solicitudes E_Tecni_Solicitudes = new E_Tecnicos_Solicitudes();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -77,7 +79,6 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Guardar_Datos_Click(object sender, EventArgs e)
     {
-        E_Solicitud.Tecnico = Convert.ToString(Lista_Tecnicos.SelectedItem);
         Guardar_Solicitud_Click();
     }
     private void Guardar_Solicitud_Click()
@@ -91,7 +92,7 @@ public partial class Solicitud : System.Web.UI.Page
                 Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
                 if (Guardar_Datos != -1)
                 {
-                    if (E_Solicitud.Tecnico != string.Empty) { Guarda_Turno_Tecnico(); } 
+                    if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); } 
                     Guardar_Notas();
                     Limpiar_Controles();
                     Limpiar_Controles_Materiales();
@@ -100,7 +101,6 @@ public partial class Solicitud : System.Web.UI.Page
                     Casos_Abiertos();
                     Casos_Asignados();
                     Casos_Agendados();
-                    //Response.Redirect("Solicitud.aspx");
                 }
                 else
                 {
@@ -133,6 +133,8 @@ public partial class Solicitud : System.Web.UI.Page
         dt = O_Neg_Solicitud.Seleccionar_Maximo_ID(Convert.ToInt32(Exp.Text));
         E_Solicitud.Id = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
         E_Turnos.Num_Exp = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
+        E_Tecni_Solicitudes.Id = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
+        E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
     }
 
     private void Controles_Objetos()
@@ -143,7 +145,6 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Asegurado = Asegurado.Text;
         E_Solicitud.Contacto = Contacto.Text;
         E_Solicitud.Fact = Fact.Text;
-        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Solicitud.Tecnico = Convert.ToString(Lista_Tecnicos.SelectedItem); } else { E_Solicitud.Tecnico = string.Empty; }
         E_Solicitud.Direccion = Direccion.Text;
         if ((Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -"))
         {
@@ -151,19 +152,23 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else { if (Fecha_Agendamiento.Text != "") { E_Solicitud.Estado_Caso = "AGENDADO"; } else { E_Solicitud.Estado_Caso = "ASIGNADO"; } }
         if (CHCerrarCaso.Checked == true) { E_Solicitud.Estado_Caso = "CERRADO"; }
+        if (E_Solicitud.Estado_Caso == "ABIERTO" || E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO") { E_Turnos.Trabajo = "OCUPADO"; }
+        if (E_Solicitud.Estado_Caso == "CERRADO") { E_Turnos.Trabajo = "TERMINADO"; }
         E_Solicitud.Cedula_Usuario_Creacion = 1076;
         E_Solicitud.Fecha_Cierre = DateTime.Now;
         E_Solicitud.Cedula_Usuario_Cierre = 2569;
         E_Solicitud.Usuario_Ultima_Actualizacion = 555;
-        E_Solicitud.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+
+        E_Tecni_Solicitudes.Id_Solicitud = 0;
+        E_Tecni_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Tecni_Solicitudes.Nombre_Tecnico = Convert.ToString(Lista_Tecnicos.SelectedItem); }
+        else { E_Tecni_Solicitudes.Nombre_Tecnico = string.Empty; }
 
         E_Turnos.Id = Convert.ToInt32(ID_TURNO.Text);
         if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Turnos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue); }
         //E_Turnos.Cedula_Tecnico = Convert.ToInt32(E_Solicitud.Tecnico);
         E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
         E_Turnos.Fecha_Turno = Fecha_Agendamiento.Text;
-        if (E_Solicitud.Estado_Caso == "ABIERTO" || E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO") { E_Turnos.Trabajo = "OCUPADO"; }
-        if (E_Solicitud.Estado_Caso == "CERRADO") { E_Turnos.Trabajo = "TERMINADO"; }
 
         E_Notas_Solicitudes.Fecha_nota = "";
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(Exp.Text);
@@ -291,11 +296,21 @@ public partial class Solicitud : System.Web.UI.Page
         }
         var Guardar_Datos = -1;
         Guardar_Datos = O_Neg_Solicitud.abc_Turnos(Accion_Tecnico.Text, E_Turnos);
-        if (Guardar_Datos != -1)
+
+
+        if (E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO")
         {
+            E_Usuarios.Cedula = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+            E_Usuarios.Disponible = "OCUPADO";
+            var Guardar_Datos2 = -1;
+            Guardar_Datos2 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
         }
-        else
+        else if (E_Solicitud.Estado_Caso == "CERRADO")
         {
+            E_Usuarios.Cedula = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+            E_Usuarios.Disponible = "DISPONIBLE";
+            var Guardar_Datos2 = -1;
+            Guardar_Datos2 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
         }
     }
 

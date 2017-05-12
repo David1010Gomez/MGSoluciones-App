@@ -88,7 +88,10 @@ namespace Negocios
         {
             return DN_Solicitud.Consulta_Solicitudes_Tecnico(pTecnico);
         }
-        
+        public int Actualiza_Estado_Tecnico(E_Usuarios Obj_Usuarios)
+        {
+            return DN_Solicitud.Actualiza_Estado_Tecnico(Obj_Usuarios);
+        }
 
 
     }
