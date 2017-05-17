@@ -297,7 +297,6 @@
                                 <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
                                 <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
                                 <asp:BoundField DataField="FACT" HeaderText="Fact." />
-                                <asp:BoundField DataField="TECNICO" HeaderText="Tecnico" />
                                 <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
                                 <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
                                 <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />

@@ -519,5 +519,58 @@ namespace Datos
             }
             return Resultado;
         }
+        public int Inserta_Tecnico_Solicitudes(E_Tecnicos_Solicitudes Obj_Tecnicos_Solicitudes)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("[INSERTA_TECNICO_SOLICITUDES]", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            
+            cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Tecnicos_Solicitudes.Id_Solicitud);
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Tecnicos_Solicitudes.Cedula_Tecnico);
+            cmd.Parameters.AddWithValue("@NOMBRE_TECNICO", Obj_Tecnicos_Solicitudes.Nombre_Tecnico);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar almacenar datos de la tabla Tecnicos Solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+        public DataSet Busca_Tecnicos_Solicitud(string pAccion, int pIdSolicitud, int pCedulaTecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONAR_TECNICOS_SOLICITUDES]"; 
+                    cmd.Parameters.AddWithValue("@ACCION", pAccion);
+                cmd.Parameters.AddWithValue("@ID_SOLICITUD", pIdSolicitud);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar el Tecnico por solicitud", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+
     }
 }

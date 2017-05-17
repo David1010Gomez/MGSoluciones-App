@@ -92,7 +92,13 @@ namespace Negocios
         {
             return DN_Solicitud.Actualiza_Estado_Tecnico(Obj_Usuarios);
         }
-
-
+        public int Inserta_Tecnico_Solicitudes(E_Tecnicos_Solicitudes Obj_Tecnicos_Solicitudes)
+        {
+            return DN_Solicitud.Inserta_Tecnico_Solicitudes(Obj_Tecnicos_Solicitudes);
+        }
+        public DataSet Busca_Tecnicos_Solicitud(string pAccion, int pIdSolicitud, int pCedulaTecnico)
+        {
+            return DN_Solicitud.Busca_Tecnicos_Solicitud(pAccion, pIdSolicitud, pCedulaTecnico);
+        }
     }
 }
