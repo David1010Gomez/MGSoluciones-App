@@ -44,9 +44,9 @@ namespace Negocios
         {
             return DN_Solicitud.Inserta_Notas_Solicitudes(pAccion, Obj_Notas_Solicitudes);
         }
-        public DataSet Seleccionar_Turnos(int pId)
+        public DataSet Seleccionar_Turnos(int pId, int pCedulaTecnico)
         {
-            return DN_Solicitud.Seleccionar_Turnos(pId);
+            return DN_Solicitud.Seleccionar_Turnos(pId, pCedulaTecnico);
         }
         public DataSet Seleccionar_Maximo_ID(int pExp)
         {

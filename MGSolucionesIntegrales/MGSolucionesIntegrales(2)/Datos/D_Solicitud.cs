@@ -221,7 +221,7 @@ namespace Datos
             }
             return ds;
         }
-        public DataSet Seleccionar_Turnos(int pId)
+        public DataSet Seleccionar_Turnos(int pId, int pCedulaTecnico)
         {
             SqlCommand cmd = new SqlCommand();
             DataSet ds = new DataSet();
@@ -233,6 +233,7 @@ namespace Datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[dbo].[SELECCIONAR_TURNOS]";
                 cmd.Parameters.AddWithValue("@Id", pId);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
                 dt.SelectCommand = cmd;
                 dt.Fill(ds);
             }

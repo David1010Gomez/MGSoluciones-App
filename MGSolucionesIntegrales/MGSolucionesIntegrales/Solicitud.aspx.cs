@@ -161,11 +161,21 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Contacto = Contacto.Text;
         E_Solicitud.Fact = Fact.Text;
         E_Solicitud.Direccion = Direccion.Text;
-        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -"))
+        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -") && Estado_Caso_Creacion.Text == "ABIERTO")
         {
             E_Solicitud.Estado_Caso = "ABIERTO";
         }
-        else { if (Fecha_Agendamiento.Text != "") { E_Solicitud.Estado_Caso = "AGENDADO"; } else { E_Solicitud.Estado_Caso = "ASIGNADO"; } }
+        else
+        {
+            if (Fecha_Agendamiento.Text == "" && Estado_Caso_Creacion.Text == "ASIGNADO")
+            {
+                E_Solicitud.Estado_Caso = "ASIGNADO";
+            }
+            else
+            {
+                E_Solicitud.Estado_Caso = "AGENDADO";
+            }
+        }
         if (CHCerrarCaso.Checked == true) { E_Solicitud.Estado_Caso = "CERRADO"; }
         if (E_Solicitud.Estado_Caso == "ABIERTO" || E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO") { E_Turnos.Trabajo = "OCUPADO"; }
         if (E_Solicitud.Estado_Caso == "CERRADO") { E_Turnos.Trabajo = "TERMINADO"; }
@@ -269,6 +279,7 @@ public partial class Solicitud : System.Web.UI.Page
         CHCerrarCaso.Attributes.CssStyle.Add("display", "none");
         lblCerrarCaso.Attributes.CssStyle.Add("display", "none");
         Div_Materiales.Attributes.CssStyle.Add("display", "none");
+        Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display","none");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -289,6 +300,8 @@ public partial class Solicitud : System.Web.UI.Page
             Listar_Tecnicos();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "INSERTAR";
+            Estado_Caso_Creacion.Text = "ASIGNADO";
+            Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
         }
         else
         {
@@ -353,6 +366,7 @@ public partial class Solicitud : System.Web.UI.Page
             Div_Materiales.Attributes.CssStyle.Add("display","block");
             Materiales_A_Agregar();
             Tabla_Materiales_Solicitud();
+            Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
         }
         else
         {
@@ -399,8 +413,7 @@ public partial class Solicitud : System.Web.UI.Page
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Estado_Caso_Creacion.Text = "CERRADO";
-            var Cedula_Tecnico = dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString();
-            Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["NOMBRE_TECNICO"].ToString(), "" + Cedula_Tecnico));
+            Carga_Tecnicos_solicitud();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "UPDATE";
             Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
@@ -408,14 +421,10 @@ public partial class Solicitud : System.Web.UI.Page
             lblCerrarCaso.Attributes.CssStyle.Add("display", "block");
             CHCerrarCaso.Attributes.CssStyle.Add("display", "block");
             Div_Materiales.Attributes.CssStyle.Add("display", "block");
-            DataSet ds = new DataSet();
-            ds = O_Neg_Solicitud.Seleccionar_Turnos(Convert.ToInt32(ID_CASO.Text));
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                Fecha_Agendamiento.Text = ds.Tables[0].Rows[0]["FECHA_TURNO"].ToString(); ;
-            }
+            Carga_Fecha_Asignada_Tecnico();
             Materiales_A_Agregar();
             Tabla_Materiales_Solicitud();
+            Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
         }
         else
         {
@@ -425,7 +434,19 @@ public partial class Solicitud : System.Web.UI.Page
         }
     }
 
-
+    private void Carga_Fecha_Asignada_Tecnico()
+    {
+        DataSet ds = new DataSet();
+        ds = O_Neg_Solicitud.Seleccionar_Turnos(Convert.ToInt32(ID_CASO.Text), Convert.ToInt32(Lista_Tecnicos.SelectedValue));
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            Fecha_Agendamiento.Text = ds.Tables[0].Rows[0]["FECHA_TURNO"].ToString();
+        }
+        else
+        {
+            Fecha_Agendamiento.Text = "";
+        }
+    }
 
     protected void Guarda_Material_Caso_Click(object sender, EventArgs e)
     {
@@ -656,5 +677,10 @@ public partial class Solicitud : System.Web.UI.Page
             var Guardar_Datos = -1;
             Guardar_Datos = O_Neg_Solicitud.Abc_Materiales("UPDATE", E_Materiales);
         }
+    }
+
+    protected void Lista_Tecnicos_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Carga_Fecha_Asignada_Tecnico();
     }
 }

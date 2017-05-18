@@ -13,6 +13,7 @@
             $('#<%=ID_CASO.ClientID%>').val(obj);
             var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
             x.click();
+            $('#Nuevo_Tecnico').css('display', 'none');
         }
         function editar2(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
@@ -23,6 +24,7 @@
             $('#<%=ID_CASO.ClientID%>').val(obj);
             var x = document.getElementById('<%=Cargar_Caso_Agendado.ClientID%>');
             x.click();
+            $('#Nuevo_Tecnico').css('display', 'block');
         }
         function editarListaMateriales(Id, Material, Cantidad, Id_Material) {
             document.getElementById("<%=Div_Actualiza.ClientID%>").style.display = "block";
@@ -44,6 +46,14 @@
         function Bucar_Tecni() {
             var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
             x.click();
+        }
+        function Bucar_Tecni2() {
+            $('#<%=Accion_Tecnico.ClientID%>').val('INSERTAR');
+            $('#<%=Fecha_Agendamiento.ClientID%>').val('');
+            
+            var x = document.getElementById('<%=Cargar_Tecnicos.ClientID%>');
+            x.click();
+            
         }
         function Cambia_Estado() {
             if (!document.getElementById('<%=CHCerrarCaso.ClientID%>').checked) {
@@ -71,6 +81,10 @@
             }
         });
 
+    }
+    function Limpiar_Campos()
+    {
+        window.location.href="Solicitud.aspx";
     }
     </script>
 
@@ -111,6 +125,7 @@
                 <div class="6u 12u(mobile) important(mobile)" style="text-align: justify;">
                     <section class="middle-content">
                         <h2 style="text-transform: none; font-weight: bold">SOLICITUD</h2>
+                        <a onclick="Limpiar_Campos();" style="margin-left: 90%; text-decoration: none; cursor: pointer;">Limpiar</a>
                         <div class="Div_Table">
                             <table>
                                 <tr>
@@ -150,6 +165,9 @@
                                     </td>
                                     <td>
                                         <asp:Label runat="server">Tecnico:</asp:Label>
+                                        <div runat="server" id="Div_Agrega_Tecnicos" style="float: right; margin-right: 5px; display:none;">
+                                            <a href="#" id="Nuevo_Tecnico" onclick="Bucar_Tecni2();" ><i class="fa fa-plus-circle"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -161,7 +179,7 @@
                                     </td>
                                     <td>
                                         <div id="Tecni" onclick="Carga_Tecni()">
-                                            <asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos" runat="server">
+                                            <asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos" runat="server" OnSelectedIndexChanged="Lista_Tecnicos_SelectedIndexChanged" AutoPostBack="true">
                                             </asp:DropDownList>
                                         </div>
                                     </td>
@@ -327,14 +345,15 @@
         </div>
     </div>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_CASO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_TURNO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Caso_Creacion"> ABIERTO</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:block;" ID="ID_TURNO">0</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:block;" ID="Estado_Caso_Creacion"> ABIERTO</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:block;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
-    <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />
+    <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />                                
+    
 
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor" style="margin-top: 80px;">
