@@ -203,6 +203,10 @@
                                     <td>
                                         <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
+                                    <td></td>
+                                    <td>
+                                        
+                                    </td>
                                 </tr>
                             </table>
                             <script>
@@ -272,8 +276,20 @@
                                     </td>
                                 </tr>
                             </table>
+                            
+                        </div>
+                        <br />
+                        <div class="Div_Table" style="border: 1px solid;">
+                            <table>
+                                <tr>
+                                    <td>
+                                        Historial
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </section>
+                    
                 </div>
                 <div class="3u 12u(mobile)" style="margin-top: 50px;">
                     <section>
@@ -345,10 +361,10 @@
         </div>
     </div>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_CASO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:block;" ID="ID_TURNO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:block;" ID="Estado_Caso_Creacion"> ABIERTO</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_TURNO">0</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Caso_Creacion"> ABIERTO</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:block;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />

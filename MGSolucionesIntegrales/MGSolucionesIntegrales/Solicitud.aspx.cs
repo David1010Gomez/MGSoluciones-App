@@ -441,10 +441,12 @@ public partial class Solicitud : System.Web.UI.Page
         if (ds.Tables[0].Rows.Count > 0)
         {
             Fecha_Agendamiento.Text = ds.Tables[0].Rows[0]["FECHA_TURNO"].ToString();
+            Accion_Tecnico.Text = "UPDATE";
         }
         else
         {
             Fecha_Agendamiento.Text = "";
+            Accion_Tecnico.Text = "INSERTAR";
         }
     }
 
