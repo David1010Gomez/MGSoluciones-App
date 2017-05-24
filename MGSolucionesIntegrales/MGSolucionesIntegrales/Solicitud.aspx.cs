@@ -55,7 +55,26 @@ public partial class Solicitud : System.Web.UI.Page
             Select_Materiales.Items.Insert(0, "- - NO HAY MATERIALES - -");
         }
     }
+    private void Tipo_Servicios()
+    {
+        DataSet dt = new DataSet();
 
+        dt = O_Neg_Solicitud.Selecciona_Tipo_Servicios();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            Lista_Servicios.DataSource = dt;
+            Lista_Servicios.DataTextField = "SERVICIO";
+            Lista_Servicios.DataValueField = "ID_SERVICIO";
+            Lista_Servicios.DataBind();
+            Lista_Servicios.Items.Insert(0, "- - SELECCIONE - -");
+        }
+        else
+        {
+            Lista_Tecnicos.Items.Clear();
+            Lista_Tecnicos.Items.Insert(0, new ListItem("- - NO HAY TÉCNICOS DISPONIBLES - -", "0"));
+        }
+    }
     private void Listar_Tecnicos()
     {
         DataSet dt = new DataSet();
@@ -280,6 +299,9 @@ public partial class Solicitud : System.Web.UI.Page
         lblCerrarCaso.Attributes.CssStyle.Add("display", "none");
         Div_Materiales.Attributes.CssStyle.Add("display", "none");
         Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display","none");
+        Div_Historial.Attributes.CssStyle.Add("display", "none");
+        lblValorTrabajo.Attributes.CssStyle.Add("display", "none");
+        Valor_Trabajo.Attributes.CssStyle.Add("display", "none");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -292,16 +314,21 @@ public partial class Solicitud : System.Web.UI.Page
         {
             ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
             Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+            Exp.ReadOnly = true;
+            //Exp.Attributes.Add("disabled", "true");
             Poliza.Text= dt.Tables[0].Rows[0]["POLIZA"].ToString();
             Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
             Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Listar_Tecnicos();
+            //Tipo_Servicios();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "INSERTAR";
             Estado_Caso_Creacion.Text = "ASIGNADO";
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
+            Div_Historial.Attributes.CssStyle.Add("display","block");
+            Historial_Solicitud();
         }
         else
         {
@@ -314,6 +341,7 @@ public partial class Solicitud : System.Web.UI.Page
     protected void Cargar_Tecnicos_Click(object sender, EventArgs e)
     {
         Listar_Tecnicos();
+        Tipo_Servicios();
     }
 
     private void Guarda_Turno_Tecnico()
@@ -352,6 +380,7 @@ public partial class Solicitud : System.Web.UI.Page
         {
             ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
             Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+            Exp.Attributes.Add("disabled", "true");
             Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
             Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
             Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
@@ -367,6 +396,8 @@ public partial class Solicitud : System.Web.UI.Page
             Materiales_A_Agregar();
             Tabla_Materiales_Solicitud();
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
+            Div_Historial.Attributes.CssStyle.Add("display", "block");
+            Historial_Solicitud();
         }
         else
         {
@@ -375,7 +406,6 @@ public partial class Solicitud : System.Web.UI.Page
 
         }
     }
-
     private void Carga_Tecnicos_solicitud()
     {
         DataSet dt = new DataSet();
@@ -407,6 +437,7 @@ public partial class Solicitud : System.Web.UI.Page
         {
             ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
             Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+            Exp.Attributes.Add("disabled", "true");
             Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
             Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
             Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
@@ -425,6 +456,10 @@ public partial class Solicitud : System.Web.UI.Page
             Materiales_A_Agregar();
             Tabla_Materiales_Solicitud();
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
+            Div_Historial.Attributes.CssStyle.Add("display", "block");
+            Historial_Solicitud();
+            lblValorTrabajo.Attributes.CssStyle.Add("display","block");
+            Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
         }
         else
         {
@@ -684,5 +719,27 @@ public partial class Solicitud : System.Web.UI.Page
     protected void Lista_Tecnicos_SelectedIndexChanged(object sender, EventArgs e)
     {
         Carga_Fecha_Asignada_Tecnico();
+    }
+    private void Historial_Solicitud()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Busca_Historial_Solicitud(Convert.ToInt32(ID_CASO.Text));
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            GridView5.DataSource = dt.Tables[0];
+            GridView5.DataBind();
+        }
+        else
+        {
+            GridView5.DataSource = null;
+            GridView5.DataBind();
+        }
+    }
+
+    protected void GridView5_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView5.PageIndex = e.NewPageIndex;
+        Historial_Solicitud();
     }
 }

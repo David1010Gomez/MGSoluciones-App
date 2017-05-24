@@ -100,5 +100,13 @@ namespace Negocios
         {
             return DN_Solicitud.Busca_Tecnicos_Solicitud(pAccion, pIdSolicitud, pCedulaTecnico);
         }
+        public DataSet Busca_Historial_Solicitud(int pIdSolicitud)
+        {
+            return DN_Solicitud.Busca_Historial_Solicitud(pIdSolicitud);
+        }
+        public DataSet Selecciona_Tipo_Servicios()
+        {
+            return DN_Solicitud.Selecciona_Tipo_Servicios();
+        }
     }
 }

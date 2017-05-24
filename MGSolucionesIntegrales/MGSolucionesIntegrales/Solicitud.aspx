@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Coordinador.master" AutoEventWireup="true" CodeFile="Solicitud.aspx.cs" Inherits="Solicitud" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -185,25 +184,37 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">
+                                    <td colspan="2">
                                         <asp:Label runat="server">Direccion:</asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label runat="server">Tipo de Servicio:</asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">
+                                    <td colspan="2">
                                         <asp:TextBox CssClass="inp_form" ID="Direccion" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="Lista_Servicios" CssClass="Lista_Tecnicos" runat="server" AutoPostBack="true">
+                                        </asp:DropDownList>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <asp:Label ID="lblFecha_Agendamiento" runat="server" Style="display: none">Fecha de Agendamiento:</asp:Label>
                                     </td>
+                                    <td>
+                                        <asp:Label ID="lblValorTrabajo" runat="server" Style="display: none">Valor del trabajo:</asp:Label>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <asp:TextBox CssClass="inp_form" ID="Valor_Trabajo" runat="server" Style="display: none"></asp:TextBox>
+                                    </td>
                                     <td>
                                         
                                     </td>
@@ -279,14 +290,26 @@
                             
                         </div>
                         <br />
-                        <div class="Div_Table" style="border: 1px solid;">
-                            <table>
-                                <tr>
-                                    <td>
-                                        Historial
-                                    </td>
-                                </tr>
-                            </table>
+                        <div runat="server" id="Div_Historial" class="Div_Table" style="display:none;">
+                            <asp:GridView ID="GridView5" AllowPaging="True" OnPageIndexChanging="GridView5_PageIndexChanging" runat="server" BackColor="#CCCCCC" BorderColor="#999999" 
+                                BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; 
+                                text-align: center;">
+                            <Columns>
+                                <asp:BoundField DataField="ID" HeaderText="Id" />
+                                <asp:BoundField DataField="FECHA_NOTA" HeaderText="Fecha de Nota" />
+                                <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
+                            </Columns>
+                            <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <RowStyle BackColor="White" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#808080" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#383838" />
+                        </asp:GridView>
                         </div>
                     </section>
                     
