@@ -108,5 +108,9 @@ namespace Negocios
         {
             return DN_Solicitud.Selecciona_Tipo_Servicios();
         }
+        public int Abc_Servicio_Solicitud(string pAccion, E_Servicio_Solicitud Obj_Servicio_Solicitud)
+        {
+            return DN_Solicitud.Abc_Servicio_Solicitud(pAccion, Obj_Servicio_Solicitud);
+        }
     }
 }

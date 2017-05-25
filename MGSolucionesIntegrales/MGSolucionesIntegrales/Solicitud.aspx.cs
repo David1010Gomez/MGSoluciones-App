@@ -20,6 +20,7 @@ public partial class Solicitud : System.Web.UI.Page
     public E_Materiales E_Materiales = new E_Materiales();
     public E_Usuarios E_Usuarios = new E_Usuarios();
     public E_Tecnicos_Solicitudes E_Tecni_Solicitudes = new E_Tecnicos_Solicitudes();
+    public E_Servicio_Solicitud E_Servicio_Solicitud = new E_Servicio_Solicitud();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -67,12 +68,12 @@ public partial class Solicitud : System.Web.UI.Page
             Lista_Servicios.DataTextField = "SERVICIO";
             Lista_Servicios.DataValueField = "ID_SERVICIO";
             Lista_Servicios.DataBind();
-            Lista_Servicios.Items.Insert(0, "- - SELECCIONE - -");
+            Lista_Servicios.Items.Insert(0, new ListItem ("- - SELECCIONE - -", "0"));
         }
         else
         {
-            Lista_Tecnicos.Items.Clear();
-            Lista_Tecnicos.Items.Insert(0, new ListItem("- - NO HAY TÉCNICOS DISPONIBLES - -", "0"));
+            Lista_Servicios.Items.Clear();
+            Lista_Servicios.Items.Insert(0, new ListItem("- - SIN SERVICIOS - -", "0"));
         }
     }
     private void Listar_Tecnicos()
@@ -114,6 +115,7 @@ public partial class Solicitud : System.Web.UI.Page
                     if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); } 
                     Guardar_Notas();
                     Guarda_Tecnico_Solicitud();
+                    Guarda_Servicio_Solicitud();
                     Limpiar_Controles();
                     Limpiar_Controles_Materiales();
                     string script1 = "mensaje1();";
@@ -135,6 +137,15 @@ public partial class Solicitud : System.Web.UI.Page
         } else {
             string script = "mensaje4();";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje4", script, true);
+        }
+    }
+
+    private void Guarda_Servicio_Solicitud()
+    {
+        if (E_Servicio_Solicitud.Id_Servicio != 0)
+        {
+            var Guardar_Datos = -1;
+            Guardar_Datos = O_Neg_Solicitud.Abc_Servicio_Solicitud("INSERTAR", E_Servicio_Solicitud);
         }
     }
 
@@ -169,6 +180,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Turnos.Num_Exp = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
         E_Tecni_Solicitudes.Id_Solicitud = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
+        E_Servicio_Solicitud.Id_Solicitud = Convert.ToInt32(dt.Tables[0].Rows[0]["ID"].ToString());
     }
 
     private void Controles_Objetos()
@@ -180,13 +192,13 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Contacto = Contacto.Text;
         E_Solicitud.Fact = Fact.Text;
         E_Solicitud.Direccion = Direccion.Text;
-        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -") && Estado_Caso_Creacion.Text == "ABIERTO")
+        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -"))
         {
             E_Solicitud.Estado_Caso = "ABIERTO";
         }
         else
         {
-            if (Fecha_Agendamiento.Text == "" && Estado_Caso_Creacion.Text == "ASIGNADO")
+            if (Fecha_Agendamiento.Text == "" && (Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -"))
             {
                 E_Solicitud.Estado_Caso = "ASIGNADO";
             }
@@ -218,6 +230,10 @@ public partial class Solicitud : System.Web.UI.Page
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(ID_CASO.Text);
         E_Notas_Solicitudes.Observaciones = Observaciones.Text;
         E_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
+
+        E_Servicio_Solicitud.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
+        E_Servicio_Solicitud.Id_Servicio = Convert.ToInt32(Lista_Servicios.SelectedValue);
+        E_Servicio_Solicitud.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
         
     }
     private void Controles_Objetos_Solicitud()
@@ -279,6 +295,7 @@ public partial class Solicitud : System.Web.UI.Page
 
     private void Limpiar_Controles()
     {
+        ID_CASO.Text = "0";
         Exp.Text = string.Empty;
         Poliza.Text = string.Empty;
         Asegurado.Text=string.Empty;
@@ -288,7 +305,7 @@ public partial class Solicitud : System.Web.UI.Page
         Lista_Tecnicos.Items.Clear();
         Direccion.Text=string.Empty;
         Observaciones.Text=string.Empty;
-        Estado_Caso_Creacion.Text = "";
+        Estado_Caso_Creacion.Text = "ABIERTO";
         Accion.Text = "INSERTAR";
         Accion_Tecnico.Text = "INSERTAR";
         Fecha_Agendamiento.Text = string.Empty;
@@ -322,7 +339,7 @@ public partial class Solicitud : System.Web.UI.Page
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Listar_Tecnicos();
-            //Tipo_Servicios();
+            Tipo_Servicios();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "INSERTAR";
             Estado_Caso_Creacion.Text = "ASIGNADO";

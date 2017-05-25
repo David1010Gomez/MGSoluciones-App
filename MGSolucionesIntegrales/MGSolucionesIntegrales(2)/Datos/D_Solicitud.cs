@@ -620,5 +620,31 @@ namespace Datos
             }
             return ds;
         }
+        public int Abc_Servicio_Solicitud(string pAccion, E_Servicio_Solicitud Obj_Servicio_Solicitud)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("[ABC_SERVICIO_SOLICITUD]", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ACCION", pAccion);
+            cmd.Parameters.AddWithValue("@ID_SERVICIO", Obj_Servicio_Solicitud.Id_Servicio);
+            cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Servicio_Solicitud.Id_Solicitud);
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Servicio_Solicitud.Cedula_Tecnico);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar almacenar datos de la tabla Servicios Solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
     }
 }

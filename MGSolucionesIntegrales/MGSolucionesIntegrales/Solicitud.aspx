@@ -118,8 +118,6 @@
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
                     </section>
-
-
                 </div>
                 <div class="6u 12u(mobile) important(mobile)" style="text-align: justify;">
                     <section class="middle-content">
@@ -383,9 +381,9 @@
             </div>
         </div>
     </div>
-    <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_CASO">0</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:block;" ID="ID_CASO">0</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_TURNO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Caso_Creacion"> ABIERTO</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:block;" ID="Estado_Caso_Creacion">ABIERTO</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
