@@ -107,27 +107,36 @@ public partial class Solicitud : System.Web.UI.Page
         {
             if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - SELECCIONE - -"))
             {
-                Controles_Objetos();
-                var Guardar_Datos = -1;
-                Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
-                if (Guardar_Datos != -1)
+                if (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -")
                 {
-                    if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); } 
-                    Guardar_Notas();
-                    Guarda_Tecnico_Solicitud();
-                    Guarda_Servicio_Solicitud();
-                    Limpiar_Controles();
-                    Limpiar_Controles_Materiales();
-                    string script1 = "mensaje1();";
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
-                    Casos_Abiertos();
-                    Casos_Asignados();
-                    Casos_Agendados();
+                    Controles_Objetos();
+                    var Guardar_Datos = -1;
+                    Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
+                    if (Guardar_Datos != -1)
+                    {
+                        if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); }
+                        Guardar_Notas();
+                        Guarda_Tecnico_Solicitud();
+                        Guarda_Servicio_Solicitud();
+                        Limpiar_Controles();
+                        Limpiar_Controles_Materiales();
+                        string script1 = "mensaje1();";
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
+                        Casos_Abiertos();
+                        Casos_Asignados();
+                        Casos_Agendados();
+                    }
+                    else
+                    {
+                        string script = "mensaje2();";
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                    }
                 }
                 else
                 {
-                    string script = "mensaje2();";
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                    
+                    string script = "mensaje15();";
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje15", script, true);
                 }
             }
             else {
@@ -142,10 +151,17 @@ public partial class Solicitud : System.Web.UI.Page
 
     private void Guarda_Servicio_Solicitud()
     {
-        if (E_Servicio_Solicitud.Id_Servicio != 0)
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("INSERTAR", Convert.ToInt32(Lista_Servicios.SelectedValue),Convert.ToInt32(ID_CASO.Text));
+        if (dt.Tables[0].Rows.Count == 0)
         {
             var Guardar_Datos = -1;
             Guardar_Datos = O_Neg_Solicitud.Abc_Servicio_Solicitud("INSERTAR", E_Servicio_Solicitud);
+        }
+        else
+        {
+            var Guardar_Datos = -1;
+            Guardar_Datos = O_Neg_Solicitud.Abc_Servicio_Solicitud("UPDATE", E_Servicio_Solicitud);
         }
     }
 
@@ -319,6 +335,9 @@ public partial class Solicitud : System.Web.UI.Page
         Div_Historial.Attributes.CssStyle.Add("display", "none");
         lblValorTrabajo.Attributes.CssStyle.Add("display", "none");
         Valor_Trabajo.Attributes.CssStyle.Add("display", "none");
+        Div_Agrega_Servicio.Attributes.CssStyle.Add("display","none");
+        Lista_Servicios.ClearSelection();
+        Lista_Servicios.Items.Clear();
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -339,13 +358,14 @@ public partial class Solicitud : System.Web.UI.Page
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Listar_Tecnicos();
-            Tipo_Servicios();
+            Listar_Tipo_Servicios();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "INSERTAR";
             Estado_Caso_Creacion.Text = "ASIGNADO";
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
             Div_Historial.Attributes.CssStyle.Add("display","block");
             Historial_Solicitud();
+            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "block");
         }
         else
         {
@@ -355,6 +375,24 @@ public partial class Solicitud : System.Web.UI.Page
         }
 
     }
+
+    private void Listar_Tipo_Servicios()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("LISTAR",0,Convert.ToInt32(ID_CASO.Text));
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            Lista_Servicios.DataSource = dt;
+            Lista_Servicios.DataTextField = "SERVICIO";
+            Lista_Servicios.DataValueField = "ID_SERVICIO";
+            Lista_Servicios.DataBind();
+        }
+        else
+        {
+            Lista_Servicios.Items.Clear();
+        }
+    }
+
     protected void Cargar_Tecnicos_Click(object sender, EventArgs e)
     {
         Listar_Tecnicos();
@@ -415,6 +453,7 @@ public partial class Solicitud : System.Web.UI.Page
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
             Div_Historial.Attributes.CssStyle.Add("display", "block");
             Historial_Solicitud();
+            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
         }
         else
         {
@@ -432,9 +471,13 @@ public partial class Solicitud : System.Web.UI.Page
         if (dt.Tables[0].Rows.Count > 0)
         {
             Lista_Tecnicos.DataSource = dt;
+            Lista_Servicios.DataSource = dt;
             Lista_Tecnicos.DataTextField = "NOMBRE_TECNICO";
             Lista_Tecnicos.DataValueField = "CEDULA_TECNICO";
+            Lista_Servicios.DataTextField = "SERVICIO";
+            Lista_Servicios.DataValueField = "ID_SERVICIO";
             Lista_Tecnicos.DataBind();
+            Lista_Servicios.DataBind();
         }
         else
         {
@@ -477,6 +520,7 @@ public partial class Solicitud : System.Web.UI.Page
             Historial_Solicitud();
             lblValorTrabajo.Attributes.CssStyle.Add("display","block");
             Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
+            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
         }
         else
         {

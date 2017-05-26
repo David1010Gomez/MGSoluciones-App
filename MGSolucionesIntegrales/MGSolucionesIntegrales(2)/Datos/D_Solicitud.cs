@@ -646,5 +646,31 @@ namespace Datos
             }
             return Resultado;
         }
+        public DataSet Selecciona_Servicio_Solicitud(string pAccion, int pIdServicio, int pIdSolicitud, int pCedulaTecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONAR_SERVICIOS_SOLICITUDES]";
+                cmd.Parameters.AddWithValue("@ACCION", pAccion);
+                cmd.Parameters.AddWithValue("@ID_SERVICIO", pIdServicio);
+                cmd.Parameters.AddWithValue("@ID_SOLICITUD", pIdSolicitud);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar el servicio de la solicitud", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
     }
 }

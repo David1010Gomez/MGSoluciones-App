@@ -5,7 +5,7 @@
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/jquery.datetimepicker.full.js"></script>
     <link href="Content/jquery.datetimepicker.css" rel="stylesheet" />
-    <script src="Scripts/Solicitud.js?1.0.1"></script>
+    <script src="Scripts/Solicitud.js?1.0.2"></script>
     <link href="Content/Solicitud.css?1.0.8" rel="stylesheet" />
     <script type="text/javascript">
         function editar(obj) {
@@ -187,6 +187,9 @@
                                     </td>
                                     <td>
                                         <asp:Label runat="server">Tipo de Servicio:</asp:Label>
+                                        <div runat="server" id="Div_Agrega_Servicio" style="float: right; margin-right: 5px; display:none;">
+                                            <a href="#" id="Nuevo_Servicio" onclick="Bucar_Tecni2();" ><i class="fa fa-plus-circle"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>

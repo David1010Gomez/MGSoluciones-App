@@ -54,3 +54,6 @@ function mensaje13() {
 function mensaje14() {
     alert('Error');
 }
+function mensaje15() {
+    alert('Seleccione un tipo de servicio');
+}
