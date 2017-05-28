@@ -152,7 +152,7 @@ public partial class Solicitud : System.Web.UI.Page
     private void Guarda_Servicio_Solicitud()
     {
         DataSet dt = new DataSet();
-        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("INSERTAR", Convert.ToInt32(Lista_Servicios.SelectedValue),Convert.ToInt32(ID_CASO.Text));
+        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("INSERTAR", Convert.ToInt32(Lista_Servicios.SelectedValue),Convert.ToInt32(ID_CASO.Text), Convert.ToInt32(Lista_Tecnicos.SelectedValue));
         if (dt.Tables[0].Rows.Count == 0)
         {
             var Guardar_Datos = -1;
@@ -208,13 +208,13 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Contacto = Contacto.Text;
         E_Solicitud.Fact = Fact.Text;
         E_Solicitud.Direccion = Direccion.Text;
-        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -"))
+        if (Convert.ToString(Lista_Tecnicos.SelectedItem) == "- - NO HAY TÉCNICOS DISPONIBLES - -" && (Estado_Caso_Creacion.Text == "ABIERTO" || Estado_Caso_Creacion.Text == "ASIGNADO"))
         {
             E_Solicitud.Estado_Caso = "ABIERTO";
         }
         else
         {
-            if (Fecha_Agendamiento.Text == "" && (Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -"))
+            if (Fecha_Agendamiento.Text == "" && (Estado_Caso_Creacion.Text == "ASIGNADO" || Estado_Caso_Creacion.Text == "AGENDADO"))
             {
                 E_Solicitud.Estado_Caso = "ASIGNADO";
             }
@@ -379,7 +379,7 @@ public partial class Solicitud : System.Web.UI.Page
     private void Listar_Tipo_Servicios()
     {
         DataSet dt = new DataSet();
-        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("LISTAR",0,Convert.ToInt32(ID_CASO.Text));
+        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("LISTAR",0,Convert.ToInt32(ID_CASO.Text), 0);
         if (dt.Tables[0].Rows.Count > 0)
         {
             Lista_Servicios.DataSource = dt;
@@ -435,7 +435,6 @@ public partial class Solicitud : System.Web.UI.Page
         {
             ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
             Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
-            Exp.Attributes.Add("disabled", "true");
             Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
             Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
             Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
@@ -443,6 +442,7 @@ public partial class Solicitud : System.Web.UI.Page
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Estado_Caso_Creacion.Text = "AGENDADO";
             Carga_Tecnicos_solicitud();
+            Listar_Servicios_Solicitud_Cedula();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "UPDATE";
             Fecha_Agendamiento.Attributes.CssStyle.Add("display","block");
@@ -462,6 +462,24 @@ public partial class Solicitud : System.Web.UI.Page
 
         }
     }
+
+    private void Listar_Servicios_Solicitud_Cedula()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("LISTAR_POR_TECNICO", 0, Convert.ToInt32(ID_CASO.Text), Convert.ToInt32(Lista_Tecnicos.SelectedValue));
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            Lista_Servicios.DataSource = dt;
+            Lista_Servicios.DataTextField = "SERVICIO";
+            Lista_Servicios.DataValueField = "ID_SERVICIO";
+            Lista_Servicios.DataBind();
+        }
+        else
+        {
+            Lista_Servicios.Items.Clear();
+        }
+    }
+
     private void Carga_Tecnicos_solicitud()
     {
         DataSet dt = new DataSet();
@@ -471,13 +489,9 @@ public partial class Solicitud : System.Web.UI.Page
         if (dt.Tables[0].Rows.Count > 0)
         {
             Lista_Tecnicos.DataSource = dt;
-            Lista_Servicios.DataSource = dt;
             Lista_Tecnicos.DataTextField = "NOMBRE_TECNICO";
             Lista_Tecnicos.DataValueField = "CEDULA_TECNICO";
-            Lista_Servicios.DataTextField = "SERVICIO";
-            Lista_Servicios.DataValueField = "ID_SERVICIO";
             Lista_Tecnicos.DataBind();
-            Lista_Servicios.DataBind();
         }
         else
         {
@@ -497,7 +511,6 @@ public partial class Solicitud : System.Web.UI.Page
         {
             ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
             Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
-            Exp.Attributes.Add("disabled", "true");
             Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
             Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
             Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
@@ -505,6 +518,7 @@ public partial class Solicitud : System.Web.UI.Page
             Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
             Estado_Caso_Creacion.Text = "CERRADO";
             Carga_Tecnicos_solicitud();
+            Listar_Servicios_Solicitud_Cedula();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "UPDATE";
             Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
@@ -779,7 +793,18 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Lista_Tecnicos_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Carga_Fecha_Asignada_Tecnico();
+        if (Lista_Tecnicos.SelectedValue != "- - SELECCIONE - -" )
+        {
+            Carga_Fecha_Asignada_Tecnico();
+        }
+        if (Estado_Caso_Creacion.Text == "ABIERTO" || Estado_Caso_Creacion.Text == "ASIGNADO" || Convert.ToInt32(Lista_Servicios.SelectedValue) == 0)
+        {
+
+        }
+        else
+        {
+            Listar_Servicios_Solicitud_Cedula();
+        }
     }
     private void Historial_Solicitud()
     {

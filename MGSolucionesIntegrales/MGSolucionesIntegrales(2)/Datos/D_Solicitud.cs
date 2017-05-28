@@ -660,6 +660,7 @@ namespace Datos
                 cmd.Parameters.AddWithValue("@ACCION", pAccion);
                 cmd.Parameters.AddWithValue("@ID_SERVICIO", pIdServicio);
                 cmd.Parameters.AddWithValue("@ID_SOLICITUD", pIdSolicitud);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
                 dt.SelectCommand = cmd;
                 dt.Fill(ds);
             }

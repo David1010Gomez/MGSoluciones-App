@@ -112,9 +112,9 @@ namespace Negocios
         {
             return DN_Solicitud.Abc_Servicio_Solicitud(pAccion, Obj_Servicio_Solicitud);
         }
-        public DataSet Selecciona_Servicio_Solicitud(string pAccion, int pIdServicio, int pIdSolicitud)
+        public DataSet Selecciona_Servicio_Solicitud(string pAccion, int pIdServicio, int pIdSolicitud, int pCedulaTecnico)
         {
-            return DN_Solicitud.Selecciona_Servicio_Solicitud(pAccion, pIdServicio, pIdSolicitud);
+            return DN_Solicitud.Selecciona_Servicio_Solicitud(pAccion, pIdServicio, pIdSolicitud, pCedulaTecnico);
         }
     }
 }
