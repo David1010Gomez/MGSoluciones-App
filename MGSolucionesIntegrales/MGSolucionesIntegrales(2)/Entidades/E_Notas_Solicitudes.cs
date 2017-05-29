@@ -14,6 +14,7 @@ namespace Entidades
         private int _Num_Exp;
         private string _Observaciones;
         private int _Cedula_Usuario_Inserto_Nota;
+        private string _Estado_Caso;
         #endregion
         #region Constructor
         public E_Notas_Solicitudes()
@@ -23,6 +24,8 @@ namespace Entidades
             _Num_Exp = 0;
             _Observaciones = string.Empty;
             _Cedula_Usuario_Inserto_Nota = 0;
+            _Estado_Caso = string.Empty;
+
         }
         #endregion
         #region Encapsulamiento
@@ -88,6 +91,19 @@ namespace Entidades
             set
             {
                 _Cedula_Usuario_Inserto_Nota = value;
+            }
+        }
+
+        public string Estado_Caso
+        {
+            get
+            {
+                return _Estado_Caso;
+            }
+
+            set
+            {
+                _Estado_Caso = value;
             }
         }
 

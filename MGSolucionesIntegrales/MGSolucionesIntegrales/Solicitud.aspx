@@ -214,7 +214,8 @@
                                         <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Valor_Trabajo" runat="server" Style="display: none"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form"  ID="Valor_Trabajo" runat="server" Style="display: none"></asp:TextBox>
+                                        
                                     </td>
                                     <td>
                                         

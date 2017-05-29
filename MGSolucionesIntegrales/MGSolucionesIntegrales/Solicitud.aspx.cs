@@ -33,7 +33,7 @@ public partial class Solicitud : System.Web.UI.Page
         Casos_Abiertos();
         Casos_Asignados();
         Casos_Agendados();
-        
+
     }
 
     private void Materiales_A_Agregar()
@@ -160,8 +160,15 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            var Guardar_Datos = -1;
-            Guardar_Datos = O_Neg_Solicitud.Abc_Servicio_Solicitud("UPDATE", E_Servicio_Solicitud);
+            if (Lista_Tecnicos.SelectedValue != "- - NO HAY TÉCNICOS DISPONIBLES - -")
+            {
+                var Guardar_Datos = -1;
+                Guardar_Datos = O_Neg_Solicitud.Abc_Servicio_Solicitud("UPDATE", E_Servicio_Solicitud);
+            }
+            else
+            {
+                
+            }
         }
     }
 
@@ -214,7 +221,7 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            if (Fecha_Agendamiento.Text == "" && (Estado_Caso_Creacion.Text == "ASIGNADO" || Estado_Caso_Creacion.Text == "AGENDADO"))
+            if (Fecha_Agendamiento.Text == "" && (Estado_Caso_Creacion.Text == "ASIGNADO" || Estado_Caso_Creacion.Text == "AGENDADO" || Estado_Caso_Creacion.Text == "ABIERTO"))
             {
                 E_Solicitud.Estado_Caso = "ASIGNADO";
             }
@@ -230,6 +237,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Fecha_Cierre = DateTime.Now;
         E_Solicitud.Cedula_Usuario_Cierre = 2569;
         E_Solicitud.Usuario_Ultima_Actualizacion = 555;
+        E_Solicitud.Valor_Trabajo = Valor_Trabajo.Text;
 
         E_Tecni_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Tecni_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
@@ -246,6 +254,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(ID_CASO.Text);
         E_Notas_Solicitudes.Observaciones = Observaciones.Text;
         E_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
+        E_Notas_Solicitudes.Estado_Caso = E_Solicitud.Estado_Caso;
 
         E_Servicio_Solicitud.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Servicio_Solicitud.Id_Servicio = Convert.ToInt32(Lista_Servicios.SelectedValue);
@@ -338,6 +347,8 @@ public partial class Solicitud : System.Web.UI.Page
         Div_Agrega_Servicio.Attributes.CssStyle.Add("display","none");
         Lista_Servicios.ClearSelection();
         Lista_Servicios.Items.Clear();
+        Valor_Trabajo.Text = "";
+        Valor_Trabajo.Attributes.Add("ReadOnly", "false");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -365,7 +376,7 @@ public partial class Solicitud : System.Web.UI.Page
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
             Div_Historial.Attributes.CssStyle.Add("display","block");
             Historial_Solicitud();
-            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "block");
+            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
         }
         else
         {
@@ -535,6 +546,12 @@ public partial class Solicitud : System.Web.UI.Page
             lblValorTrabajo.Attributes.CssStyle.Add("display","block");
             Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
             Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
+            if (dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString() != "")
+            {
+                Valor_Trabajo.Text = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
+                Valor_Trabajo.Attributes.Add("ReadOnly","true");
+            }
+
         }
         else
         {

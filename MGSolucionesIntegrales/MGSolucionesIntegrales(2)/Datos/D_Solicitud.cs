@@ -52,6 +52,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@FECHA_CIERRE", Obj_Solicitudes.Fecha_Cierre);
             cmd.Parameters.AddWithValue("@CEDULA_USUARIO_CIERRE", Obj_Solicitudes.Cedula_Usuario_Cierre);
             cmd.Parameters.AddWithValue("@USUARIO_ULTIMA_ACTUALIZACION", Obj_Solicitudes.Usuario_Ultima_Actualizacion);
+            cmd.Parameters.AddWithValue("@VALOR_TRABAJO", Obj_Solicitudes.Valor_Trabajo);
 
             try
             {
@@ -81,6 +82,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Notas_Solicitudes.Num_Exp);
             cmd.Parameters.AddWithValue("@OBSERVACIONES", Obj_Notas_Solicitudes.Observaciones);
             cmd.Parameters.AddWithValue("@CEDULA_USUARIO_INSERTO_NOTA", Obj_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota);
+            cmd.Parameters.AddWithValue("@ESTADO_CASO", Obj_Notas_Solicitudes.Estado_Caso);
 
             try
             {
