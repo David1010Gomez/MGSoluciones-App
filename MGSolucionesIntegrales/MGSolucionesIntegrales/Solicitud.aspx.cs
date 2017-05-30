@@ -1,8 +1,10 @@
 ﻿using Entidades;
 using Negocios;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Services;
@@ -68,7 +70,7 @@ public partial class Solicitud : System.Web.UI.Page
             Lista_Servicios.DataTextField = "SERVICIO";
             Lista_Servicios.DataValueField = "ID_SERVICIO";
             Lista_Servicios.DataBind();
-            Lista_Servicios.Items.Insert(0, new ListItem ("- - SELECCIONE - -", "0"));
+            Lista_Servicios.Items.Insert(0, new ListItem("- - SELECCIONE - -", "0"));
         }
         else
         {
@@ -134,16 +136,19 @@ public partial class Solicitud : System.Web.UI.Page
                 }
                 else
                 {
-                    
+
                     string script = "mensaje15();";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje15", script, true);
                 }
             }
-            else {
+            else
+            {
                 string script = "mensaje3();";
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje3", script, true);
             }
-        } else {
+        }
+        else
+        {
             string script = "mensaje4();";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje4", script, true);
         }
@@ -152,7 +157,7 @@ public partial class Solicitud : System.Web.UI.Page
     private void Guarda_Servicio_Solicitud()
     {
         DataSet dt = new DataSet();
-        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("INSERTAR", Convert.ToInt32(Lista_Servicios.SelectedValue),Convert.ToInt32(ID_CASO.Text), Convert.ToInt32(Lista_Tecnicos.SelectedValue));
+        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("INSERTAR", Convert.ToInt32(Lista_Servicios.SelectedValue), Convert.ToInt32(ID_CASO.Text), Convert.ToInt32(Lista_Tecnicos.SelectedValue));
         if (dt.Tables[0].Rows.Count == 0)
         {
             var Guardar_Datos = -1;
@@ -167,7 +172,7 @@ public partial class Solicitud : System.Web.UI.Page
             }
             else
             {
-                
+
             }
         }
     }
@@ -259,7 +264,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Servicio_Solicitud.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Servicio_Solicitud.Id_Servicio = Convert.ToInt32(Lista_Servicios.SelectedValue);
         E_Servicio_Solicitud.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
-        
+
     }
     private void Controles_Objetos_Solicitud()
     {
@@ -293,6 +298,7 @@ public partial class Solicitud : System.Web.UI.Page
         if (dt.Tables[0].Rows.Count > 0)
         {
             GridView2.DataSource = dt.Tables[0];
+
             GridView2.DataBind();
         }
         else
@@ -323,13 +329,13 @@ public partial class Solicitud : System.Web.UI.Page
         ID_CASO.Text = "0";
         Exp.Text = string.Empty;
         Poliza.Text = string.Empty;
-        Asegurado.Text=string.Empty;
-        Contacto.Text=string.Empty;
-        Fact.Text=string.Empty;
+        Asegurado.Text = string.Empty;
+        Contacto.Text = string.Empty;
+        Fact.Text = string.Empty;
         Lista_Tecnicos.ClearSelection();
         Lista_Tecnicos.Items.Clear();
-        Direccion.Text=string.Empty;
-        Observaciones.Text=string.Empty;
+        Direccion.Text = string.Empty;
+        Observaciones.Text = string.Empty;
         Estado_Caso_Creacion.Text = "ABIERTO";
         Accion.Text = "INSERTAR";
         Accion_Tecnico.Text = "INSERTAR";
@@ -340,15 +346,16 @@ public partial class Solicitud : System.Web.UI.Page
         CHCerrarCaso.Attributes.CssStyle.Add("display", "none");
         lblCerrarCaso.Attributes.CssStyle.Add("display", "none");
         Div_Materiales.Attributes.CssStyle.Add("display", "none");
-        Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display","none");
+        Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
         Div_Historial.Attributes.CssStyle.Add("display", "none");
         lblValorTrabajo.Attributes.CssStyle.Add("display", "none");
         Valor_Trabajo.Attributes.CssStyle.Add("display", "none");
-        Div_Agrega_Servicio.Attributes.CssStyle.Add("display","none");
+        Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
         Lista_Servicios.ClearSelection();
         Lista_Servicios.Items.Clear();
         Valor_Trabajo.Text = "";
         Valor_Trabajo.Attributes.Add("ReadOnly", "false");
+        Aplaza_Caso.Attributes.CssStyle.Add("display", "none");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -363,7 +370,7 @@ public partial class Solicitud : System.Web.UI.Page
             Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
             Exp.ReadOnly = true;
             //Exp.Attributes.Add("disabled", "true");
-            Poliza.Text= dt.Tables[0].Rows[0]["POLIZA"].ToString();
+            Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
             Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
             Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
             Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
@@ -374,7 +381,7 @@ public partial class Solicitud : System.Web.UI.Page
             Accion_Tecnico.Text = "INSERTAR";
             Estado_Caso_Creacion.Text = "ASIGNADO";
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
-            Div_Historial.Attributes.CssStyle.Add("display","block");
+            Div_Historial.Attributes.CssStyle.Add("display", "block");
             Historial_Solicitud();
             Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
         }
@@ -390,7 +397,7 @@ public partial class Solicitud : System.Web.UI.Page
     private void Listar_Tipo_Servicios()
     {
         DataSet dt = new DataSet();
-        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("LISTAR",0,Convert.ToInt32(ID_CASO.Text), 0);
+        dt = O_Neg_Solicitud.Selecciona_Servicio_Solicitud("LISTAR", 0, Convert.ToInt32(ID_CASO.Text), 0);
         if (dt.Tables[0].Rows.Count > 0)
         {
             Lista_Servicios.DataSource = dt;
@@ -456,15 +463,24 @@ public partial class Solicitud : System.Web.UI.Page
             Listar_Servicios_Solicitud_Cedula();
             Accion.Text = "UPDATE";
             Accion_Tecnico.Text = "UPDATE";
-            Fecha_Agendamiento.Attributes.CssStyle.Add("display","block");
+            Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
             lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
-            Div_Materiales.Attributes.CssStyle.Add("display","block");
+            Div_Materiales.Attributes.CssStyle.Add("display", "block");
             Materiales_A_Agregar();
             Tabla_Materiales_Solicitud();
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
             Div_Historial.Attributes.CssStyle.Add("display", "block");
             Historial_Solicitud();
             Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
+            Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
+            if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
+            {
+                Aplaza_Caso.Text = "APLAZAR";
+            }
+            else
+            {
+                Aplaza_Caso.Text = "RE-ABRIR";
+            }
         }
         else
         {
@@ -543,14 +559,15 @@ public partial class Solicitud : System.Web.UI.Page
             Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
             Div_Historial.Attributes.CssStyle.Add("display", "block");
             Historial_Solicitud();
-            lblValorTrabajo.Attributes.CssStyle.Add("display","block");
+            lblValorTrabajo.Attributes.CssStyle.Add("display", "block");
             Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
             Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
             if (dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString() != "")
             {
                 Valor_Trabajo.Text = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
-                Valor_Trabajo.Attributes.Add("ReadOnly","true");
+                Valor_Trabajo.Attributes.Add("ReadOnly", "true");
             }
+            
 
         }
         else
@@ -588,7 +605,7 @@ public partial class Solicitud : System.Web.UI.Page
                 {
                     if (Convert.ToInt32(CantidadMaterial.Text) <= Convert.ToInt32(MaterialDisponible.Text))
                     {
-                        
+
                         Controles_Objetos_Solicitud();
                         var Guardar_Datos = -1;
                         Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("INSERTAR", E_Materiales_Solicitudes);
@@ -605,7 +622,7 @@ public partial class Solicitud : System.Web.UI.Page
                         {
                             string script = "mensaje6();";
                             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje6", script, true);
-                            
+
                         }
                     }
                     else
@@ -622,18 +639,20 @@ public partial class Solicitud : System.Web.UI.Page
                     Tabla_Materiales_Solicitud();
                 }
             }
-            else {
+            else
+            {
                 string script = "mensaje9();";
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje9", script, true);
                 Tabla_Materiales_Solicitud();
             }
         }
-        else {
+        else
+        {
             string script = "mensaje8();";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje8", script, true);
             Tabla_Materiales_Solicitud();
         }
-        
+
 
     }
 
@@ -647,7 +666,7 @@ public partial class Solicitud : System.Web.UI.Page
     private void Controles_a_Objeto_Inventario()
     {
         E_Materiales.Id = Convert.ToInt32(Select_Materiales.SelectedValue);
-        E_Materiales.Cantidad = Convert.ToString((Convert.ToInt32(MaterialDisponible.Text))-(Convert.ToInt32(CantidadMaterial.Text)));
+        E_Materiales.Cantidad = Convert.ToString((Convert.ToInt32(MaterialDisponible.Text)) - (Convert.ToInt32(CantidadMaterial.Text)));
         E_Materiales.Material = Convert.ToString(Select_Materiales.SelectedItem);
     }
 
@@ -674,11 +693,11 @@ public partial class Solicitud : System.Web.UI.Page
             GridView4.DataSource = null;
             GridView4.DataBind();
         }
-        Div_Grid4.Attributes.CssStyle.Add("display","block");
+        Div_Grid4.Attributes.CssStyle.Add("display", "block");
     }
     public void CantidadMaterial_TextChanged()
     {
-        if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -" && CantidadMaterial.Text!= "")
+        if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -" && CantidadMaterial.Text != "")
         {
             DataSet dt = new DataSet();
             dt = O_Neg_Solicitud.Seleccionar_Cantidad_Material(Convert.ToInt32(Select_Materiales.SelectedValue));
@@ -712,7 +731,7 @@ public partial class Solicitud : System.Web.UI.Page
         Tabla_Materiales_Solicitud();
     }
 
-    
+
 
     protected void GridView4_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -738,9 +757,9 @@ public partial class Solicitud : System.Web.UI.Page
                 operacion = Convert.ToInt32(Act_Cantidad.Text) - Convert.ToInt32(Act_CantidadInicial.Text);
             }
 
-            if ((operacion <= Convert.ToInt32(MaterialDisponible.Text)) )
+            if ((operacion <= Convert.ToInt32(MaterialDisponible.Text)))
             {
-                
+
                 Calculos();
                 Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("UPDATE", E_Materiales_Solicitudes);
                 if (Guardar_Datos != -1)
@@ -761,12 +780,12 @@ public partial class Solicitud : System.Web.UI.Page
             {
                 Error2.Attributes.CssStyle.Add("display", "inline-block");
                 Ok2.Attributes.CssStyle.Add("display", "none");
-                Div_Actualiza.Attributes.CssStyle.Add("display","block");
-                Div_Grid4.Attributes.CssStyle.Add("display","none");
+                Div_Actualiza.Attributes.CssStyle.Add("display", "block");
+                Div_Grid4.Attributes.CssStyle.Add("display", "none");
                 string script = "mensaje10();";
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje9", script, true);
             }
-        } 
+        }
         else
         {
             string script = "mensaje14();";
@@ -783,8 +802,8 @@ public partial class Solicitud : System.Web.UI.Page
         Limpiar_Controles_Materiales();
         Materiales_A_Agregar();
         Tabla_Materiales_Solicitud();
-        Div_Actualiza.Attributes.CssStyle.Add("display","none");
-        Error2.Attributes.CssStyle.Add("display","none");
+        Div_Actualiza.Attributes.CssStyle.Add("display", "none");
+        Error2.Attributes.CssStyle.Add("display", "none");
     }
     private void Calculos()
     {
@@ -810,7 +829,7 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Lista_Tecnicos_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (Lista_Tecnicos.SelectedValue != "- - SELECCIONE - -" )
+        if (Lista_Tecnicos.SelectedValue != "- - SELECCIONE - -")
         {
             Carga_Fecha_Asignada_Tecnico();
         }
@@ -844,5 +863,62 @@ public partial class Solicitud : System.Web.UI.Page
     {
         GridView5.PageIndex = e.NewPageIndex;
         Historial_Solicitud();
+    }
+
+    protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+
+        {
+            TextBox Trabajo = (TextBox)e.Row.FindControl("Trabajo");
+            string Estado_Trabajo = Trabajo.Text;
+
+            if (Estado_Trabajo == "APLAZADO")
+            {
+                e.Row.BackColor = Color.FromName("#cc8181");
+            }
+        }
+    }
+
+    protected void AplazaCaso_Click(object sender, EventArgs e)
+    {
+        if (Aplaza_Caso.Text == "APLAZAR")
+        {
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
+
+            foreach (var l in dt.Tables[0].Rows)
+            {
+                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString());
+                E_Usuarios.Disponible = "DISPONIBLE";
+                var Guardar_Datos = -1;
+                Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+            }
+            E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
+            E_Turnos.Trabajo = "APLAZADO";
+            var Guardar_Datos2 = -1;
+            Guardar_Datos2 = O_Neg_Solicitud.abc_Turnos("UPDATE TRABAJO", E_Turnos);
+        }
+        else
+        {
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
+
+            ArrayList Users = new ArrayList();
+            foreach (var l in dt.Tables[0].Rows)
+            {
+                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString());
+                E_Usuarios.Disponible = "OCUPADO";
+                var Guardar_Datos = -1;
+                Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+            }
+            E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
+            E_Turnos.Trabajo = "OCUPADO";
+            var Guardar_Datos2 = -1;
+            Guardar_Datos2 = O_Neg_Solicitud.abc_Turnos("UPDATE TRABAJO", E_Turnos);
+        }
+        string script = "window.location.href = 'Solicitud.aspx';";
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CallMyString", script, true);
+        
     }
 }

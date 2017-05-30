@@ -85,6 +85,11 @@
     {
         window.location.href="Solicitud.aspx";
     }
+    function Aplaza()
+    {
+        var x = document.getElementById('<%=AplazaCaso.ClientID%>');
+        x.click();
+    }
     </script>
 
     <div id="main">
@@ -93,7 +98,8 @@
                 <div class="3u 12u(mobile)" style="margin-top: 50px;">
                     <section>
                         <h3 style="text-transform: none; font-weight: bold">Agendar Casos</h3>
-                        <asp:GridView ID="GridView2" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                        <asp:GridView ID="GridView2" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" 
+                            AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;" OnRowDataBound="GridView2_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
                                 <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
@@ -103,6 +109,12 @@
                                         <a href='javascript:editar2("<%# Eval("ID") %>");'>
                                             <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
                                         </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText=" ">
+                                    <ItemTemplate>
+                                        <%--<asp:Literal ID="ltltotal" runat="server" Text='<%# Eval("TRABAJO") %>' Visible="false"/>--%>
+                                        <asp:TextBox runat="server" ID="Trabajo" Text='<%# Eval("TRABAJO") %>' style="display:none"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -217,8 +229,8 @@
                                         <asp:TextBox CssClass="inp_form"  ID="Valor_Trabajo" runat="server" Style="display: none"></asp:TextBox>
                                         
                                     </td>
-                                    <td>
-                                        
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <asp:Label ID="Aplaza_Caso" runat="server" Style="font-weight: bold; display:none; cursor:pointer" onclick="Aplaza();"></asp:Label>
                                     </td>
                                 </tr>
                             </table>
@@ -393,7 +405,8 @@
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
-    <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" />                                
+    <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" /> 
+    <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  />                           
     
 
     <div class="modal-wrapper" id="Materiales">
