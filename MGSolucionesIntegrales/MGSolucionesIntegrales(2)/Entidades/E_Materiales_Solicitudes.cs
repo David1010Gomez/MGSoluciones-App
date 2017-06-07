@@ -15,6 +15,8 @@ namespace Entidades
         private int _Id_Material;
         private string _Cantidad;
         private int _Cedula_Tecnico;
+        private int _Precio_Unidad;
+        private int _Precio_Total;
         #endregion
         #region Constructor
         public E_Materiales_Solicitudes()
@@ -25,6 +27,8 @@ namespace Entidades
             _Id_Material = 0;
             _Cantidad = string.Empty;
             _Cedula_Tecnico = 0;
+            _Precio_Unidad = 0;
+            _Precio_Total = 0;
         }
         #endregion
         #region Encapsulamiento
@@ -103,6 +107,32 @@ namespace Entidades
             set
             {
                 _Cedula_Tecnico = value;
+            }
+        }
+
+        public int Precio_Unidad
+        {
+            get
+            {
+                return _Precio_Unidad;
+            }
+
+            set
+            {
+                _Precio_Unidad = value;
+            }
+        }
+
+        public int Precio_Total
+        {
+            get
+            {
+                return _Precio_Total;
+            }
+
+            set
+            {
+                _Precio_Total = value;
             }
         }
         #endregion

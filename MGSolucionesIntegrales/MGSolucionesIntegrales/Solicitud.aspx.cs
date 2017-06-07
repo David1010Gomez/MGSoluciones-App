@@ -41,9 +41,15 @@ public partial class Solicitud : System.Web.UI.Page
     private void Materiales_A_Agregar()
     {
         DataSet dt = new DataSet();
-
+        int i = 0;
         dt = O_Neg_Solicitud.Materiales_a_Agregar();
-
+        ArrayList PreciosUnitarios = new ArrayList();
+        foreach (var P in dt.Tables[0].Rows)
+        {
+            int Valor = Convert.ToInt32(dt.Tables[0].Rows[i]["PRECIO_UNIDAD"].ToString());
+            PreciosUnitarios.Add(Valor);
+            i++;
+        }
         if (dt.Tables[0].Rows.Count > 0)
         {
             Select_Materiales.DataSource = dt;
@@ -51,11 +57,14 @@ public partial class Solicitud : System.Web.UI.Page
             Select_Materiales.DataValueField = "ID";
             Select_Materiales.DataBind();
             Select_Materiales.Items.Insert(0, "- - SELECCIONE - -");
+            Costo_Unidad.Text = "0";
+            
         }
         else
         {
             Select_Materiales.Items.Clear();
             Select_Materiales.Items.Insert(0, "- - NO HAY MATERIALES - -");
+            Costo_Unidad.Text = "0";
         }
     }
     private void Tipo_Servicios()
@@ -272,6 +281,8 @@ public partial class Solicitud : System.Web.UI.Page
         E_Materiales_Solicitudes.Id_Material = Convert.ToInt32(Select_Materiales.SelectedValue);
         E_Materiales_Solicitudes.Cantidad = CantidadMaterial.Text;
         E_Materiales_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+        E_Materiales_Solicitudes.Precio_Unidad = Convert.ToInt32(Select_Materiales.SelectedValue);
+        E_Materiales_Solicitudes.Precio_Total = 0;
     }
 
     private void Casos_Abiertos()
@@ -567,7 +578,15 @@ public partial class Solicitud : System.Web.UI.Page
                 Valor_Trabajo.Text = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
                 Valor_Trabajo.Attributes.Add("ReadOnly", "true");
             }
-            
+            Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
+            if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
+            {
+                Aplaza_Caso.Text = "APLAZAR";
+            }
+            else
+            {
+                Aplaza_Caso.Text = "RE-ABRIR";
+            }
 
         }
         else
@@ -668,6 +687,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Materiales.Id = Convert.ToInt32(Select_Materiales.SelectedValue);
         E_Materiales.Cantidad = Convert.ToString((Convert.ToInt32(MaterialDisponible.Text)) - (Convert.ToInt32(CantidadMaterial.Text)));
         E_Materiales.Material = Convert.ToString(Select_Materiales.SelectedItem);
+        E_Materiales.Precio_Unidad = 0;
     }
 
     private void Limpiar_Controles_Materiales()
@@ -886,13 +906,15 @@ public partial class Solicitud : System.Web.UI.Page
         {
             DataSet dt = new DataSet();
             dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
-
+            int i = 0;
             foreach (var l in dt.Tables[0].Rows)
             {
-                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString());
+                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+                
                 E_Usuarios.Disponible = "DISPONIBLE";
                 var Guardar_Datos = -1;
                 Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+                i++;
             }
             E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
             E_Turnos.Trabajo = "APLAZADO";
@@ -903,14 +925,14 @@ public partial class Solicitud : System.Web.UI.Page
         {
             DataSet dt = new DataSet();
             dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
-
-            ArrayList Users = new ArrayList();
+            int i = 0;
             foreach (var l in dt.Tables[0].Rows)
             {
-                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString());
+                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
                 E_Usuarios.Disponible = "OCUPADO";
                 var Guardar_Datos = -1;
                 Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+                i++;
             }
             E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
             E_Turnos.Trabajo = "OCUPADO";
@@ -920,5 +942,16 @@ public partial class Solicitud : System.Web.UI.Page
         string script = "window.location.href = 'Solicitud.aspx';";
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CallMyString", script, true);
         
+    }
+
+    protected void Select_Materiales_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        //ArrayList PreciosUnitarios = new ArrayList();
+        foreach (var P )
+        {
+            //int Valor = Convert.ToInt32(dt.Tables[0].Rows[i]["PRECIO_UNIDAD"].ToString());
+            //PreciosUnitarios.Add(Valor);
+            //i++;
+        }
     }
 }

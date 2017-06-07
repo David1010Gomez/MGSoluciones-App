@@ -307,7 +307,9 @@ namespace Datos
             cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Materiales_Solicitudes.Id_Solicitud);
             cmd.Parameters.AddWithValue("@ID_MATERIAL", Obj_Materiales_Solicitudes.Id_Material);
             cmd.Parameters.AddWithValue("@CANTIDAD", Obj_Materiales_Solicitudes.Cantidad);
-            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Materiales_Solicitudes.Cedula_Tecnico);
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Materiales_Solicitudes.Cedula_Tecnico); 
+            cmd.Parameters.AddWithValue("@PRECIO_UNIDAD", Obj_Materiales_Solicitudes.Precio_Unidad); 
+            cmd.Parameters.AddWithValue("@PRECIO_TOTAL", Obj_Materiales_Solicitudes.Precio_Total);
 
             try
             {
@@ -384,6 +386,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@ID", Obj_Materiales.Id);
             cmd.Parameters.AddWithValue("@MATERIAL", Obj_Materiales.Material);
             cmd.Parameters.AddWithValue("@CANTIDAD", Obj_Materiales.Cantidad);
+            cmd.Parameters.AddWithValue("@PRECIO_UNIDAD", Obj_Materiales.Precio_Unidad);
 
             try
             {

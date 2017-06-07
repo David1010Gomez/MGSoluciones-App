@@ -422,14 +422,20 @@
                                 <asp:Label runat="server" class="comments">Material: </asp:Label>
                             </td>
                             <td>
+                                <asp:Label runat="server" class="comments">Costo por unidad: </asp:Label>
+                            </td>
+                            <td>
                                 <asp:Label runat="server" class="comments">Cantidad: </asp:Label>
                             </td>
                             <%--<td></td>--%>
                         </tr>
                         <tr>
                             <td style="width: 50%;">
-                                <asp:DropDownList ID="Select_Materiales" CssClass="Lista_Tecnicos" runat="server">
+                                <asp:DropDownList ID="Select_Materiales" CssClass="Lista_Tecnicos" runat="server" OnSelectedIndexChanged="Select_Materiales_SelectedIndexChanged">
                                 </asp:DropDownList>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="Costo_Unidad" ReadOnly="true" CssClass="inp_form" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server"></asp:TextBox>

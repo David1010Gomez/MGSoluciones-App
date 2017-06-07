@@ -12,6 +12,7 @@ namespace Entidades
         private int _Id;
         private string _Material;
         private string _Cantidad;
+        private int _Precio_Unidad;
         #endregion
         #region Constructor
         public E_Materiales()
@@ -19,6 +20,7 @@ namespace Entidades
             _Id = 0;
             Material = string.Empty;
             _Cantidad = string.Empty;
+            _Precio_Unidad = 0;
         }
         #endregion
         #region Encapsulamiento
@@ -58,6 +60,19 @@ namespace Entidades
             set
             {
                 _Cantidad = value;
+            }
+        }
+
+        public int Precio_Unidad
+        {
+            get
+            {
+                return _Precio_Unidad;
+            }
+
+            set
+            {
+                _Precio_Unidad = value;
             }
         }
         #endregion
