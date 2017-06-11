@@ -116,5 +116,9 @@ namespace Negocios
         {
             return DN_Solicitud.Selecciona_Servicio_Solicitud(pAccion, pIdServicio, pIdSolicitud, pCedulaTecnico);
         }
+        public DataSet Selecciona_Precio_Unitario(int pId)
+        {
+            return DN_Solicitud.Selecciona_Precio_Unitario(pId);
+        }
     }
 }

@@ -678,5 +678,29 @@ namespace Datos
             }
             return ds;
         }
+        public DataSet Selecciona_Precio_Unitario(int pId)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_PRECIO_UNITARIO_MATERIALES]";
+                cmd.Parameters.AddWithValue("@ID", pId);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los precios unitarios de Materiales a agregar", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
     }
 }

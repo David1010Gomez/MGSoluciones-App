@@ -25,7 +25,7 @@
             x.click();
             $('#Nuevo_Tecnico').css('display', 'block');
         }
-        function editarListaMateriales(Id, Material, Cantidad, Id_Material) {
+        function editarListaMateriales(Id, Material, Cantidad, Id_Material, PrecioUnit, PrecioTotal) {
             document.getElementById("<%=Div_Actualiza.ClientID%>").style.display = "block";
             document.getElementById("<%=GridView4.ClientID%>").style.display = "none";
             $("#<%=Act_Id.ClientID%>").val(Id);
@@ -33,6 +33,8 @@
             $("#<%=Act_Cantidad.ClientID%>").val(Cantidad);
             $("#<%=Act_Id_Material.ClientID%>").val(Id_Material);
             $("#<%=Act_CantidadInicial.ClientID%>").val(Cantidad);
+            $("#<%=Act_Precio_Unitario.ClientID%>").val(PrecioUnit);
+            $("#<%=Act_Precio_Total.ClientID%>").val(PrecioTotal);
             
         }
         function Oculta_Div_Actualiza()
@@ -431,7 +433,7 @@
                         </tr>
                         <tr>
                             <td style="width: 50%;">
-                                <asp:DropDownList ID="Select_Materiales" CssClass="Lista_Tecnicos" runat="server" OnSelectedIndexChanged="Select_Materiales_SelectedIndexChanged">
+                                <asp:DropDownList ID="Select_Materiales" CssClass="Lista_Tecnicos" runat="server" OnSelectedIndexChanged="Select_Materiales_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -464,9 +466,11 @@
                             <asp:BoundField DataField="ID_MATERIAL" HeaderText="ID MATERIAL" />
                             <asp:BoundField DataField="MATERIAL" HeaderText="MATERIAL" />
                             <asp:BoundField DataField="CANTIDAD" HeaderText="CANTIDAD" />
+                            <asp:BoundField DataField="PRECIO_UNIDAD" HeaderText="PRECIO UNITARIO" />
+                            <asp:BoundField DataField="PRECIO_TOTAL" HeaderText="PRECIO TOTAL" />
                             <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                 <ItemTemplate>
-                                    <a href='javascript:editarListaMateriales("<%# Eval("ID") %>","<%# Eval("MATERIAL") %>", "<%# Eval("CANTIDAD") %>", "<%# Eval("ID_MATERIAL")%>");'>
+                                    <a href='javascript:editarListaMateriales("<%# Eval("ID") %>","<%# Eval("MATERIAL") %>", "<%# Eval("CANTIDAD") %>", "<%# Eval("ID_MATERIAL")%>", "<%# Eval("PRECIO_UNIDAD")%>", "<%# Eval("PRECIO_TOTAL")%>");'>
                                         <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
                                     </a>
                                 </ItemTemplate>
@@ -499,7 +503,13 @@
                                     <asp:Label runat="server">Material</asp:Label>
                                 </td>
                                 <td>
+                                    <asp:Label runat="server">Precio Unitario</asp:Label>
+                                </td>
+                                <td>
                                     <asp:Label runat="server">Cantidad</asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label runat="server">Precio Total</asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -513,9 +523,15 @@
                                     <asp:TextBox ID="Act_Material" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
                                 </td>
                                 <td>
+                                    <asp:TextBox ID="Act_Precio_Unitario" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
+                                </td>
+                                <td>
                                     <asp:TextBox ID="Act_Cantidad" runat="server" CssClass="inp_form"></asp:TextBox>
                                     <i id="Ok2" class="fa fa-check" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
                                     <i id="Error2" class="fa fa-times" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="Act_Precio_Total" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
                                 </td>
                                 <td style="text-align: center">
                                 <asp:Button ID="Actualiza_Registro_Inventario" runat="server" OnClick="Actualiza_Registro_Inventario_Click" CssClass="button" Text="Actualiza Registro" Style="text-transform: none; font-size: 0.9em; padding: 7px;" />

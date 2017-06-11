@@ -41,15 +41,8 @@ public partial class Solicitud : System.Web.UI.Page
     private void Materiales_A_Agregar()
     {
         DataSet dt = new DataSet();
-        int i = 0;
         dt = O_Neg_Solicitud.Materiales_a_Agregar();
-        ArrayList PreciosUnitarios = new ArrayList();
-        foreach (var P in dt.Tables[0].Rows)
-        {
-            int Valor = Convert.ToInt32(dt.Tables[0].Rows[i]["PRECIO_UNIDAD"].ToString());
-            PreciosUnitarios.Add(Valor);
-            i++;
-        }
+        
         if (dt.Tables[0].Rows.Count > 0)
         {
             Select_Materiales.DataSource = dt;
@@ -281,8 +274,8 @@ public partial class Solicitud : System.Web.UI.Page
         E_Materiales_Solicitudes.Id_Material = Convert.ToInt32(Select_Materiales.SelectedValue);
         E_Materiales_Solicitudes.Cantidad = CantidadMaterial.Text;
         E_Materiales_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
-        E_Materiales_Solicitudes.Precio_Unidad = Convert.ToInt32(Select_Materiales.SelectedValue);
-        E_Materiales_Solicitudes.Precio_Total = 0;
+        E_Materiales_Solicitudes.Precio_Unidad = Convert.ToInt32(Convert.ToInt32(Costo_Unidad.Text));
+        E_Materiales_Solicitudes.Precio_Total = Convert.ToInt32(Convert.ToInt32(Costo_Unidad.Text) * Convert.ToInt32(CantidadMaterial.Text));
     }
 
     private void Casos_Abiertos()
@@ -624,7 +617,6 @@ public partial class Solicitud : System.Web.UI.Page
                 {
                     if (Convert.ToInt32(CantidadMaterial.Text) <= Convert.ToInt32(MaterialDisponible.Text))
                     {
-
                         Controles_Objetos_Solicitud();
                         var Guardar_Datos = -1;
                         Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("INSERTAR", E_Materiales_Solicitudes);
@@ -697,6 +689,7 @@ public partial class Solicitud : System.Web.UI.Page
         CantidadMaterial.Text = "";
         Error.Attributes.CssStyle.Add("display", "none");
         Ok.Attributes.CssStyle.Add("display", "none");
+        Costo_Unidad.Text = "";
     }
     private void Tabla_Materiales_Solicitud()
     {
@@ -779,8 +772,9 @@ public partial class Solicitud : System.Web.UI.Page
 
             if ((operacion <= Convert.ToInt32(MaterialDisponible.Text)))
             {
-
                 Calculos();
+                int PrecioFinal = Convert.ToInt32(Act_Cantidad.Text) * Convert.ToInt32(Act_Precio_Unitario.Text);
+                E_Materiales_Solicitudes.Precio_Total = Convert.ToInt32(PrecioFinal);
                 Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("UPDATE", E_Materiales_Solicitudes);
                 if (Guardar_Datos != -1)
                 {
@@ -946,12 +940,12 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Select_Materiales_SelectedIndexChanged(object sender, EventArgs e)
     {
-        //ArrayList PreciosUnitarios = new ArrayList();
-        foreach (var P )
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Selecciona_Precio_Unitario(Convert.ToInt32(Select_Materiales.SelectedValue));
+        if (dt.Tables[0].Rows.Count > 0)
         {
-            //int Valor = Convert.ToInt32(dt.Tables[0].Rows[i]["PRECIO_UNIDAD"].ToString());
-            //PreciosUnitarios.Add(Valor);
-            //i++;
+            Costo_Unidad.Text = dt.Tables[0].Rows[0]["PRECIO_UNIDAD"].ToString(); ;
         }
+        Tabla_Materiales_Solicitud();
     }
 }
