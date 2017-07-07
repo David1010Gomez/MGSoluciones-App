@@ -92,6 +92,11 @@
         var x = document.getElementById('<%=AplazaCaso.ClientID%>');
         x.click();
     }
+    <%--function ButtonMateriales_A_Agregar()
+    {
+        var x = document.getElementById('<%=Materiales_A_Agregar2.ClientID%>');
+        x.click();
+    }--%>
     </script>
 
     <div id="main">
@@ -408,8 +413,8 @@
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" /> 
-    <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  />                           
-    
+    <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  /> 
+    <%--<asp:Button runat="server" style="display:none;" ID="Materiales_A_Agregar2" OnClick="Materiales_A_Agregar2_Click" />--%>
 
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor" style="margin-top: 80px;">

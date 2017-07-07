@@ -111,7 +111,7 @@ public partial class Solicitud : System.Web.UI.Page
         {
             if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - SELECCIONE - -"))
             {
-                if (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -")
+                if ((Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -") || (Convert.ToString(Lista_Servicios.SelectedItem) == "- - SIN SERVICIOS - -"))
                 {
                     Controles_Objetos();
                     var Guardar_Datos = -1;
@@ -608,7 +608,7 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Guarda_Material_Caso_Click(object sender, EventArgs e)
     {
-        if (Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -" && Convert.ToString(Select_Materiales.SelectedItem) != "" && Convert.ToString(Select_Materiales.SelectedItem) != null)
+        if ((Convert.ToString(Select_Materiales.SelectedItem) != "- - SELECCIONE - -") && (Convert.ToString(Select_Materiales.SelectedItem) != "") && (Convert.ToString(Select_Materiales.SelectedItem) != null))
         {
             if (CantidadMaterial.Text != "")
             {
@@ -855,6 +855,7 @@ public partial class Solicitud : System.Web.UI.Page
         {
             Listar_Servicios_Solicitud_Cedula();
         }
+        Materiales_A_Agregar();
     }
     private void Historial_Solicitud()
     {
@@ -948,4 +949,9 @@ public partial class Solicitud : System.Web.UI.Page
         }
         Tabla_Materiales_Solicitud();
     }
+
+    //protected void Materiales_A_Agregar2_Click(object sender, EventArgs e)
+    //{
+    //    Materiales_A_Agregar();
+    //}
 }
