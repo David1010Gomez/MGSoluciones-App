@@ -19,3 +19,10 @@ C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSol
 C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Debug\Datos.csprojResolveAssemblyReference.cache
 C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Debug\Datos.dll
 C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Debug\Datos.pdb
+C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Debug\Datos.dll
+C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Debug\Datos.pdb
+C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Debug\Entidades.dll
+C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Debug\Entidades.pdb
+C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Debug\Datos.csprojResolveAssemblyReference.cache
+C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Debug\Datos.dll
+C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Debug\Datos.pdb

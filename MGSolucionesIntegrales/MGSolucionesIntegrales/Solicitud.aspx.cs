@@ -358,7 +358,6 @@ public partial class Solicitud : System.Web.UI.Page
         Lista_Servicios.ClearSelection();
         Lista_Servicios.Items.Clear();
         Valor_Trabajo.Text = "";
-        Valor_Trabajo.Attributes.Add("ReadOnly", "false");
         Aplaza_Caso.Attributes.CssStyle.Add("display", "none");
     }
 
@@ -566,10 +565,18 @@ public partial class Solicitud : System.Web.UI.Page
             lblValorTrabajo.Attributes.CssStyle.Add("display", "block");
             Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
             Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
-            if (dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString() != "")
+            var r = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
+            r.Trim();
+            if ((!r.Equals("")))
             {
                 Valor_Trabajo.Text = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
+                //Valor_Trabajo.Text = "123";
                 Valor_Trabajo.Attributes.Add("ReadOnly", "true");
+            }
+            else
+            {
+                Valor_Trabajo.Text = "";
+                Valor_Trabajo.Attributes.Remove("ReadOnly");
             }
             Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
             if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
@@ -846,8 +853,10 @@ public partial class Solicitud : System.Web.UI.Page
         if (Lista_Tecnicos.SelectedValue != "- - SELECCIONE - -")
         {
             Carga_Fecha_Asignada_Tecnico();
+            Materiales_A_Agregar();
+            Tabla_Materiales_Solicitud();
         }
-        if (Estado_Caso_Creacion.Text == "ABIERTO" || Estado_Caso_Creacion.Text == "ASIGNADO" || Convert.ToInt32(Lista_Servicios.SelectedValue) == 0)
+        if ((Estado_Caso_Creacion.Text == "ABIERTO") || (Estado_Caso_Creacion.Text == "ASIGNADO") || (Convert.ToInt32(Lista_Servicios.SelectedValue) == 0))
         {
 
         }
@@ -855,7 +864,7 @@ public partial class Solicitud : System.Web.UI.Page
         {
             Listar_Servicios_Solicitud_Cedula();
         }
-        Materiales_A_Agregar();
+        
     }
     private void Historial_Solicitud()
     {

@@ -367,7 +367,8 @@
                 <div class="12u">
                     <section>
                         <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
-                        <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                        <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" 
+                            ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;" OnRowDataBound="GridView2_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
                                 <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
@@ -384,6 +385,12 @@
                                         <a href='javascript:editar3("<%# Eval("ID") %>");'>
                                             <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
                                         </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText=" ">
+                                    <ItemTemplate>
+                                        <%--<asp:Literal ID="ltltotal" runat="server" Text='<%# Eval("TRABAJO") %>' Visible="false"/>--%>
+                                        <asp:TextBox runat="server" ID="Trabajo" Text='<%# Eval("TRABAJO") %>' style="display:none"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
