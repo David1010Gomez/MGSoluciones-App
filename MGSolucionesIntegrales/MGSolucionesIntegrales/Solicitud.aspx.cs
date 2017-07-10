@@ -245,6 +245,8 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Cedula_Usuario_Cierre = 2569;
         E_Solicitud.Usuario_Ultima_Actualizacion = 555;
         E_Solicitud.Valor_Trabajo = Valor_Trabajo.Text;
+        E_Solicitud.Valor_Total = Convert.ToInt32(txtValorTotal.Text);
+        E_Solicitud.Usuario_Gestionando = "0";
 
         E_Tecni_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Tecni_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
@@ -302,7 +304,6 @@ public partial class Solicitud : System.Web.UI.Page
         if (dt.Tables[0].Rows.Count > 0)
         {
             GridView2.DataSource = dt.Tables[0];
-
             GridView2.DataBind();
         }
         else
@@ -357,44 +358,67 @@ public partial class Solicitud : System.Web.UI.Page
         Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
         Lista_Servicios.ClearSelection();
         Lista_Servicios.Items.Clear();
-        Valor_Trabajo.Text = "";
+        Valor_Trabajo.Text = "0";
         Aplaza_Caso.Attributes.CssStyle.Add("display", "none");
+        lblValorTotal.Attributes.CssStyle.Add("display", "none");
+        txtValorTotal.Attributes.CssStyle.Add("display", "none");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
-        DataSet dt = new DataSet();
-        dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+        DataSet ds = new DataSet();
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id);
         Limpiar_Controles();
-        if (dt.Tables[0].Rows.Count > 0)
+        if (ds.Tables[0].Rows.Count > 0)
         {
-            ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
-            Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
-            Exp.ReadOnly = true;
-            //Exp.Attributes.Add("disabled", "true");
-            Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
-            Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
-            Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
-            Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
-            Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
-            Listar_Tecnicos();
-            Listar_Tipo_Servicios();
-            Accion.Text = "UPDATE";
-            Accion_Tecnico.Text = "INSERTAR";
-            Estado_Caso_Creacion.Text = "ASIGNADO";
-            Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
-            Div_Historial.Attributes.CssStyle.Add("display", "block");
-            Historial_Solicitud();
-            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+            Limpiar_Controles();
+            if (dt.Tables[0].Rows.Count > 0)
+            {
+                ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
+                Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+                Exp.ReadOnly = true;
+                //Exp.Attributes.Add("disabled", "true");
+                Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
+                Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
+                Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
+                Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
+                Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
+                Listar_Tecnicos();
+                Listar_Tipo_Servicios();
+                Accion.Text = "UPDATE";
+                Accion_Tecnico.Text = "INSERTAR";
+                Estado_Caso_Creacion.Text = "ASIGNADO";
+                Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
+                Div_Historial.Attributes.CssStyle.Add("display", "block");
+                Historial_Solicitud();
+                Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
+                lblValorTotal.Attributes.CssStyle.Add("display", "none");
+                txtValorTotal.Attributes.CssStyle.Add("display", "none");
+                Gestionando_Caso();
+            }
+            else
+            {
+                string script3 = "mensaje5();";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje5", script3, true);
+
+            }
         }
         else
         {
-            string script3 = "mensaje5();";
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje5", script3, true);
+            string script3 = "mensaje16();";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje16", script3, true);
 
         }
 
+    }
+
+    private void Gestionando_Caso()
+    {
+        var Guardar_Datos = -1;
+        Guardar_Datos = O_Neg_Solicitud.Usuario_Gestionando_Caso(Convert.ToInt32(ID_CASO.Text), "123");
     }
 
     private void Listar_Tipo_Servicios()
@@ -449,46 +473,72 @@ public partial class Solicitud : System.Web.UI.Page
     protected void Cargar_Caso_Asignado_Click(object sender, EventArgs e)
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
-        DataSet dt = new DataSet();
-        dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+        DataSet ds = new DataSet();
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id);
         Limpiar_Controles();
-        if (dt.Tables[0].Rows.Count > 0)
+        if (ds.Tables[0].Rows.Count > 0)
         {
-            ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
-            Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
-            Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
-            Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
-            Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
-            Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
-            Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
-            Estado_Caso_Creacion.Text = "AGENDADO";
-            Carga_Tecnicos_solicitud();
-            Listar_Servicios_Solicitud_Cedula();
-            Accion.Text = "UPDATE";
-            Accion_Tecnico.Text = "UPDATE";
-            Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
-            lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
-            Div_Materiales.Attributes.CssStyle.Add("display", "block");
-            Materiales_A_Agregar();
-            Tabla_Materiales_Solicitud();
-            Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
-            Div_Historial.Attributes.CssStyle.Add("display", "block");
-            Historial_Solicitud();
-            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
-            Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
-            if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+            Limpiar_Controles();
+            if (dt.Tables[0].Rows.Count > 0)
             {
-                Aplaza_Caso.Text = "APLAZAR";
+                ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
+                Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+                Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
+                Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
+                Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
+                Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
+                Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
+                Estado_Caso_Creacion.Text = "AGENDADO";
+                Carga_Tecnicos_solicitud();
+                Listar_Servicios_Solicitud_Cedula();
+                Accion.Text = "UPDATE";
+                Accion_Tecnico.Text = "UPDATE";
+                Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+                lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+                Div_Materiales.Attributes.CssStyle.Add("display", "block");
+                Materiales_A_Agregar();
+                Tabla_Materiales_Solicitud();
+                Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
+                Div_Historial.Attributes.CssStyle.Add("display", "block");
+                Historial_Solicitud();
+                Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
+                Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
+                if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
+                {
+                    Aplaza_Caso.Text = "APLAZAR";
+                }
+                else
+                {
+                    Aplaza_Caso.Text = "RE-ABRIR";
+                }
+                lblValorTotal.Attributes.CssStyle.Add("display", "block");
+                txtValorTotal.Attributes.CssStyle.Add("display", "block");
+                int VT = Convert.ToInt32(dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString());
+                DataSet dt1 = new DataSet();
+                dt1 = O_Neg_Solicitud.Suma_Materiales_Solicitud(E_Solicitud.Id);
+                if (dt1.Tables[0].Rows.Count > 0)
+                {
+                    txtValorTotal.Text = Convert.ToString(VT + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
+                }
+                else
+                {
+                    txtValorTotal.Text = "No encontrado";
+                }
+                Gestionando_Caso();
             }
             else
             {
-                Aplaza_Caso.Text = "RE-ABRIR";
+                string script3 = "mensaje5();";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje5", script3, true);
+
             }
         }
         else
         {
-            string script3 = "mensaje5();";
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje5", script3, true);
+            string script3 = "mensaje16();";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje16", script3, true);
 
         }
     }
@@ -534,65 +584,89 @@ public partial class Solicitud : System.Web.UI.Page
     protected void Cargar_Caso_Agendado_Click(object sender, EventArgs e)
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
-        DataSet dt = new DataSet();
-        dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+        DataSet ds = new DataSet();
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id);
         Limpiar_Controles();
-        if (dt.Tables[0].Rows.Count > 0)
+        if (ds.Tables[0].Rows.Count > 0)
         {
-            ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
-            Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
-            Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
-            Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
-            Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
-            Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
-            Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
-            Estado_Caso_Creacion.Text = "CERRADO";
-            Carga_Tecnicos_solicitud();
-            Listar_Servicios_Solicitud_Cedula();
-            Accion.Text = "UPDATE";
-            Accion_Tecnico.Text = "UPDATE";
-            Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
-            lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
-            lblCerrarCaso.Attributes.CssStyle.Add("display", "block");
-            CHCerrarCaso.Attributes.CssStyle.Add("display", "block");
-            Div_Materiales.Attributes.CssStyle.Add("display", "block");
-            Carga_Fecha_Asignada_Tecnico();
-            Materiales_A_Agregar();
-            Tabla_Materiales_Solicitud();
-            Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
-            Div_Historial.Attributes.CssStyle.Add("display", "block");
-            Historial_Solicitud();
-            lblValorTrabajo.Attributes.CssStyle.Add("display", "block");
-            Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
-            Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
-            var r = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
-            r.Trim();
-            if ((!r.Equals("")))
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+            Limpiar_Controles();
+            if (dt.Tables[0].Rows.Count > 0)
             {
-                Valor_Trabajo.Text = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
-                //Valor_Trabajo.Text = "123";
-                Valor_Trabajo.Attributes.Add("ReadOnly", "true");
+                ID_CASO.Text = dt.Tables[0].Rows[0]["ID"].ToString();
+                Exp.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+                Poliza.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
+                Asegurado.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
+                Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
+                Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
+                Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
+                Estado_Caso_Creacion.Text = "CERRADO";
+                Carga_Tecnicos_solicitud();
+                Listar_Servicios_Solicitud_Cedula();
+                Accion.Text = "UPDATE";
+                Accion_Tecnico.Text = "UPDATE";
+                Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+                lblFecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
+                lblCerrarCaso.Attributes.CssStyle.Add("display", "block");
+                CHCerrarCaso.Attributes.CssStyle.Add("display", "block");
+                Div_Materiales.Attributes.CssStyle.Add("display", "block");
+                Carga_Fecha_Asignada_Tecnico();
+                Materiales_A_Agregar();
+                Tabla_Materiales_Solicitud();
+                Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
+                Div_Historial.Attributes.CssStyle.Add("display", "block");
+                Historial_Solicitud();
+                lblValorTrabajo.Attributes.CssStyle.Add("display", "block");
+                Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
+                Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
+                var r = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
+                r.Trim();
+                if ((!r.Equals("0")))
+                {
+                    Valor_Trabajo.Text = dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString();
+                    Valor_Trabajo.Attributes.Add("ReadOnly", "true");
+                }
+                else
+                {
+                    Valor_Trabajo.Text = "0";
+                    Valor_Trabajo.Attributes.Remove("ReadOnly");
+                }
+                Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
+                if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
+                {
+                    Aplaza_Caso.Text = "APLAZAR";
+                }
+                else
+                {
+                    Aplaza_Caso.Text = "RE-ABRIR";
+                }
+                lblValorTotal.Attributes.CssStyle.Add("display", "block");
+                txtValorTotal.Attributes.CssStyle.Add("display", "block");
+                var VT = Convert.ToInt32(dt.Tables[0].Rows[0]["VALOR_TRABAJO"].ToString());
+                DataSet dt1 = new DataSet();
+                dt1 = O_Neg_Solicitud.Suma_Materiales_Solicitud(E_Solicitud.Id);
+                if (dt1.Tables[0].Rows.Count > 0)
+                {
+                    txtValorTotal.Text = Convert.ToString(VT + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
+                }
+                else
+                {
+                    txtValorTotal.Text = "No encontrado";
+                }
+                Gestionando_Caso();
             }
             else
             {
-                Valor_Trabajo.Text = "";
-                Valor_Trabajo.Attributes.Remove("ReadOnly");
-            }
-            Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
-            if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
-            {
-                Aplaza_Caso.Text = "APLAZAR";
-            }
-            else
-            {
-                Aplaza_Caso.Text = "RE-ABRIR";
-            }
+                string script3 = "mensaje5();";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje5", script3, true);
 
+            }
         }
         else
         {
-            string script3 = "mensaje5();";
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje5", script3, true);
+            string script3 = "mensaje16();";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje16", script3, true);
 
         }
     }

@@ -5,8 +5,8 @@
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/jquery.datetimepicker.full.js"></script>
     <link href="Content/jquery.datetimepicker.css" rel="stylesheet" />
-    <script src="Scripts/Solicitud.js?1.0.2"></script>
-    <link href="Content/Solicitud.css?1.0.8" rel="stylesheet" />
+    <script src="Scripts/Solicitud.js?1.0.3"></script>
+    <link href="Content/Solicitud.css?1.1.1" rel="stylesheet" />
     <script type="text/javascript">
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
@@ -233,11 +233,20 @@
                                         <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form"  ID="Valor_Trabajo" runat="server" Style="display: none"></asp:TextBox>
-                                        
+                                        <asp:TextBox CssClass="inp_form"  ID="Valor_Trabajo" runat="server" Style="display: none">0</asp:TextBox>
                                     </td>
                                     <td style="text-align: center; vertical-align: middle;">
                                         <asp:Label ID="Aplaza_Caso" runat="server" Style="font-weight: bold; display:none; cursor:pointer" onclick="Aplaza();"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="lblValorTotal" runat="server" Style="display: none">Valor Total:</asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox CssClass="inp_form"  ID="txtValorTotal" runat="server" Style="display: none">0</asp:TextBox>
                                     </td>
                                 </tr>
                             </table>

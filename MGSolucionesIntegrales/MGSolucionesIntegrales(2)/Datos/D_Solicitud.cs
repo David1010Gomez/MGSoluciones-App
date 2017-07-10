@@ -53,6 +53,8 @@ namespace Datos
             cmd.Parameters.AddWithValue("@CEDULA_USUARIO_CIERRE", Obj_Solicitudes.Cedula_Usuario_Cierre);
             cmd.Parameters.AddWithValue("@USUARIO_ULTIMA_ACTUALIZACION", Obj_Solicitudes.Usuario_Ultima_Actualizacion);
             cmd.Parameters.AddWithValue("@VALOR_TRABAJO", Obj_Solicitudes.Valor_Trabajo);
+            cmd.Parameters.AddWithValue("@VALOR_TOTAL", Obj_Solicitudes.Valor_Total);
+            cmd.Parameters.AddWithValue("@USUARIO_GESTIONANDO", Obj_Solicitudes.Usuario_Gestionando);
 
             try
             {
@@ -701,6 +703,78 @@ namespace Datos
                 cmd.Dispose();
             }
             return ds;
+        }
+        public DataSet Suma_Materiales_Solicitud(int pId)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SUMA_MATERIALES_SOLICITUD]";
+                cmd.Parameters.AddWithValue("@ID", pId);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar la suma de materiales por Id", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Selecciona_Solicitud_Libre(int pId)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_SOLICITUD_LIBRE]";
+                cmd.Parameters.AddWithValue("@ID", pId);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar la solicitud libre por Id", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public int Usuario_Gestionando_Caso(int pId, string pUsuario_Gestionando)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("[USUARIO_GESTIONANDO_CASO]", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID", pId);
+            cmd.Parameters.AddWithValue("@USUARIO_GESTIONANDO", pUsuario_Gestionando);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar Actualizar datos de la tabla Solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
         }
     }
 }

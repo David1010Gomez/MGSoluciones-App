@@ -23,6 +23,8 @@ namespace Entidades
         private int _Cedula_Usuario_Cierre;
         private int _Usuario_Ultima_Actualizacion;
         private string _Valor_Trabajo;
+        private int _Valor_Total;
+        private string _Usuario_Gestionando;
         #endregion
         #region Constructor
         public E_Solicitudes()
@@ -41,7 +43,9 @@ namespace Entidades
             _Cedula_Usuario_Cierre = 0;
             _Usuario_Ultima_Actualizacion = 0;
             _Valor_Trabajo = string.Empty;
-            
+            _Valor_Total = 0;
+            _Usuario_Gestionando = string.Empty;
+
         }
         #endregion
         #region Encapsulamiento
@@ -223,6 +227,32 @@ namespace Entidades
             set
             {
                 _Valor_Trabajo = value;
+            }
+        }
+
+        public int Valor_Total
+        {
+            get
+            {
+                return _Valor_Total;
+            }
+
+            set
+            {
+                _Valor_Total = value;
+            }
+        }
+
+        public string Usuario_Gestionando
+        {
+            get
+            {
+                return _Usuario_Gestionando;
+            }
+
+            set
+            {
+                _Usuario_Gestionando = value;
             }
         }
         #endregion

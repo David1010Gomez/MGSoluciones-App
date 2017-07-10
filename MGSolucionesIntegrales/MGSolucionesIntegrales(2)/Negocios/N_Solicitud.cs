@@ -120,5 +120,17 @@ namespace Negocios
         {
             return DN_Solicitud.Selecciona_Precio_Unitario(pId);
         }
+        public DataSet Suma_Materiales_Solicitud(int pId)
+        {
+            return DN_Solicitud.Suma_Materiales_Solicitud(pId);
+        }
+        public DataSet Selecciona_Solicitud_Libre(int pId)
+        {
+            return DN_Solicitud.Selecciona_Solicitud_Libre(pId);
+        }
+        public int Usuario_Gestionando_Caso(int pId, string pUsuario_Gestionando)
+        {
+            return DN_Solicitud.Usuario_Gestionando_Caso(pId,pUsuario_Gestionando);
+        }
     }
 }

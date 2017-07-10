@@ -57,3 +57,6 @@ function mensaje14() {
 function mensaje15() {
     alert('Seleccione un tipo de servicio');
 }
+function mensaje16() {
+    alert('El caso esta siendo gestionado por otro usuario');
+}
