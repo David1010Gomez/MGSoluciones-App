@@ -29,8 +29,8 @@ public partial class Solicitud : System.Web.UI.Page
         GridView2.DataBind();
         GridView3.DataBind();
         GridView4.DataBind();
-        Exp.Attributes.Add("onblur", "Bucar_Tecni();");
-        Exp.Attributes.Add("onchange", "Bucar_Tecni();");
+        //Exp.Attributes.Add("onblur", "Bucar_Tecni();");
+        //Exp.Attributes.Add("onchange", "Bucar_Tecni();");
         CHCerrarCaso.Attributes.Add("onchange", "Cambia_Estado();");
         Casos_Abiertos();
         Casos_Asignados();
@@ -351,7 +351,7 @@ public partial class Solicitud : System.Web.UI.Page
         CHCerrarCaso.Attributes.CssStyle.Add("display", "none");
         lblCerrarCaso.Attributes.CssStyle.Add("display", "none");
         Div_Materiales.Attributes.CssStyle.Add("display", "none");
-        Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "none");
+        Div_Agrega_Tecnicos.Attributes.CssStyle.Add("display", "block");
         Div_Historial.Attributes.CssStyle.Add("display", "none");
         lblValorTrabajo.Attributes.CssStyle.Add("display", "none");
         Valor_Trabajo.Attributes.CssStyle.Add("display", "none");
@@ -368,7 +368,7 @@ public partial class Solicitud : System.Web.UI.Page
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
         DataSet ds = new DataSet();
-        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id);
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, "123");
         Limpiar_Controles();
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -463,10 +463,21 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else if (E_Solicitud.Estado_Caso == "CERRADO")
         {
-            E_Usuarios.Cedula = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
-            E_Usuarios.Disponible = "DISPONIBLE";
-            var Guardar_Datos2 = -1;
-            Guardar_Datos2 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
+            int i = 0;
+            foreach (var l in dt.Tables[0].Rows)
+            {
+                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+                E_Usuarios.Disponible = "DISPONIBLE";
+                var Guardar_Datos2 = -1;
+                Guardar_Datos2 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+                i++;
+            }
+            //E_Usuarios.Cedula = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+            //E_Usuarios.Disponible = "DISPONIBLE";
+            //var Guardar_Datos2 = -1;
+            //Guardar_Datos2 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
         }
     }
 
@@ -474,7 +485,7 @@ public partial class Solicitud : System.Web.UI.Page
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
         DataSet ds = new DataSet();
-        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id);
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, "123");
         Limpiar_Controles();
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -524,7 +535,7 @@ public partial class Solicitud : System.Web.UI.Page
                 }
                 else
                 {
-                    txtValorTotal.Text = "No encontrado";
+                    txtValorTotal.Text = "0";
                 }
                 Gestionando_Caso();
             }
@@ -585,7 +596,7 @@ public partial class Solicitud : System.Web.UI.Page
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
         DataSet ds = new DataSet();
-        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id);
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, "123");
         Limpiar_Controles();
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -652,7 +663,7 @@ public partial class Solicitud : System.Web.UI.Page
                 }
                 else
                 {
-                    txtValorTotal.Text = "No encontrado";
+                    txtValorTotal.Text = "0";
                 }
                 Gestionando_Caso();
             }
@@ -709,6 +720,21 @@ public partial class Solicitud : System.Web.UI.Page
                             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje7", script1, true);
                             Materiales_A_Agregar();
                             Tabla_Materiales_Solicitud();
+                            DataSet dt1 = new DataSet();
+                            dt1 = O_Neg_Solicitud.Suma_Materiales_Solicitud(Convert.ToInt32(ID_CASO.Text));
+                            if (dt1.Tables[0].Rows.Count > 0)
+                            {
+                                var result = Convert.ToString(Convert.ToInt32(Valor_Trabajo.Text) + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
+                                string script = "Actualiza_Total("+result+");";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza Total", script, true);
+                                
+                            }
+                            else
+                            {
+                                var result = 0;
+                                string script = "Actualiza_Total(" + result + ");";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza Total", script, true);
+                            }
                         }
                         else
                         {
@@ -859,9 +885,24 @@ public partial class Solicitud : System.Web.UI.Page
                 Guardar_Datos = O_Neg_Solicitud.Abc_Materiales_Solicitudes("UPDATE", E_Materiales_Solicitudes);
                 if (Guardar_Datos != -1)
                 {
+                    DataSet dt1 = new DataSet();
+                    dt1 = O_Neg_Solicitud.Suma_Materiales_Solicitud(Convert.ToInt32(ID_CASO.Text));
+                    if (dt1.Tables[0].Rows.Count > 0)
+                    {
+                        var result = Convert.ToString(Convert.ToInt32(Valor_Trabajo.Text) + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
+                        string script2 = "Actualiza_Total(" + result + ");";
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script2, true);
+
+                    }
+                    else
+                    {
+                        var result = 0;
+                        string script2 = "Actualiza_Total(" + result + ");";
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script2, true);
+                    }
                     string script = "Oculta_Div_Actualiza();";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Oculta_Div_Actualiza", script, true);
-
+                    
                 }
                 else
                 {
@@ -1033,8 +1074,32 @@ public partial class Solicitud : System.Web.UI.Page
         Tabla_Materiales_Solicitud();
     }
 
-    //protected void Materiales_A_Agregar2_Click(object sender, EventArgs e)
-    //{
-    //    Materiales_A_Agregar();
-    //}
+
+    protected void Valor_Trabajo_TextChanged(object sender, EventArgs e)
+    {
+        DataSet dt1 = new DataSet();
+        dt1 = O_Neg_Solicitud.Suma_Materiales_Solicitud(Convert.ToInt32(ID_CASO.Text));
+        if (dt1.Tables[0].Rows.Count > 0)
+        {
+            var result = Convert.ToString(Convert.ToInt32(Valor_Trabajo.Text) + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
+            string script2 = "Actualiza_Total(" + result + ");";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script2, true);
+
+        }
+        else
+        {
+            var result = 0;
+            string script2 = "Actualiza_Total(" + result + ");";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script2, true);
+        }
+    }
+
+    protected void Desliberar_Caso_Click(object sender, EventArgs e)
+    {
+        var Guardar_Datos = -1;
+        Guardar_Datos = O_Neg_Solicitud.Usuario_Eliminar_Gestionando_Caso("123");
+        string script = "window.location.href = 'Solicitud.aspx';";
+        ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script, true);
+        
+    }
 }

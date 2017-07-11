@@ -5,9 +5,10 @@
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/jquery.datetimepicker.full.js"></script>
     <link href="Content/jquery.datetimepicker.css" rel="stylesheet" />
-    <script src="Scripts/Solicitud.js?1.0.3"></script>
+    <script src="Scripts/Solicitud.js?1.0.4"></script>
     <link href="Content/Solicitud.css?1.1.1" rel="stylesheet" />
     <script type="text/javascript">
+        $('#<%=txtValorTotal.ClientID%>').val('0');
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
             var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
@@ -85,18 +86,18 @@
     }
     function Limpiar_Campos()
     {
-        window.location.href="Solicitud.aspx";
+        var x = document.getElementById('<%=Desliberar_Caso.ClientID%>');
+        x.click();        
     }
     function Aplaza()
     {
         var x = document.getElementById('<%=AplazaCaso.ClientID%>');
         x.click();
     }
-    <%--function ButtonMateriales_A_Agregar()
+    function Actualiza_Total(Valor)
     {
-        var x = document.getElementById('<%=Materiales_A_Agregar2.ClientID%>');
-        x.click();
-    }--%>
+        $('#<%=txtValorTotal.ClientID%>').val(Valor);
+    }
     </script>
 
     <div id="main">
@@ -181,7 +182,7 @@
                                     </td>
                                     <td>
                                         <asp:Label runat="server">Tecnico:</asp:Label>
-                                        <div runat="server" id="Div_Agrega_Tecnicos" style="float: right; margin-right: 5px; display:none;">
+                                        <div runat="server" id="Div_Agrega_Tecnicos" style="float: right; margin-right: 5px; display:block;">
                                             <a href="#" id="Nuevo_Tecnico" onclick="Bucar_Tecni2();" ><i class="fa fa-plus-circle"></i></a>
                                         </div>
                                     </td>
@@ -233,7 +234,7 @@
                                         <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form"  ID="Valor_Trabajo" runat="server" Style="display: none">0</asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form"  ID="Valor_Trabajo" runat="server" Style="display: none" OnTextChanged="Valor_Trabajo_TextChanged"  AutoPostBack="true">0</asp:TextBox>
                                     </td>
                                     <td style="text-align: center; vertical-align: middle;">
                                         <asp:Label ID="Aplaza_Caso" runat="server" Style="font-weight: bold; display:none; cursor:pointer" onclick="Aplaza();"></asp:Label>
@@ -246,7 +247,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form"  ID="txtValorTotal" runat="server" Style="display: none">0</asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form"  ID="txtValorTotal" runat="server" Style="display: none" ReadOnly="true">0</asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -294,7 +295,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3">
-                                        <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off" style="text-transform: uppercase;"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form_Observ" TextMode="MultiLine" ID="Observaciones" runat="server" autocomplete="off" style="text-transform: uppercase;" MaxLength="10"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -387,8 +388,8 @@
                                 <asp:BoundField DataField="FACT" HeaderText="Fact." />
                                 <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
                                 <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado del Caso" />
-                                <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
-                                <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />
+                                <%--<asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Usuario Creacion" />
+                                <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualizacion" />--%>
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
                                         <a href='javascript:editar3("<%# Eval("ID") %>");'>
@@ -420,16 +421,17 @@
             </div>
         </div>
     </div>
-    <asp:TextBox runat="server" type="text" style="display:block;" ID="ID_CASO">0</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_CASO">0</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_TURNO">0</asp:TextBox>
-    <asp:TextBox runat="server" type="text" style="display:block;" ID="Estado_Caso_Creacion">ABIERTO</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Caso_Creacion">ABIERTO</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" /> 
-    <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  /> 
+    <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  />
+    <asp:Button runat="server" style="display:none;" ID="Desliberar_Caso" OnClick="Desliberar_Caso_Click"/> 
     <%--<asp:Button runat="server" style="display:none;" ID="Materiales_A_Agregar2" OnClick="Materiales_A_Agregar2_Click" />--%>
 
     <div class="modal-wrapper" id="Materiales">

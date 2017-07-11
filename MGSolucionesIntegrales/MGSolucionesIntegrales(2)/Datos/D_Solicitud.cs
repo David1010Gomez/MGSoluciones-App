@@ -728,7 +728,7 @@ namespace Datos
             }
             return ds;
         }
-        public DataSet Selecciona_Solicitud_Libre(int pId)
+        public DataSet Selecciona_Solicitud_Libre(int pId, string pUsuarioGestionando)
         {
             SqlCommand cmd = new SqlCommand();
             DataSet ds = new DataSet();
@@ -740,6 +740,7 @@ namespace Datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[dbo].[SELECCIONA_SOLICITUD_LIBRE]";
                 cmd.Parameters.AddWithValue("@ID", pId);
+                cmd.Parameters.AddWithValue("@USUARIO_GESTIONANDO", pUsuarioGestionando  );
                 dt.SelectCommand = cmd;
                 dt.Fill(ds);
             }
@@ -758,6 +759,29 @@ namespace Datos
             SqlCommand cmd = new SqlCommand("[USUARIO_GESTIONANDO_CASO]", Conexion);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID", pId);
+            cmd.Parameters.AddWithValue("@USUARIO_GESTIONANDO", pUsuario_Gestionando);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar Actualizar datos de la tabla Solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+        public int Usuario_Eliminar_Gestionando_Caso(string pUsuario_Gestionando)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("[USUARIO_ELIMINAR_GESTIONANDO_CASO]", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@USUARIO_GESTIONANDO", pUsuario_Gestionando);
 
             try

@@ -124,13 +124,17 @@ namespace Negocios
         {
             return DN_Solicitud.Suma_Materiales_Solicitud(pId);
         }
-        public DataSet Selecciona_Solicitud_Libre(int pId)
+        public DataSet Selecciona_Solicitud_Libre(int pId, string pUsuarioGestionando)
         {
-            return DN_Solicitud.Selecciona_Solicitud_Libre(pId);
+            return DN_Solicitud.Selecciona_Solicitud_Libre(pId, pUsuarioGestionando);
         }
         public int Usuario_Gestionando_Caso(int pId, string pUsuario_Gestionando)
         {
             return DN_Solicitud.Usuario_Gestionando_Caso(pId,pUsuario_Gestionando);
+        }
+        public int Usuario_Eliminar_Gestionando_Caso(string pUsuario_Gestionando)
+        {
+            return DN_Solicitud.Usuario_Eliminar_Gestionando_Caso(pUsuario_Gestionando);
         }
     }
 }
