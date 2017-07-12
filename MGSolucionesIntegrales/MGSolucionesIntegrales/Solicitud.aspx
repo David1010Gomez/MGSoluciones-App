@@ -8,7 +8,6 @@
     <script src="Scripts/Solicitud.js?1.0.4"></script>
     <link href="Content/Solicitud.css?1.1.1" rel="stylesheet" />
     <script type="text/javascript">
-        $('#<%=txtValorTotal.ClientID%>').val('0');
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
             var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
@@ -97,6 +96,7 @@
     function Actualiza_Total(Valor)
     {
         $('#<%=txtValorTotal.ClientID%>').val(Valor);
+        $('#<%=txtValorTotal2.ClientID%>').val(Valor);
     }
     </script>
 
@@ -105,8 +105,8 @@
             <div class="row main-row">
                 <div class="3u 12u(mobile)" style="margin-top: 50px;">
                     <section>
-                        <h3 style="text-transform: none; font-weight: bold">Agendar Casos</h3>
-                        <asp:GridView ID="GridView2" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" 
+                        <h3 style="text-transform: none; font-weight: bold">Casos Asignados</h3>
+                        <asp:GridView ID="GridView2" AllowPaging="true" OnPageIndexChanging="GridView2_PageIndexChanging" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" 
                             AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;" OnRowDataBound="GridView2_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
@@ -129,7 +129,7 @@
                             <EmptyDataTemplate>No Existen Casos Para Agendar</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="center" />
                             <RowStyle BackColor="White" />
                             <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
                             <SortedAscendingCellStyle BackColor="#F1F1F1" />
@@ -248,6 +248,7 @@
                                 <tr>
                                     <td>
                                         <asp:TextBox CssClass="inp_form"  ID="txtValorTotal" runat="server" Style="display: none" ReadOnly="true">0</asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form"  ID="txtValorTotal2" runat="server" Style="display: none">0</asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -347,8 +348,9 @@
                 </div>
                 <div class="3u 12u(mobile)" style="margin-top: 50px;">
                     <section>
-                        <h3 style="text-transform: none; font-weight: bold">Asignar Tecnico</h3>
-                        <asp:GridView ID="GridView1" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                        <h3 style="text-transform: none; font-weight: bold">Casos Abiertos</h3>
+                        <asp:GridView ID="GridView1" AllowPaging="true" OnPageIndexChanging="GridView1_PageIndexChanging" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" 
+                            ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
                             <Columns>
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
                                 <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
@@ -364,7 +366,7 @@
                             <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="center" />
                             <RowStyle BackColor="White" />
                             <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
                             <SortedAscendingCellStyle BackColor="#F1F1F1" />
@@ -376,8 +378,8 @@
                 </div>
                 <div class="12u">
                     <section>
-                        <h3 style="text-transform: none; font-weight: bold; text-align: center">Editar y Cerrar Casos</h3>
-                        <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" 
+                        <h3 style="text-transform: none; font-weight: bold; text-align: center">Casos Agendados</h3>
+                        <asp:GridView ID="GridView3" AllowPaging="true" OnPageIndexChanging="GridView3_PageIndexChanging" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" 
                             ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;" OnRowDataBound="GridView2_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
@@ -407,7 +409,7 @@
                             <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="center" />
                             <RowStyle BackColor="White" />
                             <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
                             <SortedAscendingCellStyle BackColor="#F1F1F1" />
@@ -481,8 +483,8 @@
                     <br />
                     <br />
                     <div id="Div_Grid4" runat="server">
-                    <asp:GridView ID="GridView4" runat="server" OnPageIndexChanging="GridView4_PageIndexChanging" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black"
-                        AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                    <asp:GridView ID="GridView4" runat="server" AllowPaging="true" OnPageIndexChanging="GridView4_PageIndexChanging" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" 
+                        BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
                         <Columns>
                             <asp:BoundField DataField="ID" HeaderText="ID" />
                             <asp:BoundField DataField="ID_SOLICITUD" HeaderText="ID SOLICITUD" />

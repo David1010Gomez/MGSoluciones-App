@@ -136,5 +136,9 @@ namespace Negocios
         {
             return DN_Solicitud.Usuario_Eliminar_Gestionando_Caso(pUsuario_Gestionando);
         }
+        public int Insertar_Log_Aplazamientos(E_Log_Aplazamientos Obj_Log_Aplazamientos)
+        {
+            return DN_Solicitud.Insertar_Log_Aplazamientos(Obj_Log_Aplazamientos);
+        }
     }
 }

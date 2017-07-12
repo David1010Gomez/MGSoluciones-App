@@ -800,5 +800,30 @@ namespace Datos
             }
             return Resultado;
         }
+        public int Insertar_Log_Aplazamientos(E_Log_Aplazamientos Obj_Log_Aplazamientos)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("[INSERTA_LOG_APLAZAMIENTO]", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Log_Aplazamientos.Id_Solicitud);
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Log_Aplazamientos.Cedula_Tecnico);
+            cmd.Parameters.AddWithValue("@TRABAJO", Obj_Log_Aplazamientos.Trabajo);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar Insertar datos en la tabla Log Aplazamientos", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
     }
 }

@@ -23,6 +23,7 @@ public partial class Solicitud : System.Web.UI.Page
     public E_Usuarios E_Usuarios = new E_Usuarios();
     public E_Tecnicos_Solicitudes E_Tecni_Solicitudes = new E_Tecnicos_Solicitudes();
     public E_Servicio_Solicitud E_Servicio_Solicitud = new E_Servicio_Solicitud();
+    public E_Log_Aplazamientos E_L_Aplazamientos = new E_Log_Aplazamientos();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -245,7 +246,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Cedula_Usuario_Cierre = 2569;
         E_Solicitud.Usuario_Ultima_Actualizacion = 555;
         E_Solicitud.Valor_Trabajo = Valor_Trabajo.Text;
-        E_Solicitud.Valor_Total = Convert.ToInt32(txtValorTotal.Text);
+        E_Solicitud.Valor_Total = Convert.ToInt32(txtValorTotal2.Text);
         E_Solicitud.Usuario_Gestionando = "0";
 
         E_Tecni_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
@@ -532,10 +533,12 @@ public partial class Solicitud : System.Web.UI.Page
                 if (dt1.Tables[0].Rows.Count > 0)
                 {
                     txtValorTotal.Text = Convert.ToString(VT + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
+                    txtValorTotal2.Text = Convert.ToString(VT + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
                 }
                 else
                 {
                     txtValorTotal.Text = "0";
+                    txtValorTotal2.Text = "0";
                 }
                 Gestionando_Caso();
             }
@@ -660,10 +663,12 @@ public partial class Solicitud : System.Web.UI.Page
                 if (dt1.Tables[0].Rows.Count > 0)
                 {
                     txtValorTotal.Text = Convert.ToString(VT + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
+                    txtValorTotal2.Text = Convert.ToString(VT + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
                 }
                 else
                 {
                     txtValorTotal.Text = "0";
+                    txtValorTotal2.Text = "0";
                 }
                 Gestionando_Caso();
             }
@@ -1029,16 +1034,23 @@ public partial class Solicitud : System.Web.UI.Page
             foreach (var l in dt.Tables[0].Rows)
             {
                 E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
-                
                 E_Usuarios.Disponible = "DISPONIBLE";
                 var Guardar_Datos = -1;
                 Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+
+                E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
+                E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+                E_L_Aplazamientos.Trabajo = "APLAZADO";
+                var Guardar_Datos1 = -1;
+                Guardar_Datos1 = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+
                 i++;
             }
             E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
             E_Turnos.Trabajo = "APLAZADO";
             var Guardar_Datos2 = -1;
             Guardar_Datos2 = O_Neg_Solicitud.abc_Turnos("UPDATE TRABAJO", E_Turnos);
+            
         }
         else
         {
@@ -1051,6 +1063,13 @@ public partial class Solicitud : System.Web.UI.Page
                 E_Usuarios.Disponible = "OCUPADO";
                 var Guardar_Datos = -1;
                 Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+
+                E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
+                E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+                E_L_Aplazamientos.Trabajo = "RE-ABIERTO";
+                var Guardar_Datos1 = -1;
+                Guardar_Datos1 = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+
                 i++;
             }
             E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
@@ -1101,5 +1120,23 @@ public partial class Solicitud : System.Web.UI.Page
         string script = "window.location.href = 'Solicitud.aspx';";
         ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script, true);
         
+    }
+
+    protected void GridView2_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView2.PageIndex = e.NewPageIndex;
+        Casos_Asignados();
+    }
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        Casos_Abiertos();
+    }
+
+    protected void GridView3_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView3.PageIndex = e.NewPageIndex;
+        Casos_Agendados();
     }
 }
