@@ -27,6 +27,30 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string fullname1 = Request.QueryString["id_solicitud"];
+        string fullname2 = Request.QueryString["Estado_Caso"];
+        if (fullname1 != "")
+        {
+            ID_CASO.Text = fullname1;
+            if (fullname2 == "ABIERTO")
+            {
+                Cargar_Caso_Abierto_Click(sender, e);
+            }
+            else
+            {
+                if (fullname2 == "ASIGNADO")
+                {
+                    Cargar_Caso_Agendado_Click(sender, e);
+                }
+                else
+                {
+                    if (fullname2 == "AGENDADO")
+                    {
+                        Cargar_Caso_Agendado_Click(sender, e);
+                    }
+                }
+            }
+        }
         GridView2.DataBind();
         GridView3.DataBind();
         GridView4.DataBind();

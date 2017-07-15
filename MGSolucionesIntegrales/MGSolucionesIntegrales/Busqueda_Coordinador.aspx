@@ -17,6 +17,9 @@
             var x = document.getElementById('<%=Busqueda.ClientID%>');
             x.click();
         }
+        function editar(obj, obj2) {
+            window.location.href = 'Solicitud.aspx?id_solicitud=' + obj + '&Estado_Caso='+ obj2;
+        }
     </script>
     <link href="Content/Busqueda_Coordinador.css?1.0.2" rel="stylesheet" />
     <script src="assets/js/jquery-1.11.1.js"></script>
@@ -88,17 +91,25 @@
                                 <asp:BoundField DataField="ASEGURADO" HeaderText="Asegurado" />
                                 <asp:BoundField DataField="CONTACTO" HeaderText="Contacto" />
                                 <asp:BoundField DataField="FACT" HeaderText="Fact." />
-                                <asp:BoundField DataField="TECNICO" HeaderText="Técnico" />
-                                <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cédula del Técnico" />
                                 <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
                                 <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado Caso" />
                                 <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Cedula Usuario Creacion" />
                                 <asp:BoundField DataField="FECHA_CIERRE" HeaderText="Fecha de Cierre" />
                                 <asp:BoundField DataField="CEDULA_USUARIO_CIERRE" HeaderText="Cédula Usuario Cierre" />
                                 <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualización" />
-                                <asp:BoundField DataField="FECHA_NOTA" HeaderText="Fecha Nota" />
-                                <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
-                                <asp:BoundField DataField="CEDULA_USUARIO_INSERTO_NOTA" HeaderText="Cédula Usuario Inserto Nota" />
+                                <asp:BoundField DataField="VALOR_TRABAJO" HeaderText="Valor Trabajo" />
+                                <asp:BoundField DataField="VALOR_TOTAL" HeaderText="Valor Total" />
+                                <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cédula Técnico" />
+                                <asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Tecnico" />
+                                <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
+                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />
+                                <asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                                    <ItemTemplate>
+                                        <a href='javascript:editar("<%# Eval("ID") %>", "<%# Eval("ESTADO_CASO") %>");'>
+                                            <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <EmptyDataTemplate>La Consulta No Arrojo Ningun Resultado</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
@@ -130,6 +141,7 @@
                             timepicker: false
                         });
                         </script>
+                        <asp:TextBox runat="server" type="text" style="display:none;" ID="ID_CASO">0</asp:TextBox>
                         <br />
                         <br />
                         <asp:Button runat="server" ID="Desacarga_Base" CssClass="button" Text="Descargar" OnClick="Desacarga_Base_Click" Style="text-transform: none; float:right;" />

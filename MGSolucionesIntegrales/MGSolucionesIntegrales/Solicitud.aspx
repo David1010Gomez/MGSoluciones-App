@@ -434,7 +434,6 @@
     <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" /> 
     <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  />
     <asp:Button runat="server" style="display:none;" ID="Desliberar_Caso" OnClick="Desliberar_Caso_Click"/> 
-    <%--<asp:Button runat="server" style="display:none;" ID="Materiales_A_Agregar2" OnClick="Materiales_A_Agregar2_Click" />--%>
 
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor" style="margin-top: 80px;">
