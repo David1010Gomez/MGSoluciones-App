@@ -18,7 +18,10 @@
             x.click();
         }
         function editar(obj, obj2) {
-            window.location.href = 'Solicitud.aspx?id_solicitud=' + obj + '&Estado_Caso='+ obj2;
+            if (obj2 != 'CERRADO') {
+                window.location.href = 'Solicitud.aspx?id_solicitud=' + obj + '&Estado_Caso=' + obj2;
+            }
+            else { alert('Los casos cerrados no se pueden editar');}
         }
     </script>
     <link href="Content/Busqueda_Coordinador.css?1.0.2" rel="stylesheet" />

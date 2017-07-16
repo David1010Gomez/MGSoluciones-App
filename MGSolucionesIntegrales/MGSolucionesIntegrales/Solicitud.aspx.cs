@@ -29,12 +29,13 @@ public partial class Solicitud : System.Web.UI.Page
     {
         string fullname1 = Request.QueryString["id_solicitud"];
         string fullname2 = Request.QueryString["Estado_Caso"];
-        if (fullname1 != "")
+        if (fullname1 != null)
         {
             ID_CASO.Text = fullname1;
             if (fullname2 == "ABIERTO")
             {
                 Cargar_Caso_Abierto_Click(sender, e);
+                fullname1 = "";
             }
             else
             {
@@ -51,6 +52,11 @@ public partial class Solicitud : System.Web.UI.Page
                 }
             }
         }
+        else
+        {
+            ID_CASO.Text = ID_CASO.Text;
+        }
+        // 
         GridView2.DataBind();
         GridView3.DataBind();
         GridView4.DataBind();
