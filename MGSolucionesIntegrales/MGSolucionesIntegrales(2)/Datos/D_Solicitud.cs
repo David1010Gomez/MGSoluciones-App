@@ -825,5 +825,128 @@ namespace Datos
             }
             return Resultado;
         }
+        public DataSet Consulta_Notas_Solicitudes_Exp(int pExp)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_NOTAS_SOLICITUDES_EXP]";
+                cmd.Parameters.AddWithValue("@NUM_EXP", pExp);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar las notas solicitudes por EXP", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Notas_Solicitudes_Fecha(string pFecha_Inicial, string pFecha_Final)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_NOTAS_SOLICITUDES_FECHA]";
+                cmd.Parameters.AddWithValue("@FECHA_INICIAL", pFecha_Inicial);
+                cmd.Parameters.AddWithValue("@FECHA_FINAL", pFecha_Final);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar las notas de solicitudes por fechas", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Materiales_Solicitudes_Exp(int pExp)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_MATERIALES_SOLICITUDES_EXP]";
+                cmd.Parameters.AddWithValue("@NUM_EXP", pExp);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los materiales de solicitudes por EXP", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Materiales_Solicitudes_Fecha(string pFecha_Inicial, string pFecha_Final)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_MATERIALES_SOLICITUDES_FECHA]";
+                cmd.Parameters.AddWithValue("@FECHA_INICIAL", pFecha_Inicial);
+                cmd.Parameters.AddWithValue("@FECHA_FINAL", pFecha_Final);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los materiales de solicitudes por fechas", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Materiales_Solicitudes_Tecnico(string pTecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_MATERIALES_SOLICITUDES_TECNICO]";
+                cmd.Parameters.AddWithValue("@TECNICO", pTecnico);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los materiales de solicitudes por Tecnico", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+
     }
 }

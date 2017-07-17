@@ -181,4 +181,21 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
             Response.End();
         }
     }
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        if (Fecha_Inicial.Text != "" && Fecha_Final.Text != "")
+        {
+            Fecha_Final_TextChanged(sender, e);
+        }
+        if (Exp.Text != "")
+        {
+            Exp_TextChanged(sender, e);
+        }
+        if (Nombre_Tecnico.Text != "")
+        {
+            Busqueda_Click(sender, e);
+        }
+    }
 }

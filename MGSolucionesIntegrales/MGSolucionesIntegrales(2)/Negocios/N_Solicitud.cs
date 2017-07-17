@@ -140,5 +140,25 @@ namespace Negocios
         {
             return DN_Solicitud.Insertar_Log_Aplazamientos(Obj_Log_Aplazamientos);
         }
+        public DataSet Consulta_Notas_Solicitudes_Exp(int pExp)
+        {
+            return DN_Solicitud.Consulta_Notas_Solicitudes_Exp(pExp);
+        }
+        public DataSet Consulta_Notas_Solicitudes_Fecha(string pFecha_Inicial, string pFecha_Final)
+        {
+            return DN_Solicitud.Consulta_Notas_Solicitudes_Fecha(pFecha_Inicial, pFecha_Final);
+        }
+        public DataSet Consulta_Materiales_Solicitudes_Exp(int pExp)
+        {
+            return DN_Solicitud.Consulta_Materiales_Solicitudes_Exp(pExp);
+        }
+        public DataSet Consulta_Materiales_Solicitudes_Fecha(string pFecha_Inicial, string pFecha_Final)
+        {
+            return DN_Solicitud.Consulta_Materiales_Solicitudes_Fecha(pFecha_Inicial, pFecha_Final);
+        }
+        public DataSet Consulta_Materiales_Solicitudes_Tecnico(string pTecnico)
+        {
+            return DN_Solicitud.Consulta_Materiales_Solicitudes_Tecnico(pTecnico);
+        }
     }
 }
