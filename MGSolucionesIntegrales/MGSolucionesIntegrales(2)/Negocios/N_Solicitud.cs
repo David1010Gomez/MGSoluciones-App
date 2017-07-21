@@ -160,5 +160,9 @@ namespace Negocios
         {
             return DN_Solicitud.Consulta_Materiales_Solicitudes_Tecnico(pTecnico);
         }
+        public int Actualiza_Estado_Caso(E_Solicitudes Obj_E_Solicitudes)
+        {
+            return DN_Solicitud.Actualiza_Estado_Caso(Obj_E_Solicitudes);
+        }
     }
 }

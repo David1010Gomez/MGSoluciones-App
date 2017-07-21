@@ -13,11 +13,18 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
 {
     public N_Solicitud O_Neg_Solicitud = new N_Solicitud();
     public E_Solicitudes E_Solicitudes = new E_Solicitudes();
+    public E_Solicitudes Obj_E_Solicitudes = new E_Solicitudes();
+    public E_Usuarios Obj_Usuarios = new E_Usuarios();
+    public E_Log_Aplazamientos E_L_Aplazamientos = new E_Log_Aplazamientos();
+    public E_Notas_Solicitudes Notas_Solicitudes = new E_Notas_Solicitudes();
+    public E_Turnos E_Turnos = new E_Turnos();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         Listar_Tecnicos();
         Lista_Tecnicos.Attributes.Add("onchange", "Fijar_Tecnico();");
         Lista_Tecnicos_Materiales.Attributes.Add("onchange", "Fijar_Tecnico3();");
+        Reabrir.Attributes.Add("onchange", "Cambia_Estado();");
     }
     private void Listar_Tecnicos()
     {
@@ -478,6 +485,106 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         if (Nombre_Tecnico.Text != "")
         {
             Busqueda_Click(sender, e);
+        }
+    }
+
+    protected void Exp_Reapertura_Casos_TextChanged(object sender, EventArgs e)
+    {
+        DataSet dt = new DataSet();
+
+        dt = O_Neg_Solicitud.Consulta_Solicitudes_Exp(Convert.ToInt32(Exp_Reapertura_Casos.Text));
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            if (dt.Tables[0].Rows[0]["ESTADO_CASO"].ToString() == "CERRADO")
+            {
+                Id_Solicitud_ReAbrir.Text = dt.Tables[0].Rows[0]["ID"].ToString();
+                NumExpReaAbrir.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
+                EstadoReaAbrir.Text = dt.Tables[0].Rows[0]["ESTADO_CASO"].ToString();
+            }
+            else
+            {
+                string script = "alert('Solo se Pueden ReAbrir los Casos Cerrados');";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+                Id_Solicitud_ReAbrir.Text = "";
+                NumExpReaAbrir.Text = "";
+                EstadoReaAbrir.Text = "";
+            }
+        }
+        else
+        {
+            string script = "alert('Caso no existe');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+            Id_Solicitud_ReAbrir.Text = "";
+            NumExpReaAbrir.Text = "";
+            EstadoReaAbrir.Text = "";
+            Reabrir.Checked = false;
+        }
+    }
+
+    protected void Actualiza_Estado_caso_Click(object sender, EventArgs e)
+    {
+        if (Notas_Reapertura.Text != "")
+        {
+            Obj_E_Solicitudes.Id = Convert.ToInt32(Id_Solicitud_ReAbrir.Text);
+            Obj_E_Solicitudes.Estado_Caso = Cambio_Estado.Text;
+
+            var Guardar_Datos = -1;
+            Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Caso(Obj_E_Solicitudes);
+            if (Guardar_Datos != -1)
+            {
+                DataSet dt = new DataSet();
+                dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(Id_Solicitud_ReAbrir.Text), 0);
+                int i = 0;
+                foreach (var l in dt.Tables[0].Rows)
+                {
+                    Obj_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+                    Obj_Usuarios.Disponible = "OCUPADO";
+                    var Guardar_Datos2 = -1;
+                    Guardar_Datos2 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(Obj_Usuarios);
+
+                    E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(Id_Solicitud_ReAbrir.Text);
+                    E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+                    E_L_Aplazamientos.Trabajo = "RE ABIERTO ADMINISTRADOR";
+                    var Guardar_Datos3 = -1;
+                    Guardar_Datos3 = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+
+                    i++;
+                }
+
+                Notas_Solicitudes.Fecha_nota = "";
+                Notas_Solicitudes.Num_Exp = Convert.ToInt32(Id_Solicitud_ReAbrir.Text);
+                Notas_Solicitudes.Observaciones = Notas_Reapertura.Text;
+                Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
+                Notas_Solicitudes.Estado_Caso = EstadoReaAbrir.Text;
+                var Guardar_Datos4 = -1;
+                Guardar_Datos4 = O_Neg_Solicitud.Inserta_Notas_Solicitudes("INSERTAR", Notas_Solicitudes);
+
+                E_Turnos.Num_Exp = Convert.ToInt32(Id_Solicitud_ReAbrir.Text);
+                E_Turnos.Trabajo = "REABIERTO ADMINISTRADOR";
+                var Guardar_Datos5 = -1;
+                Guardar_Datos5 = O_Neg_Solicitud.abc_Turnos("UPDATE TRABAJO", E_Turnos);
+
+
+                string script = "alert('Caso ReAbierto Exitosamente');";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+
+                Exp_Reapertura_Casos.Text = "";
+                Id_Solicitud_ReAbrir.Text = "";
+                NumExpReaAbrir.Text = "";
+                EstadoReaAbrir.Text = "";
+                Reabrir.Checked = false;
+                Cambio_Estado.Text = "";
+            }
+            else
+            {
+                string script = "alert('No se Guardo la actualizacion del estado del Caso, Tecnicos ni Notas');";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+            }
+        }
+        else
+        {
+            string script = "alert('Las Notas No Pueden ser Vacias');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
         }
     }
 }

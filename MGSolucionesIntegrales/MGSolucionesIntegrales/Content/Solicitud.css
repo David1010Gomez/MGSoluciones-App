@@ -1,14 +1,14 @@
 ﻿
-.middle-content table, .tablas {
+.middle-content table, .right-content table, .tablas {
 
     width:100%; 
 
 }
-.middle-content table td, .tablas td {
+.middle-content table td, .right-content table td, .tablas td {
     padding:3px;
     /*width:100%;*/
 }
-.middle-content table .inp_form, .Lista_Tecnicos, .tablas .inp_form {
+.middle-content table .inp_form, .right-content .inp_form, .Lista_Tecnicos, .tablas .inp_form {
     
     border-radius: 5px;
     border: 1px solid transparent;    
@@ -26,15 +26,16 @@
     min-width:50px;
     transition: 0.3s;
 }
-.middle-content table .inp_form:hover, .Lista_Tecnicos:hover, inp_form_Observ:hover{
+.middle-content table .inp_form:hover, .right-content table .inp_form:hover, .Lista_Tecnicos:hover, inp_form_Observ:hover{
     border-color: #0c95e5;
     transition: 0.2s;
 }
-.middle-content .Div_Table{
+.middle-content .Div_Table, .right-content .Div_Table{
     background-color: rgba(200,200,200,0.3);
     border-radius: 5px;
     padding:15px;
 }
+
 /*A PARTIR DE ESTE MOMENTO ES UN NUEVO SCRIP*/
 #Materiales {
    visibility: hidden;

@@ -947,6 +947,30 @@ namespace Datos
             }
             return ds;
         }
+        public int Actualiza_Estado_Caso(E_Solicitudes Obj_E_Solicitudes)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("[ACTULIZA_ESTADO_CASO]", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_CASO", Obj_E_Solicitudes.Id);
+            cmd.Parameters.AddWithValue("@ESTADO_CASO", Obj_E_Solicitudes.Estado_Caso);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar Actualizar el estado de la tabla Solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
 
     }
 }

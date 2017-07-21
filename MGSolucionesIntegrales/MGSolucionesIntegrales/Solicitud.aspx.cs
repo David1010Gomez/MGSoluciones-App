@@ -1118,7 +1118,7 @@ public partial class Solicitud : System.Web.UI.Page
         dt = O_Neg_Solicitud.Selecciona_Precio_Unitario(Convert.ToInt32(Select_Materiales.SelectedValue));
         if (dt.Tables[0].Rows.Count > 0)
         {
-            Costo_Unidad.Text = dt.Tables[0].Rows[0]["PRECIO_UNIDAD"].ToString(); ;
+            Costo_Unidad.Text = dt.Tables[0].Rows[0]["PRECIO_UNIDAD"].ToString();
         }
         Tabla_Materiales_Solicitud();
     }

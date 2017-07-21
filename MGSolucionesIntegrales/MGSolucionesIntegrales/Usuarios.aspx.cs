@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Negocios;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -7,8 +9,115 @@ using System.Web.UI.WebControls;
 
 public partial class Usuarios : System.Web.UI.Page
 {
+    public N_Usuarios Neg_Usarios = new N_Usuarios();
     protected void Page_Load(object sender, EventArgs e)
     {
+        Selecciona_Usuarios();
+    }
+
+    private void Selecciona_Usuarios()
+    {
+        DataSet dt = new DataSet();
+        dt = Neg_Usarios.Selecciona_Usuarios();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            GridView1.DataSource = dt.Tables[0];
+            GridView1.DataBind();
+        }
+        else
+        {
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+        }
+    }
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        Selecciona_Usuarios();
+    }
+
+    protected void Cargar_Usuario_Click(object sender, EventArgs e)
+    {
+        DataSet dt = new DataSet();
+        dt = Neg_Usarios.Selecciona_Usuarios();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            Cedula_Usuario.Text = dt.Tables[0].Rows[0]["CEDULA"].ToString();
+            Nombre_Usuario.Text = dt.Tables[0].Rows[0]["NOMBRE"].ToString();
+            Contrasena_Usuario.Text = "";
+            Cargo_Usuario.Text = dt.Tables[0].Rows[0]["CARGO"].ToString();
+            
+        }
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            Rol_Usuario.DataSource = dt;
+            Rol_Usuario.DataTextField = "ID_ROL";
+            Rol_Usuario.DataValueField = "";
+            Rol_Usuario.DataBind();
+            //Rol_Usuario.Text = dt.Tables[0].Rows[0]["ID_ROL"].ToString();
+            Estado_Usuario.DataSource = dt;
+            Estado_Usuario.DataTextField = "ESTADO";
+            Estado_Usuario.DataValueField = "ESTADO";
+            Estado_Usuario.DataBind();
+            //Estado_Usuario.Text = dt.Tables[0].Rows[0]["ESTADO"].ToString();
+            Disponible_Usuario.DataSource = dt;
+            Disponible_Usuario.DataTextField = "DISPONIBLE";
+            Disponible_Usuario.DataValueField = "DISPONIBLE";
+            Disponible_Usuario.DataBind();
+            //Disponible_Usuario.Text = dt.Tables[0].Rows[0]["DISPONIBLE"].ToString();
+        }
+    }
+
+    protected void Unnamed_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void Guarda_Usuario_Click(object sender, EventArgs e)
+    {
+
+    }
+    private void Rol_Usuarios()
+    {
+        DataSet dt = new DataSet();
+
+        dt = Neg_Usarios.Selecciona_Rol_Usuario();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            Rol_Usuario.DataSource = dt;
+            Rol_Usuario.DataTextField = "ROL_USUARIO";
+            Rol_Usuario.DataValueField = "ID_ROL";
+            Rol_Usuario.DataBind();
+            Rol_Usuario.Items.Insert(0, new ListItem("- - SELECCIONE - -", "0"));
+        }
+        else
+        {
+            Rol_Usuario.Items.Clear();
+            Rol_Usuario.Items.Insert(0, new ListItem("- - SIN ROLES - -", "0"));
+        }
+    }
+
+    protected void Lista_Roles_Click(object sender, EventArgs e)
+    {
+        Rol_Usuarios();
+    }
+
+    protected void Lista_Estado_Click(object sender, EventArgs e)
+    {
+        Estado_Usuario.Items.Insert(0, new ListItem("- - SELECCIONE - -", "0"));
+        Estado_Usuario.Items.Insert(1, new ListItem("ACTIVO", "1"));
+        Estado_Usuario.Items.Insert(2, new ListItem("INACTIVO", "2"));
+    }
+
+    protected void Lista_Disponible_Click(object sender, EventArgs e)
+    {
+        Disponible_Usuario.Items.Insert(0, new ListItem("- - SELECCIONE - -", "0"));
+        Disponible_Usuario.Items.Insert(1, new ListItem("DISPONIBLE", "1"));
+        Disponible_Usuario.Items.Insert(2, new ListItem("OCUPADO", "2"));
 
     }
 }
