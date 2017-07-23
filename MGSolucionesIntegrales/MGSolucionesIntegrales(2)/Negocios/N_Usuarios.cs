@@ -25,5 +25,9 @@ namespace Negocios
         {
             return DN_Usuarios.Selecciona_Rol_Usuario();
         }
+        public DataSet Selecciona_Usuario_Cedula(int pCedula)
+        {
+            return DN_Usuarios.Selecciona_Usuario_Cedula(pCedula);
+        }
     }
 }

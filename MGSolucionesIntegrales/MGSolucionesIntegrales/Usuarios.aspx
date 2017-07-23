@@ -14,7 +14,7 @@
             window.location.href = 'Usuarios.aspx';
         }
         function editar(obj) {
-            $('#<%=Id_Usuario.ClientID%>').val(obj);
+            $('#<%=Cedula.ClientID%>').val(obj);
             $('#<%=Accion.ClientID%>').val('ACTUALIZAR');
             var x = document.getElementById('<%=Cargar_Usuario.ClientID%>');
             x.click();
@@ -166,7 +166,7 @@
                             </table>
                         </div>
                         <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
-                        <asp:TextBox runat="server" type="text" style="display:none;" ID="Id_Usuario">0</asp:TextBox>
+                        <asp:TextBox runat="server" type="text" style="display:none;" ID="Cedula">0</asp:TextBox>
                         <asp:Button runat="server" style="display:none;" ID="Cargar_Usuario" OnClick="Cargar_Usuario_Click"/>
                         <asp:Button runat="server" style="display:none;" ID="Lista_Roles" OnClick="Lista_Roles_Click"/>
                         <asp:Button runat="server" style="display:none;" ID="Lista_Estado" OnClick="Lista_Estado_Click"/>

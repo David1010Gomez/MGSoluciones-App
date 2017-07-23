@@ -90,6 +90,30 @@ namespace Datos
             }
             return ds;
         }
-        
+        public DataSet Selecciona_Usuario_Cedula(int pCedula)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_USUARIO_CEDULA]";
+                cmd.Parameters.AddWithValue("@CEDULA", pCedula);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los Usuarios por cedula", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+
     }
 }
