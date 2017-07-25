@@ -141,7 +141,7 @@
                 </div>
                 <div class="6u 12u(mobile) important(mobile)" style="text-align: justify;">
                     <section class="middle-content">
-                        <h2 style="text-transform: none; font-weight: bold">SOLICITUD</h2>
+                        <h2 style="text-transform: none; font-weight: bold;">SOLICITUD</h2>
                         <a onclick="Limpiar_Campos();" style="margin-left: 90%; text-decoration: none; cursor: pointer;">Limpiar</a>
                         <div class="Div_Table">
                             <table>
