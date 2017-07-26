@@ -17,7 +17,14 @@
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
+    <script type="text/javascript">
+        function Salir() {
+            var btn = document.getElementById('<%=Salir.ClientID%>');
+            btn.click();
+        }
+    </script>
 <body style="background-color: #eee">
+    <form id="form1" runat="server">
     <div id="page-wrapper">
         <div id="header-wrapper">
             <div class="container">
@@ -32,7 +39,7 @@
                                 <a id="C2" href="Solicitud.aspx"><i class="fa fa-pencil"></i> &nbsp;Solicitud</a>
                                 <a id="C3" href="Busqueda_Coordinador.aspx"><i class="fa fa-search-plus"></i> &nbsp;Busqueda</a>
                                 <a id="C4" href="Configuracion_Coordinador.aspx"><i class="fa fa-cogs"></i> &nbsp;Configuracion</a>
-                                <a href="Inicio_Sesion.aspx">
+                                <a href="#" onclick="return Salir()">
                                     <div style="font-size:16px; top: -25px; position: absolute; height: 0; right: 2%;">
                                         Cerrar Sesion &nbsp;&nbsp;<i class="fa fa-sign-out"></i>
                                     </div>
@@ -43,13 +50,13 @@
                 </div>
             </div>
         </div>
-        <form id="form1" runat="server">
+        
             <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div>
                         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                         </asp:ContentPlaceHolder>
                     </div>
-        </form>
+        
         <div id="footer-wrapper">
             <div class="container">
                 <div class="row">
@@ -69,7 +76,7 @@
             </div>
         </div>
     </div>
-
+    <asp:Button runat="server" ID="Salir" OnClick="Salir_Click" />
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/skel.min.js"></script>
@@ -77,6 +84,6 @@
     <script src="assets/js/util.js"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
-
+    </form>
 </body>
 </html>

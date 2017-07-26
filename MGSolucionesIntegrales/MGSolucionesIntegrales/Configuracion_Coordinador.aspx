@@ -15,7 +15,7 @@
             <div class="row main-row">
                 <div class="12u">
                     <section>
-                        <h2 style="text-transform: none; font-weight: bold;">CONFIGURACIÓN DE CUENTA</h2>
+                        <h2 style="text-transform: none; font-weight: bold;">Configuración de Cuenta</h2>
                         <div class="Div_Table">
                             <table>
                                 <tr>
@@ -25,15 +25,35 @@
                                     <td>
                                         <asp:Label CssClass="comments" runat="server">Nombre:</asp:Label>
                                     </td>
+                                    <td>
+                                        <asp:Label CssClass="comments" runat="server">Cargo:</asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label CssClass="comments" runat="server">Disponibilidad:</asp:Label>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox runat="server" CssClass="inp_form" ID="Cedula"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="inp_form" ID="Cedula" ReadOnly="true"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox runat="server" CssClass="inp_form" ID="Nombre"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="inp_form" ID="Nombre" ReadOnly="true"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox runat="server" CssClass="inp_form" ID="Cargo" ReadOnly="true"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox runat="server" CssClass="inp_form" ID="Disponibilidad" ReadOnly="true"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <input runat="server" id="Contra_Actual" type="hidden"  />
                                     </td>
                                 </tr>
+                            </table>
+                            <br />
+                            <br />
+                            <h3 style="text-transform: none; font-weight: bold">Cambio de Contraseña</h3>
+                            <table>
                                 <tr>
                                     <td>
                                         <asp:Label CssClass="comments" runat="server">Contraseña Antigua:</asp:Label>
@@ -54,6 +74,16 @@
                                     </td>
                                     <td>
                                         <asp:TextBox runat="server" CssClass="inp_form" ID="Nueva_Contraseña2"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="controls" style="float: right;">
+                                            <asp:Button runat="server" CssClass="button" ID="Actualiza" Text="Guardar" Style="text-transform: none;" OnClick="Actualiza_Click" />
+                                        </div>
                                     </td>
                                 </tr>
                             </table>

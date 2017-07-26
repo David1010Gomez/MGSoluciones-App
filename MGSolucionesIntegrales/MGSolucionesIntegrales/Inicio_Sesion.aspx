@@ -28,21 +28,15 @@
             <div class="Datos2">
                 <table style="width:100%;">
                     <tr>
-                        <%--<td style="width:180px;">
-                            <asp:Label CssClass="Texto" runat="server">Cédula: </asp:Label>
-                        </td>--%>
                         <td>
-                            <input id="Cedula" runat="server" class="input" type="text" placeholder="Cédula"/><i class="fa fa-user" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
+                            <asp:TextBox CssClass="input" ID="Cedula" runat="server" placeholder="Cédula" Required="true"></asp:TextBox><i class="fa fa-user" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
                         </td>
                     </tr>
                 </table>
                 <table style="margin-top:20px; width:100%;">
                     <tr>
-                        <%--<td style="width:180px;">
-                            <asp:Label CssClass="Texto" runat="server">Contraseña: </asp:Label>
-                         </td>--%>
                         <td>
-                            <input id="Contraseña" runat="server" class="input" type="password" placeholder="Contraseña"/><i class="fa fa-lock" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
+                            <asp:TextBox ID="Contraseña" runat="server" CssClass="input" TextMode="Password" placeholder="Contraseña" Required="true"></asp:TextBox><i class="fa fa-lock" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
                         </td>
 
                     </tr>

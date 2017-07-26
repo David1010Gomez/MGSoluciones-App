@@ -29,5 +29,13 @@ namespace Negocios
         {
             return DN_Usuarios.Selecciona_Usuario_Cedula(pCedula);
         }
+        public int Actualiza_Contrasena(int pCedula, string pContrasena)
+        {
+            return DN_Usuarios.Actualiza_Contrasena(pCedula, pContrasena);
+        }
+        public DataSet Inicio_Sesion(int pCedula, string pContrasena)
+        {
+            return DN_Usuarios.Inicio_Sesion(pCedula, pContrasena);
+        }
     }
 }

@@ -114,6 +114,56 @@ namespace Datos
             }
             return ds;
         }
+        public int Actualiza_Contrasena(int pCedula, string pContrasena)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("ACTULIZA_CONTRASENA", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            
+            cmd.Parameters.AddWithValue("@CEDULA", pCedula);
+            cmd.Parameters.AddWithValue("@CONTRASENA", pContrasena);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar actulizar contraseñas de la tabla Usuarios", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+        public DataSet Inicio_Sesion(int pCedula, string pContrasena)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[INICIO_SESION]";
+                cmd.Parameters.AddWithValue("@CEDULA", pCedula);
+                cmd.Parameters.AddWithValue("@CONTRASENA", pContrasena);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al autenticar los Usuarios por cedula", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
 
     }
 }

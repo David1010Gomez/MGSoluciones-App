@@ -192,7 +192,7 @@
             </div>
             <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
             <asp:TextBox runat="server" type="text" style="display:none;" ID="Id_Material">0</asp:TextBox>
-            <asp:TextBox runat="server" type="text" style="display:block;" ID="Accion_Servicio">INSERTAR</asp:TextBox>
+            <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Servicio">INSERTAR</asp:TextBox>
             <asp:TextBox runat="server" type="text" style="display:none;" ID="Id_Servicio">0</asp:TextBox>
             <asp:Button runat="server" style="display:none;" ID="Cargar_Material" OnClick="Cargar_Material_Click"/>
             <asp:Button runat="server" style="display:none;" ID="Tipo_Servicio" OnClick="Tipo_Servicio_Click"/>
