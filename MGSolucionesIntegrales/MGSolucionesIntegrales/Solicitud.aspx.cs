@@ -820,7 +820,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Materiales.Id = Convert.ToInt32(Select_Materiales.SelectedValue);
         E_Materiales.Cantidad = Convert.ToString((Convert.ToInt32(MaterialDisponible.Text)) - (Convert.ToInt32(CantidadMaterial.Text)));
         E_Materiales.Material = Convert.ToString(Select_Materiales.SelectedItem);
-        E_Materiales.Precio_Unidad = 0;
+        E_Materiales.Precio_Unidad = Convert.ToInt32(Costo_Unidad.Text);
     }
 
     private void Limpiar_Controles_Materiales()
@@ -983,6 +983,7 @@ public partial class Solicitud : System.Web.UI.Page
             var CantidadFinal = Calculo + Convert.ToInt32(MaterialDisponible.Text);
             E_Materiales.Id = Convert.ToInt32(Act_Id_Material.Text);
             E_Materiales.Cantidad = Convert.ToString(CantidadFinal);
+            E_Materiales.Precio_Unidad = Convert.ToInt32(Act_Precio_Unitario.Text);
             var Guardar_Datos = -1;
             Guardar_Datos = O_Neg_Solicitud.Abc_Materiales("UPDATE", E_Materiales);
         }
@@ -992,6 +993,7 @@ public partial class Solicitud : System.Web.UI.Page
             var CantidadFinal = Convert.ToInt32(MaterialDisponible.Text) - Calculo;
             E_Materiales.Id = Convert.ToInt32(Act_Id_Material.Text);
             E_Materiales.Cantidad = Convert.ToString(CantidadFinal);
+            E_Materiales.Precio_Unidad = Convert.ToInt32(Act_Precio_Unitario.Text);
             var Guardar_Datos = -1;
             Guardar_Datos = O_Neg_Solicitud.Abc_Materiales("UPDATE", E_Materiales);
         }
@@ -1091,6 +1093,10 @@ public partial class Solicitud : System.Web.UI.Page
                 E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
                 E_Usuarios.Disponible = "OCUPADO";
                 var Guardar_Datos = -1;
+
+
+
+
                 Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
 
                 E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
