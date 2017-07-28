@@ -90,7 +90,7 @@
                 </div>
                 <div class="6u 12u(mobile) important(mobile)" style="text-align: justify;">
                     <section class="middle-content">
-                        <h2 style="text-transform: none; font-weight: bold; text-align:center;">TABLA DE INVENTARIOS</h2>
+                        <h2 style="text-transform: none; font-weight: bold; text-align:center;">Tabla de Inventarios</h2>
 
                         <asp:GridView ID="GridView1" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid"
                             BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" AllowPaging="true"

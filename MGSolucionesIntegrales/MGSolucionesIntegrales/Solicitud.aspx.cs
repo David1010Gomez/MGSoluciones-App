@@ -271,13 +271,13 @@ public partial class Solicitud : System.Web.UI.Page
         if (CHCerrarCaso.Checked == true) { E_Solicitud.Estado_Caso = "CERRADO"; }
         if (E_Solicitud.Estado_Caso == "ABIERTO" || E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO") { E_Turnos.Trabajo = "OCUPADO"; }
         if (E_Solicitud.Estado_Caso == "CERRADO") { E_Turnos.Trabajo = "TERMINADO"; }
-        E_Solicitud.Cedula_Usuario_Creacion = 1076;
+        E_Solicitud.Cedula_Usuario_Creacion = Convert.ToInt32(Session["Cedula"].ToString());
         E_Solicitud.Fecha_Cierre = DateTime.Now;
-        E_Solicitud.Cedula_Usuario_Cierre = 2569;
-        E_Solicitud.Usuario_Ultima_Actualizacion = 555;
+        E_Solicitud.Cedula_Usuario_Cierre = Convert.ToInt32(Session["Cedula"].ToString());
+        E_Solicitud.Usuario_Ultima_Actualizacion = Convert.ToInt32(Session["Cedula"].ToString());
         E_Solicitud.Valor_Trabajo = Valor_Trabajo.Text;
         E_Solicitud.Valor_Total = Convert.ToInt32(txtValorTotal2.Text);
-        E_Solicitud.Usuario_Gestionando = "0";
+        E_Solicitud.Usuario_Gestionando = Session["Cedula"].ToString();
 
         E_Tecni_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Tecni_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
@@ -293,7 +293,7 @@ public partial class Solicitud : System.Web.UI.Page
         E_Notas_Solicitudes.Fecha_nota = "";
         E_Notas_Solicitudes.Num_Exp = Convert.ToInt32(ID_CASO.Text);
         E_Notas_Solicitudes.Observaciones = Observaciones.Text;
-        E_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
+        E_Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = Convert.ToInt32(Session["Cedula"].ToString());
         E_Notas_Solicitudes.Estado_Caso = E_Solicitud.Estado_Caso;
 
         E_Servicio_Solicitud.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
@@ -399,7 +399,7 @@ public partial class Solicitud : System.Web.UI.Page
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
         DataSet ds = new DataSet();
-        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, "123");
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, Session["Cedula"].ToString());
         Limpiar_Controles();
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -449,7 +449,7 @@ public partial class Solicitud : System.Web.UI.Page
     private void Gestionando_Caso()
     {
         var Guardar_Datos = -1;
-        Guardar_Datos = O_Neg_Solicitud.Usuario_Gestionando_Caso(Convert.ToInt32(ID_CASO.Text), "123");
+        Guardar_Datos = O_Neg_Solicitud.Usuario_Gestionando_Caso(Convert.ToInt32(ID_CASO.Text), Session["Cedula"].ToString());
     }
 
     private void Listar_Tipo_Servicios()
@@ -516,7 +516,7 @@ public partial class Solicitud : System.Web.UI.Page
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
         DataSet ds = new DataSet();
-        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, "123");
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, Session["Cedula"].ToString());
         Limpiar_Controles();
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -621,15 +621,14 @@ public partial class Solicitud : System.Web.UI.Page
         {
             Lista_Tecnicos.Items.Clear();
         }
-        //var Cedula_Tecnico = dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString();
-        //Lista_Tecnicos.Items.Insert(0, new ListItem(dt.Tables[0].Rows[0]["NOMBRE_TECNICO"].ToString(), "" + Cedula_Tecnico));
+        
     }
 
     protected void Cargar_Caso_Agendado_Click(object sender, EventArgs e)
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
         DataSet ds = new DataSet();
-        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, "123");
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id,  Session["Cedula"].ToString());
         Limpiar_Controles();
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -1146,7 +1145,7 @@ public partial class Solicitud : System.Web.UI.Page
     protected void Desliberar_Caso_Click(object sender, EventArgs e)
     {
         var Guardar_Datos = -1;
-        Guardar_Datos = O_Neg_Solicitud.Usuario_Eliminar_Gestionando_Caso("123");
+        Guardar_Datos = O_Neg_Solicitud.Usuario_Eliminar_Gestionando_Caso(Session["Cedula"].ToString());
         string script = "window.location.href = 'Solicitud.aspx';";
         ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script, true);
         

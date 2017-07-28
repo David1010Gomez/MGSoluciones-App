@@ -34,7 +34,7 @@
             <div class="row main-row">
                 <div class="12u">
                     <section>
-                        <h2 style="text-transform: none; font-weight: bold;">BÚSQUEDA DE CASOS</h2>
+                        <h2 style="text-transform: none; font-weight: bold;">Búsqueda de Casos</h2>
                         <div class="Div_Table">
                             <table>
                                 <tr>

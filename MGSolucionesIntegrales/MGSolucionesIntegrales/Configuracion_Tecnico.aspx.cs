@@ -7,14 +7,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Configuracion_Coordinador : System.Web.UI.Page
+public partial class Configuracion_Tecnico : System.Web.UI.Page
 {
     public N_Usuarios Neg_Usarios = new N_Usuarios();
     protected void Page_Load(object sender, EventArgs e)
     {
         Busca_Usuario();
     }
-
     private void Busca_Usuario()
     {
         DataSet dt = new DataSet();
@@ -26,7 +25,7 @@ public partial class Configuracion_Coordinador : System.Web.UI.Page
             Nombre.Text = dt.Tables[0].Rows[0]["NOMBRE"].ToString();
             Cargo.Text = dt.Tables[0].Rows[0]["CARGO"].ToString();
             Disponibilidad.Text = dt.Tables[0].Rows[0]["DISPONIBLE"].ToString();
-            Contra_Actual.Value= dt.Tables[0].Rows[0]["CONTRASENA"].ToString();
+            Contra_Actual.Value = dt.Tables[0].Rows[0]["CONTRASENA"].ToString();
         }
     }
 

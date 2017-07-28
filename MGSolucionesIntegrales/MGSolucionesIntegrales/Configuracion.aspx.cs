@@ -17,7 +17,7 @@ public partial class Configuracion : System.Web.UI.Page
     private void Busca_Usuario()
     {
         DataSet dt = new DataSet();
-        dt = Neg_Usarios.Selecciona_Usuario_Cedula(Convert.ToInt32(123));
+        dt = Neg_Usarios.Selecciona_Usuario_Cedula(Convert.ToInt32(Session["Cedula"].ToString()));
 
         if (dt.Tables[0].Rows.Count > 0)
         {

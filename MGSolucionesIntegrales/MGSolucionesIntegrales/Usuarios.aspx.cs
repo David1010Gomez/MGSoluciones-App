@@ -49,7 +49,7 @@ public partial class Usuarios : System.Web.UI.Page
         {
             Cedula_Usuario.Text = dt.Tables[0].Rows[0]["CEDULA"].ToString();
             Nombre_Usuario.Text = dt.Tables[0].Rows[0]["NOMBRE"].ToString();
-            Contrasena_Usuario.Text = "";
+            Contrasena_Usuario.Text = dt.Tables[0].Rows[0]["CONTRASENA"].ToString(); ;
             Cargo_Usuario.Text = dt.Tables[0].Rows[0]["CARGO"].ToString();
             
         }

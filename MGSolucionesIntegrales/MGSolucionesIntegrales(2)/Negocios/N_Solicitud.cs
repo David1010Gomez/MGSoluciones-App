@@ -164,5 +164,21 @@ namespace Negocios
         {
             return DN_Solicitud.Actualiza_Estado_Caso(Obj_E_Solicitudes);
         }
+        public DataSet Consulta_Solicitudes_Fecha_Tecnico(string pFecha_Inicial, string pFecha_Final, int pCedulaTecnico)
+        {
+            return DN_Solicitud.Consulta_Solicitudes_Fecha_Tecnico(pFecha_Inicial, pFecha_Final, pCedulaTecnico);
+        }
+        public DataSet Consulta_Solicitudes_Exp_Tecnico(int pExp, int pCedulaTecnico)
+        {
+            return DN_Solicitud.Consulta_Solicitudes_Exp_Tecnico(pExp, pCedulaTecnico);
+        }
+        public DataSet Consulta_Materiales_Fecha_Tecnico(string pFecha_Inicial, string pFecha_Final, int pCedulaTecnico)
+        {
+            return DN_Solicitud.Consulta_Materiales_Fecha_Tecnico(pFecha_Inicial, pFecha_Final, pCedulaTecnico);
+        }
+        public DataSet Consulta_Materiales_Exp_Tecnico(int pExp, int pCedulaTecnico)
+        {
+            return DN_Solicitud.Consulta_Materiales_Exp_Tecnico(pExp, pCedulaTecnico);
+        }
     }
 }

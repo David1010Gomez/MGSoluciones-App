@@ -971,6 +971,107 @@ namespace Datos
             }
             return Resultado;
         }
-
+        public DataSet Consulta_Solicitudes_Fecha_Tecnico(string pFecha_Inicial, string pFecha_Final, int pCedulaTecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_SOLICITUDES_FECHA_TECNICO]";
+                cmd.Parameters.AddWithValue("@FECHA_INICIAL", pFecha_Inicial);
+                cmd.Parameters.AddWithValue("@FECHA_FINAL", pFecha_Final);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar las solicitudes por fechas y tecnico", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Solicitudes_Exp_Tecnico(int pExp, int pCedulaTecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_SOLICITUDES_EXP_TECNICO]";
+                cmd.Parameters.AddWithValue("@NUM_EXP", pExp);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar las solicitudes por EXP y Tecnico", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Materiales_Fecha_Tecnico(string pFecha_Inicial, string pFecha_Final, int pCedulaTecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_MATERIALES_FECHA_TECNICO]";
+                cmd.Parameters.AddWithValue("@FECHA_INICIAL", pFecha_Inicial);
+                cmd.Parameters.AddWithValue("@FECHA_FINAL", pFecha_Final);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los Materiales por fechas y tecnico", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Materiales_Exp_Tecnico(int pExp, int pCedulaTecnico)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_MATERIALES_EXP_TECNICO]";
+                cmd.Parameters.AddWithValue("@NUM_EXP", pExp);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los Materiales por EXP y Tecnico", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
     }
 }

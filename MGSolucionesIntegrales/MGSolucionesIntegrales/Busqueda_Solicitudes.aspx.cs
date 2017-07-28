@@ -69,8 +69,8 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         DataSet dt = new DataSet();
         var FecIni = Fecha_Inicial.Text;
         var FecFin = Fecha_Final.Text;
-
-        dt = O_Neg_Solicitud.Consulta_Solicitudes_Fecha(FecIni, FecFin);
+        
+        dt = O_Neg_Solicitud.Consulta_Solicitudes_Fecha(Fecha_Inicial.Text, Fecha_Final.Text);
 
         if (dt.Tables[0].Rows.Count > 0)
         {
@@ -554,7 +554,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
                 Notas_Solicitudes.Fecha_nota = "";
                 Notas_Solicitudes.Num_Exp = Convert.ToInt32(Id_Solicitud_ReAbrir.Text);
                 Notas_Solicitudes.Observaciones = Notas_Reapertura.Text;
-                Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = 123;
+                Notas_Solicitudes.Cedula_Usuario_Inserto_Nota = Convert.ToInt32(Session["Cedula"].ToString());
                 Notas_Solicitudes.Estado_Caso = EstadoReaAbrir.Text;
                 var Guardar_Datos4 = -1;
                 Guardar_Datos4 = O_Neg_Solicitud.Inserta_Notas_Solicitudes("INSERTAR", Notas_Solicitudes);

@@ -25,6 +25,8 @@ namespace Entidades
         private string _Valor_Trabajo;
         private int _Valor_Total;
         private string _Usuario_Gestionando;
+        private string _Fecha_Inicial;
+        private string _Fecha_Final;
         #endregion
         #region Constructor
         public E_Solicitudes()
@@ -45,6 +47,8 @@ namespace Entidades
             _Valor_Trabajo = string.Empty;
             _Valor_Total = 0;
             _Usuario_Gestionando = string.Empty;
+            _Fecha_Inicial = string.Empty;
+            _Fecha_Final = string.Empty;
 
         }
         #endregion
@@ -253,6 +257,32 @@ namespace Entidades
             set
             {
                 _Usuario_Gestionando = value;
+            }
+        }
+
+        public string Fecha_Inicial
+        {
+            get
+            {
+                return _Fecha_Inicial;
+            }
+
+            set
+            {
+                _Fecha_Inicial = value;
+            }
+        }
+
+        public string Fecha_Final
+        {
+            get
+            {
+                return _Fecha_Final;
+            }
+
+            set
+            {
+                _Fecha_Final = value;
             }
         }
         #endregion
