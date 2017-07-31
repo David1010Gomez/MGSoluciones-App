@@ -80,7 +80,7 @@ namespace Negocios
         {
             return DN_Solicitud.Consulta_Solicitudes_Fecha(pFecha_Inicial, pFecha_Final);
         }
-        public DataSet Consulta_Solicitudes_Exp(int pExp)
+        public DataSet Consulta_Solicitudes_Exp(long pExp)
         {
             return DN_Solicitud.Consulta_Solicitudes_Exp(pExp);
         }

@@ -9,6 +9,16 @@
         document.getElementById('C2').classList.remove('current-page-item');
         document.getElementById('C4').classList.remove('current-page-item');
     </script>
+    <script type="text/javascript">
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+
+    </script>
     <link href="Content/Busqueda_Coordinador.css?1.0.3" rel="stylesheet" />
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/jquery.datetimepicker.full.js"></script>
@@ -41,7 +51,7 @@
                                         <asp:TextBox ID="Fecha_Final" CssClass="inp_form" placeholder="Fecha Final" runat="server" AutoPostBack="true" OnTextChanged="Fecha_Final_TextChanged"></asp:TextBox>
                                     </td>
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox ID="Exp" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="Exp" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                    
                                 </tr>
@@ -110,7 +120,8 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
-                        <br />
+                        <asp:label runat="server" ID="TotalFilas" style="float: right;"></asp:label>
+                        <br /><br />
                         <asp:Button runat="server" ID="Desacarga_Base" CssClass="button" Text="Descargar" Style="text-transform: none; float: right;" OnClick="Desacarga_Base_Click" />
                         <br />
                         <br />
@@ -138,7 +149,7 @@
                                         <asp:TextBox ID="Fecha_Final_Materiales" CssClass="inp_form" placeholder="Fecha Final" runat="server" AutoPostBack="true" OnTextChanged="Fecha_Final_Materiales_TextChanged"></asp:TextBox>
                                     </td>
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox ID="Exp_Materiales" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_Materiales_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="Exp_Materiales" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_Materiales_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -186,8 +197,8 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
-
-                        <br />
+                        <asp:label runat="server" ID="TotalFilas2" style="float: right;"></asp:label>
+                        <br /><br />
                         <asp:Button runat="server" ID="Desacarga_Base_Materiales" CssClass="button" Text="Descargar"  Style="text-transform: none; float: right;" OnClick="Desacarga_Base_Materiales_Click" />
                     </section>
                 </div>

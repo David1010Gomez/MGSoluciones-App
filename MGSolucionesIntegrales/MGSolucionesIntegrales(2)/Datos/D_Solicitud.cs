@@ -454,7 +454,7 @@ namespace Datos
             }
             return ds;
         }
-        public DataSet Consulta_Solicitudes_Exp(int pExp)
+        public DataSet Consulta_Solicitudes_Exp(long pExp)
         {
             SqlCommand cmd = new SqlCommand();
             DataSet ds = new DataSet();

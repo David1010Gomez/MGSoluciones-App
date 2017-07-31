@@ -49,9 +49,9 @@ public partial class Usuarios : System.Web.UI.Page
         {
             Cedula_Usuario.Text = dt.Tables[0].Rows[0]["CEDULA"].ToString();
             Nombre_Usuario.Text = dt.Tables[0].Rows[0]["NOMBRE"].ToString();
-            Contrasena_Usuario.Text = dt.Tables[0].Rows[0]["CONTRASENA"].ToString(); ;
+            ContraseñaActual.Value = dt.Tables[0].Rows[0]["CONTRASENA"].ToString();
             Cargo_Usuario.Text = dt.Tables[0].Rows[0]["CARGO"].ToString();
-            
+
         }
         if (dt.Tables[0].Rows.Count > 0)
         {
@@ -83,7 +83,36 @@ public partial class Usuarios : System.Web.UI.Page
                 {
                     if ((Convert.ToString(Disponible_Usuario.SelectedItem) != "- - SELECCIONE - -") && !(Convert.ToString(Disponible_Usuario.SelectedItem).Equals("")))
                     {
-                        if ( Contrasena_Usuario.Text != "")
+                        if (Accion.Text == "INSERTAR")
+                        {
+                            DataSet dt = new DataSet();
+                            dt = Neg_Usarios.Selecciona_Usuario_Cedula(Convert.ToInt32(Cedula_Usuario.Text));
+                            if ((dt.Tables[0].Rows.Count == 0))
+                            {
+                                Controles_Objetos();
+                                var Guardar_Datos = -1;
+                                Guardar_Datos = Neg_Usarios.Abc_Usuarios(Accion.Text, Ent_Usuarios);
+
+                                if (Guardar_Datos != -1)
+                                {
+                                    string script = "alert('Registro Exitoso');";
+                                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+                                }
+                                else
+                                {
+                                    string script = "alert('Ha Ocurrido un Error');";
+                                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+                                }
+                                Selecciona_Usuarios();
+                                Limpiar_Controles();
+                            }
+                            else
+                            {
+                                string script = "alert('Esta Cedula ya Existe en la Base de Datos');";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+                            }
+                        }
+                        else
                         {
                             Controles_Objetos();
                             var Guardar_Datos = -1;
@@ -101,14 +130,8 @@ public partial class Usuarios : System.Web.UI.Page
                             }
                             Selecciona_Usuarios();
                             Limpiar_Controles();
-
                         }
-                        else
-                        {
-                            string script = "alert('Digite una Contraseña');";
-                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
-                        }
-
+                        
                     }
                     else
                     {
@@ -149,13 +172,23 @@ public partial class Usuarios : System.Web.UI.Page
         Disponible_Usuario.ClearSelection();
         Accion.Text = "INSERTAR";
         Cedula.Text = "0";
+        ContraseñaActual.Value = "";
     }
 
     private void Controles_Objetos()
     {
         Ent_Usuarios.Cedula = Convert.ToInt32(Cedula_Usuario.Text);
         Ent_Usuarios.Nombre = Nombre_Usuario.Text;
-        Ent_Usuarios.Contraseña = Contrasena_Usuario.Text;
+
+        if (Contrasena_Usuario.Text != "")
+        {
+            Ent_Usuarios.Contraseña = Contrasena_Usuario.Text;
+        }
+        else
+        {
+            Ent_Usuarios.Contraseña = ContraseñaActual.Value;
+        }
+
         Ent_Usuarios.Cargo = Cargo_Usuario.Text;
         Ent_Usuarios.Id_Rol = Convert.ToInt32(Rol_Usuario.SelectedValue);
         Ent_Usuarios.Estado = Convert.ToString(Estado_Usuario.SelectedItem);

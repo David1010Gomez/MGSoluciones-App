@@ -68,13 +68,14 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
         Exp.Text = string.Empty;
         Nombre_Tecnico.Text = string.Empty;
         Listar_Tecnicos();
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
     protected void Exp_TextChanged(object sender, EventArgs e)
     {
         DataSet dt = new DataSet();
 
-        dt = O_Neg_Solicitud.Consulta_Solicitudes_Exp(Convert.ToInt32(Exp.Text));
+        dt = O_Neg_Solicitud.Consulta_Solicitudes_Exp(Convert.ToInt64(Exp.Text));
 
         if (dt.Tables[0].Rows.Count > 0)
         {
@@ -90,6 +91,7 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
         Fecha_Final.Text = string.Empty;
         Nombre_Tecnico.Text = string.Empty;
         Listar_Tecnicos();
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
     protected void Busqueda_Click(object sender, EventArgs e)
@@ -111,6 +113,7 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
         Fecha_Inicial.Text = string.Empty;
         Fecha_Final.Text = string.Empty;
         Exp.Text = string.Empty;
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
     protected void Desacarga_Base_Click(object sender, EventArgs e)

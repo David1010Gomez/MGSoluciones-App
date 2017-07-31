@@ -36,6 +36,7 @@ public partial class Inventarios : System.Web.UI.Page
             GridView1.DataSource = null;
             GridView1.DataBind();
         }
+        TotalFilas.Text = "Total de Elementos: " + Convert.ToString(GridView1.Rows.Count);
     }
     private void Selecciona_Servicios()
     {
@@ -110,6 +111,7 @@ public partial class Inventarios : System.Web.UI.Page
         Servicio.Text = "";
         Accion_Servicio.Text = "INSERTAR";
         Eliminar.Attributes.CssStyle.Add("display", "none");
+        EstadoEliminar.Checked = false;
 
 
     }
@@ -177,6 +179,15 @@ public partial class Inventarios : System.Web.UI.Page
     {
         obj_E_Tipo_Servicio.Id_Servicio = Convert.ToInt32(Id_Servicio.Text);
         obj_E_Tipo_Servicio.Servicio = Servicio.Text;
+        if (Accion_Servicio.Text != "DELETE")
+        {
+            obj_E_Tipo_Servicio.Estado = "ACTIVO";
+        }
+        else
+        {
+            obj_E_Tipo_Servicio.Estado = "INACTIVO";
+        }
+        
     }
 
     protected void GridView2_PageIndexChanging(object sender, GridViewPageEventArgs e)

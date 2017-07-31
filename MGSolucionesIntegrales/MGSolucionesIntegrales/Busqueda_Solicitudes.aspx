@@ -3,6 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script type="text/javascript">
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+
+    </script>
     <script>
         document.getElementById('C1').classList.remove('current-page-item');
         document.getElementById('C2').classList.add('current-page-item');
@@ -78,7 +88,7 @@
                                         <asp:TextBox ID="Fecha_Final_Notas" CssClass="inp_form" placeholder="Fecha Final" runat="server" AutoPostBack="true" OnTextChanged="Fecha_Final_Notas_TextChanged"></asp:TextBox>
                                     </td>
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox ID="Exp_Notas" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_Notas_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="Exp_Notas" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_Notas_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
@@ -135,7 +145,8 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
-                        <br />
+                        <asp:label runat="server" ID="TotalFilas2" style="float: right;"></asp:label>
+                        <br /><br />
                         <asp:Button runat="server" ID="Desacarga_Base_Notas" CssClass="button" Text="Descargar" OnClick="Desacarga_Base_Notas_Click" Style="text-transform: none; float: right;" />
                         <br />
                         <br />
@@ -164,7 +175,7 @@
                                         <asp:TextBox ID="Fecha_Final_Materiales" CssClass="inp_form" placeholder="Fecha Final" runat="server" AutoPostBack="true" OnTextChanged="Fecha_Final_Materiales_TextChanged"></asp:TextBox>
                                     </td>
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox ID="Exp_Materiales" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_Materiales_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="Exp_Materiales" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_Materiales_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
@@ -220,8 +231,8 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
-
-                        <br />
+                        <asp:label runat="server" ID="TotalFilas3" style="float: right;"></asp:label>
+                        <br /><br />
                         <asp:Button runat="server" ID="Desacarga_Base_Materiales" CssClass="button" Text="Descargar" OnClick="Desacarga_Base_Materiales_Click" Style="text-transform: none; float: right;" />
                     </section>
                     <br />
@@ -252,7 +263,7 @@
                                         <asp:TextBox ID="Fecha_Final" CssClass="inp_form" placeholder="Fecha Final" runat="server" AutoPostBack="true" OnTextChanged="Fecha_Final_TextChanged"></asp:TextBox>
                                     </td>
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox ID="Exp" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="Exp" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
@@ -330,7 +341,8 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
-                        <br />
+                        <asp:label runat="server" ID="TotalFilas" style="float: right;"></asp:label>
+                        <br /><br />
                         <asp:Button runat="server" ID="Desacarga_Base" CssClass="button" Text="Descargar" OnClick="Desacarga_Base_Click" Style="text-transform: none; float: right;" />
                         <br />
                         <br />
@@ -349,7 +361,7 @@
                                 <tr>
                                     <td>
                                         <asp:TextBox ID="Exp_Reapertura_Casos" CssClass="inp_form" runat="server" placeholder="Exp"
-                                            AutoPostBack="true" Width="50%" OnTextChanged="Exp_Reapertura_Casos_TextChanged"></asp:TextBox>
+                                            AutoPostBack="true" Width="50%" OnTextChanged="Exp_Reapertura_Casos_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>

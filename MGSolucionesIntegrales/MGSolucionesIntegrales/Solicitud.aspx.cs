@@ -134,15 +134,17 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Guardar_Datos_Click(object sender, EventArgs e)
     {
+        Guardar_Datos.Enabled = false;
         Guardar_Solicitud_Click();
+        Guardar_Datos.Enabled = true;
     }
     private void Guardar_Solicitud_Click()
     {
         if (Exp.Text != "")
         {
-            if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - SELECCIONE - -"))
+            if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - SELECCIONE - -") && (!Convert.ToString(Lista_Tecnicos.SelectedItem).Equals(null)))
             {
-                if ((Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -") || (Convert.ToString(Lista_Servicios.SelectedItem) == "- - SIN SERVICIOS - -"))
+                if ((Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -") && (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SIN SERVICIOS - -") && (!Convert.ToString(Lista_Servicios.SelectedItem).Equals(null)))
                 {
                     Controles_Objetos();
                     var Guardar_Datos = -1;

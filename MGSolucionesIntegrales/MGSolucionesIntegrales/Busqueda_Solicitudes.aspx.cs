@@ -85,6 +85,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         Exp.Text = string.Empty;
         Nombre_Tecnico.Text = string.Empty;
         Listar_Tecnicos();
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
     protected void Exp_TextChanged(object sender, EventArgs e)
@@ -107,6 +108,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         Fecha_Final.Text = string.Empty;
         Nombre_Tecnico.Text = string.Empty;
         Listar_Tecnicos();
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
     protected void Desacarga_Base_Click(object sender, EventArgs e)
@@ -197,6 +199,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         Fecha_Inicial.Text = string.Empty;
         Fecha_Final.Text = string.Empty;
         Exp.Text = string.Empty;
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
 
@@ -228,6 +231,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
             GridView2.DataBind();
         }
         Exp_Notas.Text = string.Empty;
+        TotalFilas2.Text = "Total de Resultados: "+Convert.ToString(GridView2.Rows.Count);
     }
 
     protected void Exp_Notas_TextChanged(object sender, EventArgs e)
@@ -248,6 +252,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         }
         Fecha_Inicial_Notas.Text = string.Empty;
         Fecha_Final_Notas.Text = string.Empty;
+        TotalFilas2.Text = "Total de Resultados: " + Convert.ToString(GridView2.Rows.Count);
     }
 
     protected void Fecha_Inicial_Materiales_TextChanged(object sender, EventArgs e)
@@ -279,6 +284,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         Exp_Materiales.Text = string.Empty;
         Nombre_Tecnico_Materiales.Text = string.Empty;
         Listar_Tecnicos();
+        TotalFilas3.Text = "Total de Resultados: " + Convert.ToString(GridView3.Rows.Count);
     }
 
     protected void Exp_Materiales_TextChanged(object sender, EventArgs e)
@@ -301,6 +307,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         Fecha_Final_Materiales.Text = string.Empty;
         Nombre_Tecnico_Materiales.Text = string.Empty;
         Listar_Tecnicos();
+        TotalFilas3.Text = "Total de Resultados: " + Convert.ToString(GridView3.Rows.Count);
     }
 
     protected void Busqueda_Materiales_Click(object sender, EventArgs e)
@@ -322,6 +329,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         Fecha_Final_Materiales.Text = string.Empty;
         Fecha_Inicial_Materiales.Text = string.Empty;
         Exp_Materiales.Text = string.Empty;
+        TotalFilas3.Text = "Total de Resultados: " + Convert.ToString(GridView3.Rows.Count);
     }
 
     protected void Desacarga_Base_Notas_Click(object sender, EventArgs e)

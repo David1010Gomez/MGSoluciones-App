@@ -9,6 +9,16 @@
         document.getElementById('C1').classList.remove('current-page-item');
         document.getElementById('C4').classList.remove('current-page-item');
     </script>
+    <script type="text/javascript">
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+
+    </script>
     <script>
         function Fijar_Tecnico()
         {
@@ -45,32 +55,18 @@
                                         <p class="comments">Búsqueda por Exp:</p>
                                     </td>
                                     <td>
-                                        <p class="comments">Búsqueda por técnico:</p>
+                                        <p class="comments">Búsqueda por Técnico:</p>
                                     </td>
                                 </tr>
-                                <%--<tr>
-                                    <td>
-                                        <asp:Label runat="server">Fecha Inicial:</asp:Label>
-                                    </td>
-                                    <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:Label runat="server">Fecha Final:</asp:Label>
-                                    </td>
-                                    <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:Label runat="server">Exp:</asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:Label runat="server"></asp:Label>
-                                    </td>
-                                </tr>--%>
                                 <tr>
                                     <td>
-                                        <asp:TextBox ID="Fecha_Inicial" CssClass="inp_form" placeholder="Fecha Inicial" runat="server" OnTextChanged="Fecha_Inicial_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                        <asp:TextBox ID="Fecha_Inicial" CssClass="inp_form" placeholder="Fecha Inicial" runat="server" OnTextChanged="Fecha_Inicial_TextChanged" AutoPostBack="true" ></asp:TextBox>
                                     </td >
                                     <td style="border-right: 3px solid #f9f9f9;">
                                         <asp:TextBox ID="Fecha_Final" CssClass="inp_form" placeholder="Fecha Final" runat="server" OnTextChanged="Fecha_Final_TextChanged" AutoPostBack="true"></asp:TextBox>
                                     </td>
                                     <td style="border-right: 3px solid #f9f9f9;">
-                                        <asp:TextBox ID="Exp"  CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="Exp"  CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                     <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
@@ -128,6 +124,7 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
+                        <asp:label runat="server" ID="TotalFilas" style="float: right;"></asp:label>
                         <script>
                         $('#<%=Fecha_Inicial.ClientID%>').datetimepicker({
                             format: 'Y-m-d',

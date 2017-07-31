@@ -8,6 +8,16 @@
     <script src="Scripts/Solicitud.js?1.0.4"></script>
     <link href="Content/Solicitud.css?1.1.1" rel="stylesheet" />
     <script type="text/javascript">
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+
+    </script>
+    <script type="text/javascript">
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
             var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
@@ -155,7 +165,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:TextBox CssClass="inp_form" ID="Exp" runat="server"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Exp" runat="server" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                     <td>
                                         <asp:TextBox CssClass="inp_form" ID="Poliza" runat="server"></asp:TextBox>
@@ -314,7 +324,7 @@
                                 <tr>
                                     <td>
                                         <div class="controls" style="float: right;">
-                                            <asp:Button runat="server" CssClass="button" Text="Guardar" Style="text-transform: none;" OnClick="Guardar_Datos_Click" />
+                                            <asp:Button ID="Guardar_Datos" runat="server" CssClass="button" Text="Guardar" Style="text-transform: none;" OnClick="Guardar_Datos_Click" />
                                         </div>
                                     </td>
                                 </tr>
@@ -464,7 +474,7 @@
                                 <asp:TextBox ID="Costo_Unidad" ReadOnly="true" CssClass="inp_form" runat="server"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="CantidadMaterial" CssClass="inp_form" runat="server" onkeypress="return justNumbers(event);"></asp:TextBox>
                                 <i id="Ok" class="fa fa-check" style="margin-left: -20px; position: absolute; margin-top: 5px; display: none" runat="server"></i>
                                 <i id="Error" class="fa fa-times" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
                             </td>
@@ -550,7 +560,7 @@
                                     <asp:TextBox ID="Act_Precio_Unitario" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="Act_Cantidad" runat="server" CssClass="inp_form"></asp:TextBox>
+                                    <asp:TextBox ID="Act_Cantidad" runat="server" CssClass="inp_form" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     <i id="Ok2" class="fa fa-check" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
                                     <i id="Error2" class="fa fa-times" style="right: 10px; position: relative; margin-top: -22px; display: inline-block; float: right; display: none" runat="server"></i>
                                 </td>

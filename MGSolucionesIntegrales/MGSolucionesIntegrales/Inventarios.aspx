@@ -4,6 +4,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <link href="Content/Solicitud.css?1.1.5" rel="stylesheet" />
+    <script type="text/javascript">
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+
+    </script>
     <script>
         document.getElementById('C1').classList.remove('current-page-item');
         document.getElementById('C5').classList.add('current-page-item');
@@ -59,7 +69,7 @@
                                         <asp:Label runat="server">Cantidad:</asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Cantidad_Inv" runat="server"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Cantidad_Inv" runat="server" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
@@ -67,7 +77,7 @@
                                         <asp:Label runat="server">Precio:</asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Precio_Inv" runat="server"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Precio_Inv" runat="server" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
                                 </tr>
                                 
@@ -120,6 +130,7 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
+                        <asp:label runat="server" ID="TotalFilas" style="float: right;"></asp:label>
                     </section>
                 </div>
                 <div class="3u 12u(mobile)" style="margin-top: 50px;">
@@ -140,7 +151,7 @@
                                 
                                 <tr>
                                     <td runat="server" id="Eliminar" style="display:none">
-                                        <asp:Label runat="server" Style="font-size: 11pt;">Eliminar:</asp:Label>
+                                        <asp:Label runat="server" Style="font-size: 11pt;">Desactivar:</asp:Label>
                                         <%--<asp:Label ID="lblCerrarCaso" Style="display: none; font-size: 11pt;" runat="server">Desea cerrar el caso?</asp:Label>--%>
                                         <asp:CheckBox ID="EstadoEliminar" runat="server" />
                                     </td>
@@ -166,7 +177,7 @@
 
                                 <asp:BoundField DataField="ID_SERVICIO" HeaderText="Id" />
                                 <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
-                                
+                                <asp:BoundField DataField="ESTADO" HeaderText="Estado" />
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
                                         <a href='javascript:editar2("<%# Eval("ID_SERVICIO") %>");'>

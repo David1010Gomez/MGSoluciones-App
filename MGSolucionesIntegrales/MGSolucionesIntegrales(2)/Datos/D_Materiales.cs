@@ -94,7 +94,8 @@ namespace Datos
 
             cmd.Parameters.AddWithValue("@ACCION", pAccion);
             cmd.Parameters.AddWithValue("@ID", Obj_Tipo_Servicio.Id_Servicio);
-            cmd.Parameters.AddWithValue("@SERVICIO", Obj_Tipo_Servicio.Servicio);
+            cmd.Parameters.AddWithValue("@SERVICIO", Obj_Tipo_Servicio.Servicio); 
+            cmd.Parameters.AddWithValue("@ESTADO", Obj_Tipo_Servicio.Estado);
 
             try
             {

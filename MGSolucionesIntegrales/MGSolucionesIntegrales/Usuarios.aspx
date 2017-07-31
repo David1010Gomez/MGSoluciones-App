@@ -4,6 +4,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="Content/Solicitud.css?1.1.3" rel="stylesheet" />
+    <script type="text/javascript">
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+
+    </script>
     <script>
         document.getElementById('C1').classList.remove('current-page-item');
         document.getElementById('C2').classList.remove('current-page-item');
@@ -85,7 +95,7 @@
                                         <asp:Label runat="server">Cédula:</asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Cedula_Usuario" runat="server"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Cedula_Usuario" runat="server" onkeypress="return justNumbers(event);"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
@@ -101,7 +111,9 @@
                                         <asp:Label runat="server">Contraseña:</asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Contrasena_Usuario" runat="server"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Contrasena_Usuario" runat="server" TextMode="Password"></asp:TextBox>
+                                        <input type="hidden" runat="server" id="ContraseñaActual" />
+                                        
                                     </td>
                                 </tr>
                                 <tr>
