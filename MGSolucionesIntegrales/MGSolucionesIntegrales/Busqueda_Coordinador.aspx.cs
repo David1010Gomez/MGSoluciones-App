@@ -68,30 +68,38 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
         Exp.Text = string.Empty;
         Nombre_Tecnico.Text = string.Empty;
         Listar_Tecnicos();
-        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
     }
 
     protected void Exp_TextChanged(object sender, EventArgs e)
     {
-        DataSet dt = new DataSet();
-
-        dt = O_Neg_Solicitud.Consulta_Solicitudes_Exp(Convert.ToInt64(Exp.Text));
-
-        if (dt.Tables[0].Rows.Count > 0)
+        if (Exp.Text != "")
         {
-            GridView1.DataSource = dt.Tables[0];
-            GridView1.DataBind();
+            DataSet dt = new DataSet();
+
+            dt = O_Neg_Solicitud.Consulta_Solicitudes_Exp(Convert.ToInt64(Exp.Text));
+
+            if (dt.Tables[0].Rows.Count > 0)
+            {
+                GridView1.DataSource = dt.Tables[0];
+                GridView1.DataBind();
+            }
+            else
+            {
+                GridView1.DataSource = null;
+                GridView1.DataBind();
+            }
+            Fecha_Inicial.Text = string.Empty;
+            Fecha_Final.Text = string.Empty;
+            Nombre_Tecnico.Text = string.Empty;
+            Listar_Tecnicos();
+            TotalFilas.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
         }
         else
         {
-            GridView1.DataSource = null;
-            GridView1.DataBind();
+            string script = "alert('Este Campo No Puede Ser Vacio');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
         }
-        Fecha_Inicial.Text = string.Empty;
-        Fecha_Final.Text = string.Empty;
-        Nombre_Tecnico.Text = string.Empty;
-        Listar_Tecnicos();
-        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
     protected void Busqueda_Click(object sender, EventArgs e)
@@ -113,7 +121,7 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
         Fecha_Inicial.Text = string.Empty;
         Fecha_Final.Text = string.Empty;
         Exp.Text = string.Empty;
-        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
     }
 
     protected void Desacarga_Base_Click(object sender, EventArgs e)

@@ -41,11 +41,12 @@
             var x = document.getElementById('<%=Busqueda_Materiales.ClientID%>');
             x.click();
         }
-        function editar(obj, obj2) {
-            if (obj2 != 'CERRADO') {
-                window.location.href = 'Solicitud.aspx?id_solicitud=' + obj + '&Estado_Caso=' + obj2;
-            }
-            else { alert('Los casos cerrados no se pueden editar'); }
+        function editar(obj) {
+            $('#<%=Id_Caso.ClientID%>').val(obj);
+            var x = document.getElementById('<%=Busqueda_Caso_Id.ClientID%>');
+            x.click();
+            //document.getElementById("Modifica_Caso").style.display = "block";
+                        
         }
         function Cambia_Estado() {
             if (document.getElementById('<%=Reabrir.ClientID%>').checked) {
@@ -54,6 +55,32 @@
             else {
                 $('#<%=Cambio_Estado.ClientID%>').val('');
             }
+        }
+        function Cambia_Valor()
+        {
+            var VT = $('#<%=Valor_Total_Mod2.ClientID%>').val();
+            var VTI = $('#<%=Valor_Total_Mod_Inicial.ClientID%>').val();
+            var VAT = $('#<%=Valor_Trabajo_Mod2.ClientID%>').val();
+            var VTRA = $('#<%=Valor_Trabajo_Mod.ClientID%>').val();
+            if (VTRA <= VAT) {
+                var Result = parseFloat(VAT) - parseFloat(VTRA);
+                var Total = VTI - Result;
+                //alert(Total);
+                $('#<%=Valor_Total_Mod2.ClientID%>').val(Total);
+                $('#<%=Valor_Total_Mod.ClientID%>').val(Total);
+            }
+            else
+            {
+                var Result = VTRA - VAT;
+                var Total = parseFloat(VTI) + parseFloat(Result);
+                //alert(VTI);
+                $('#<%=Valor_Total_Mod2.ClientID%>').val(Total);
+                $('#<%=Valor_Total_Mod.ClientID%>').val(Total);
+            }
+        }
+        function Limpiar_Campos()
+        {
+            document.getElementById("<%=Modifica_Caso.ClientID%>").style.display = "none";
         }
     </script>
     <link href="Content/Busqueda_Coordinador.css?1.0.3" rel="stylesheet" />
@@ -322,13 +349,13 @@
                                 <asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Tecnico" />
                                 <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
                                 <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />
-                                <%--<asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                                <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
-                                        <a href='javascript:editar("<%# Eval("ID") %>", "<%# Eval("ESTADO_CASO") %>");'>
+                                        <a href='javascript:editar("<%# Eval("ID") %>");'>
                                             <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
                                         </a>
                                     </ItemTemplate>
-                                </asp:TemplateField>--%>
+                                </asp:TemplateField>
                             </Columns>
                             <EmptyDataTemplate>La Consulta No Arrojo Ningun Resultado</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
@@ -344,7 +371,6 @@
                         <asp:label runat="server" ID="TotalFilas" style="float: right;"></asp:label>
                         <br /><br />
                         <asp:Button runat="server" ID="Desacarga_Base" CssClass="button" Text="Descargar" OnClick="Desacarga_Base_Click" Style="text-transform: none; float: right;" />
-                        <br />
                         <br />
                         <br />
                         <br />
@@ -413,7 +439,108 @@
                         </div>
                         <br />
                         <asp:Button ID="Actualiza_Estado_caso" runat="server" CssClass="button" Text="Actualiza Estado" OnClick="Actualiza_Estado_caso_Click"
-                             Style="text-transform: none; font-size: 0.9em; padding: 7px;" />
+                             Style="text-transform: none; font-size: 0.9em; padding: 7px; float: right;" />
+
+                        <br />
+                        <br />
+                        <br />
+                        <div id="Modifica_Caso" runat="server" style="display: none;">
+                        <h3 style="text-transform: none; font-weight: bold">Actualización de Caso</h3>
+                        <br />
+                            <a onclick="Limpiar_Campos();" style="margin-left: 90%; text-decoration: none; cursor: pointer;">Cancelar</a>
+                        <div class="Div_Table" style=" background-color: rgba(0,0,0,0.4);">
+                            <table style="width:100%" >
+                                <tr>
+                                    <td>
+                                        <p class="comments">Id Solicitud:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Numero Exp.:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Poliza:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Asegurado:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Contacto:</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="Id_Solicitud_Mod" CssClass="inp_form" runat="server" ReadOnly="true"></asp:TextBox>
+                                        <asp:TextBox ID="Id_Solicitud_Mod2" CssClass="inp_form" runat="server" style="display:none;"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Num_Exp_Mod" CssClass="inp_form" runat="server" ReadOnly="true"></asp:TextBox>
+                                        <asp:TextBox ID="Num_Exp_Mod2" CssClass="inp_form" runat="server" ReadOnly="true"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Poliza_Mod" CssClass="inp_form" runat="server" ></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Asegurado_Mod" CssClass="inp_form" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Contacto_Mod" CssClass="inp_form" runat="server"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="comments">Fact.:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Dirección:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Estado Caso:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Valor Trabajo:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Valor Total:</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="Fact_Mod" CssClass="inp_form" runat="server" ></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Direccion_Mod" CssClass="inp_form" runat="server" ></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Estado_Caso_Mod" CssClass="inp_form" runat="server" ReadOnly="true"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="Estado_Caso_Mod2" style="display:none;"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Valor_Trabajo_Mod" CssClass="inp_form" runat="server"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="Valor_Trabajo_Mod2" style="display:none;"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="Valor_Total_Mod" CssClass="inp_form" runat="server" ReadOnly="true"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="Valor_Total_Mod2" style="display:none;"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="Valor_Total_Mod_Inicial" style="display:none;"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <p class="comments">Notas:</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <asp:TextBox ID="Observaciones_Mod" CssClass="inp_form_Observ" TextMode="MultiLine" runat="server"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <asp:Button ID="Actualiza_Datos_Caso" runat="server" CssClass="button" Text="Actualiza Datos" OnClick="Actualiza_Datos_Caso_Click"
+                             Style="text-transform: none; font-size: 0.9em; padding: 7px; float: right;" />
+                        </div>
+
                     </section>
 
                 </div>
@@ -421,6 +548,7 @@
             </div>
         </div>
     </div>
-
+    <asp:TextBox runat="server" ID="Id_Caso" style="display:none;">0</asp:TextBox>
+    <asp:Button runat="server" ID="Busqueda_Caso_Id" OnClick="Busqueda_Caso_Id_Click" />
 </asp:Content>
 

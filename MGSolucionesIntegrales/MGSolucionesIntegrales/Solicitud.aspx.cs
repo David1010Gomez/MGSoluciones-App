@@ -969,7 +969,7 @@ public partial class Solicitud : System.Web.UI.Page
     protected void Actualiza_Tabla_Materiales_Solicitud_Click1(object sender, EventArgs e)
     {
         Act_Id.Text = string.Empty;
-        Act_Material.Text = string.Empty;
+        //Act_Material.Text = string.Empty;
         Act_Cantidad.Text = string.Empty;
         Limpiar_Controles_Materiales();
         Materiales_A_Agregar();

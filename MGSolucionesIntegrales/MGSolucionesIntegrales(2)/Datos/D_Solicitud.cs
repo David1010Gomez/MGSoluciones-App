@@ -1073,5 +1073,29 @@ namespace Datos
             }
             return ds;
         }
+        public DataSet Selecciona_Caso_Id(int pIdCaso)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_CASOS_ID]";
+                cmd.Parameters.AddWithValue("@ID_CASO", pIdCaso);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar la solicitud por Id", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
     }
 }

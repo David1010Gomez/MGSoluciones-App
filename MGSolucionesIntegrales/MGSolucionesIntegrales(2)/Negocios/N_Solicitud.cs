@@ -180,5 +180,9 @@ namespace Negocios
         {
             return DN_Solicitud.Consulta_Materiales_Exp_Tecnico(pExp, pCedulaTecnico);
         }
+        public DataSet Selecciona_Caso_Id(int pIdCaso)
+        {
+            return DN_Solicitud.Selecciona_Caso_Id(pIdCaso);
+        }
     }
 }

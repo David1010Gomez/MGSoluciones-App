@@ -35,11 +35,11 @@
             x.click();
             $('#Nuevo_Tecnico').css('display', 'block');
         }
-        function editarListaMateriales(Id, Material, Cantidad, Id_Material, PrecioUnit, PrecioTotal) {
+        function editarListaMateriales(Id, Cantidad, Id_Material, PrecioUnit, PrecioTotal) {
             document.getElementById("<%=Div_Actualiza.ClientID%>").style.display = "block";
             document.getElementById("<%=GridView4.ClientID%>").style.display = "none";
             $("#<%=Act_Id.ClientID%>").val(Id);
-            $("#<%=Act_Material.ClientID%>").val(Material);
+                
             $("#<%=Act_Cantidad.ClientID%>").val(Cantidad);
             $("#<%=Act_Id_Material.ClientID%>").val(Id_Material);
             $("#<%=Act_CantidadInicial.ClientID%>").val(Cantidad);
@@ -504,7 +504,7 @@
                             <asp:BoundField DataField="PRECIO_TOTAL" HeaderText="PRECIO TOTAL" />
                             <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                 <ItemTemplate>
-                                    <a href='javascript:editarListaMateriales("<%# Eval("ID") %>","<%# Eval("MATERIAL") %>", "<%# Eval("CANTIDAD") %>", "<%# Eval("ID_MATERIAL")%>", "<%# Eval("PRECIO_UNIDAD")%>", "<%# Eval("PRECIO_TOTAL")%>");'>
+                                    <a href='javascript:editarListaMateriales("<%# Eval("ID") %>", "<%# Eval("CANTIDAD") %>", "<%# Eval("ID_MATERIAL")%>", "<%# Eval("PRECIO_UNIDAD")%>", "<%# Eval("PRECIO_TOTAL")%>");'>
                                         <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
                                     </a>
                                 </ItemTemplate>
@@ -533,9 +533,9 @@
                                 <td>
                                     <asp:Label runat="server">Id Material</asp:Label>
                                 </td>
-                                <td>
+                                <%--<td>
                                     <asp:Label runat="server">Material</asp:Label>
-                                </td>
+                                </td>--%>
                                 <td>
                                     <asp:Label runat="server">Precio Unitario</asp:Label>
                                 </td>
@@ -553,9 +553,9 @@
                                 <td>
                                     <asp:TextBox ID="Act_Id_Material" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
                                 </td>
-                                <td>
+                                <%--<td>
                                     <asp:TextBox ID="Act_Material" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
-                                </td>
+                                </td>--%>
                                 <td>
                                     <asp:TextBox ID="Act_Precio_Unitario" runat="server" disabled="true" CssClass="inp_form"></asp:TextBox>
                                 </td>

@@ -48,29 +48,37 @@ public partial class Busqueda_Tecnico : System.Web.UI.Page
             GridView1.DataBind();
         }
         Exp.Text = string.Empty;
-        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
+        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
 
     }
 
     protected void Exp_TextChanged(object sender, EventArgs e)
     {
-        DataSet dt = new DataSet();
-
-        dt = O_Neg_Solicitud.Consulta_Solicitudes_Exp_Tecnico(Convert.ToInt32(Exp.Text), Convert.ToInt32(Session["Cedula"].ToString()));
-
-        if (dt.Tables[0].Rows.Count > 0)
+        if (Exp.Text != "")
         {
-            GridView1.DataSource = dt.Tables[0];
-            GridView1.DataBind();
+            DataSet dt = new DataSet();
+
+            dt = O_Neg_Solicitud.Consulta_Solicitudes_Exp_Tecnico(Convert.ToInt32(Exp.Text), Convert.ToInt32(Session["Cedula"].ToString()));
+
+            if (dt.Tables[0].Rows.Count > 0)
+            {
+                GridView1.DataSource = dt.Tables[0];
+                GridView1.DataBind();
+            }
+            else
+            {
+                GridView1.DataSource = null;
+                GridView1.DataBind();
+            }
+            Fecha_Inicial.Text = string.Empty;
+            Fecha_Final.Text = string.Empty;
+            TotalFilas.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
         }
         else
         {
-            GridView1.DataSource = null;
-            GridView1.DataBind();
+            string script = "alert('Este Campo No Puede Ser Vacio');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
         }
-        Fecha_Inicial.Text = string.Empty;
-        Fecha_Final.Text = string.Empty;
-        TotalFilas.Text = "Total de Resultados: " + Convert.ToString(GridView1.Rows.Count);
     }
 
     protected void Fecha_Inicial_Materiales_TextChanged(object sender, EventArgs e)
@@ -100,7 +108,7 @@ public partial class Busqueda_Tecnico : System.Web.UI.Page
             GridView2.DataBind();
         }
         Exp_Materiales.Text = string.Empty;
-        TotalFilas2.Text = "Total de Resultados: " + Convert.ToString(GridView2.Rows.Count);
+        TotalFilas2.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
     }
 
     protected void Exp_Materiales_TextChanged(object sender, EventArgs e)
@@ -121,7 +129,7 @@ public partial class Busqueda_Tecnico : System.Web.UI.Page
         }
         Fecha_Inicial_Materiales.Text = string.Empty;
         Fecha_Final_Materiales.Text = string.Empty;
-        TotalFilas2.Text = "Total de Resultados: " + Convert.ToString(GridView2.Rows.Count);
+        TotalFilas2.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
     }
 
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
