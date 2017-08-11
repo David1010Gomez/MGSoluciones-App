@@ -151,7 +151,7 @@ public partial class Solicitud : System.Web.UI.Page
                     Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
                     if (Guardar_Datos != -1)
                     {
-                        if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); }
+                        if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); Guarda_Tecnico_LogApla(); }
                         Guardar_Notas();
                         Guarda_Tecnico_Solicitud();
                         Guarda_Servicio_Solicitud();
@@ -187,6 +187,15 @@ public partial class Solicitud : System.Web.UI.Page
             string script = "mensaje4();";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje4", script, true);
         }
+    }
+
+    private void Guarda_Tecnico_LogApla()
+    {
+        E_L_Aplazamientos.Id_Solicitud = E_Solicitud.Id;
+        E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+        E_L_Aplazamientos.Trabajo = "EN TRABAJO";
+        var Guardar_Datos = -1;
+        Guardar_Datos = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
     }
 
     private void Guarda_Servicio_Solicitud()
@@ -271,7 +280,7 @@ public partial class Solicitud : System.Web.UI.Page
             }
         }
         if (CHCerrarCaso.Checked == true) { E_Solicitud.Estado_Caso = "CERRADO"; }
-        if (E_Solicitud.Estado_Caso == "ABIERTO" || E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO") { E_Turnos.Trabajo = "OCUPADO"; }
+        if (E_Solicitud.Estado_Caso == "ABIERTO" || E_Solicitud.Estado_Caso == "AGENDADO" || E_Solicitud.Estado_Caso == "ASIGNADO") { E_Turnos.Trabajo = "EN TRABAJO"; }
         if (E_Solicitud.Estado_Caso == "CERRADO") { E_Turnos.Trabajo = "TERMINADO"; }
         E_Solicitud.Cedula_Usuario_Creacion = Convert.ToInt32(Session["Cedula"].ToString());
         E_Solicitud.Fecha_Cierre = DateTime.Now;
@@ -1096,9 +1105,6 @@ public partial class Solicitud : System.Web.UI.Page
                 E_Usuarios.Disponible = "OCUPADO";
                 var Guardar_Datos = -1;
 
-
-
-
                 Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
 
                 E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
@@ -1110,7 +1116,7 @@ public partial class Solicitud : System.Web.UI.Page
                 i++;
             }
             E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
-            E_Turnos.Trabajo = "OCUPADO";
+            E_Turnos.Trabajo = "EN TRABAJO";
             var Guardar_Datos2 = -1;
             Guardar_Datos2 = O_Neg_Solicitud.abc_Turnos("UPDATE TRABAJO", E_Turnos);
         }

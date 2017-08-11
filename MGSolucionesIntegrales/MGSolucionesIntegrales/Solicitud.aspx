@@ -108,6 +108,10 @@
         $('#<%=txtValorTotal.ClientID%>').val(Valor);
         $('#<%=txtValorTotal2.ClientID%>').val(Valor);
     }
+    function Liberar_Tecnico()
+    {
+
+    }
     </script>
 
     <div id="main">
@@ -194,6 +198,9 @@
                                         <asp:Label runat="server">Tecnico:</asp:Label>
                                         <div runat="server" id="Div_Agrega_Tecnicos" style="float: right; margin-right: 5px; display:block;">
                                             <a href="#" id="Nuevo_Tecnico" onclick="Bucar_Tecni2();" ><i class="fa fa-plus-circle"></i></a>
+                                        </div>
+                                        <div runat="server" id="Div_Libera_Tecnico" style="float: right; margin-right: 5px; display:block;">
+                                            <a href="#" id="" onclick="Liberar_Tecnico();" ><i class="fa fa-users"></i></a>
                                         </div>
                                     </td>
                                 </tr>
