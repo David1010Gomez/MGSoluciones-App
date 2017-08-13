@@ -12,7 +12,8 @@ public partial class Inicio_Sesion : System.Web.UI.Page
     N_Usuarios obj_Neg_Usuarios = new N_Usuarios();
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Cedula.Attributes.Add("autocomplete", "off");
+        Contraseña.Attributes.Add("autocomplete", "off");
     }
     protected void Ingresar_Click(object sender, EventArgs e)
     {
@@ -28,6 +29,8 @@ public partial class Inicio_Sesion : System.Web.UI.Page
                 Session["Nombre"] = ds.Tables[0].Rows[0]["NOMBRE"].ToString();
                 Session["Cargo"] = ds.Tables[0].Rows[0]["CARGO"].ToString();
                 Session["Id_Rol"] = ds.Tables[0].Rows[0]["ID_ROL"].ToString();
+                Session["Id"] = "";
+                Session["Estado_Caso"] = "";
 
                 if (Session["Id_Rol"].ToString() == "1")
                 {

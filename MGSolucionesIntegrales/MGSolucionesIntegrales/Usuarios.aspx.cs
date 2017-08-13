@@ -15,6 +15,8 @@ public partial class Usuarios : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Selecciona_Usuarios();
+        Nombre_Usuario.Attributes.Add("autocomplete", "off");
+        Contrasena_Usuario.Attributes.Add("autocomplete", "off");
     }
 
     private void Selecciona_Usuarios()

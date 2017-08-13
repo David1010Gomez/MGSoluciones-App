@@ -184,5 +184,9 @@ namespace Negocios
         {
             return DN_Solicitud.Selecciona_Caso_Id(pIdCaso);
         }
+        public DataSet Selecciona_Ultimo_Trabajo_Cedula(int pIdSolicitud, int pCedula)
+        {
+            return DN_Solicitud.Selecciona_Ultimo_Trabajo_Cedula(pIdSolicitud,pCedula);
+        }
     }
 }

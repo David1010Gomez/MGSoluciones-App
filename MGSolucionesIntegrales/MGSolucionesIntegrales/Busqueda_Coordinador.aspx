@@ -30,7 +30,11 @@
         }
         function editar(obj, obj2) {
             if (obj2 != 'CERRADO') {
-                window.location.href = 'Solicitud.aspx?id_solicitud=' + obj + '&Estado_Caso=' + obj2;
+                $("#<%=Id.ClientID%>").val(obj);
+                $("#<%=Estado_Caso.ClientID%>").val(obj2);
+                var x = document.getElementById('<%=Redirecciona.ClientID%>');
+                x.click();
+                
             }
             else { alert('Los casos cerrados no se pueden editar');}
         }
@@ -149,7 +153,9 @@
                         <br />
                         <asp:Button runat="server" ID="Desacarga_Base" CssClass="button" Text="Descargar" OnClick="Desacarga_Base_Click" Style="text-transform: none; float:right;" />
                         <br />
-
+                        <asp:TextBox runat="server" ID="Id" style="display:none;"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="Estado_Caso" style="display:none;"></asp:TextBox>
+                        <asp:Button runat="server" ID="Redirecciona" style="display:none" OnClick="Redirecciona_Click"/>
                     </section>
                 </div>
             </div>

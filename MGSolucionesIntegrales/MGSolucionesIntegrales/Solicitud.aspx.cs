@@ -27,30 +27,30 @@ public partial class Solicitud : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string fullname1 = Request.QueryString["id_solicitud"];
-        string fullname2 = Request.QueryString["Estado_Caso"];
-        if (fullname1 != null)
+        if (Session["Id"].ToString() != "")
         {
-            ID_CASO.Text = fullname1;
-            if (fullname2 == "ABIERTO")
+            ID_CASO.Text = Session["Id"].ToString();
+            if (Session["Estado_Caso"].ToString() == "ABIERTO")
             {
                 Cargar_Caso_Abierto_Click(sender, e);
-                fullname1 = "";
+                //fullname1 = "";
             }
             else
             {
-                if (fullname2 == "ASIGNADO")
+                if (Session["Estado_Caso"].ToString() == "ASIGNADO")
                 {
                     Cargar_Caso_Agendado_Click(sender, e);
                 }
                 else
                 {
-                    if (fullname2 == "AGENDADO")
+                    if (Session["Estado_Caso"].ToString() == "AGENDADO")
                     {
                         Cargar_Caso_Agendado_Click(sender, e);
                     }
                 }
             }
+            Session["Id"] = "";
+            Session["Estado_Caso"] = "";
         }
         else
         {
@@ -73,7 +73,7 @@ public partial class Solicitud : System.Web.UI.Page
     {
         DataSet dt = new DataSet();
         dt = O_Neg_Solicitud.Materiales_a_Agregar();
-        
+
         if (dt.Tables[0].Rows.Count > 0)
         {
             Select_Materiales.DataSource = dt;
@@ -82,7 +82,7 @@ public partial class Solicitud : System.Web.UI.Page
             Select_Materiales.DataBind();
             Select_Materiales.Items.Insert(0, "- - SELECCIONE - -");
             Costo_Unidad.Text = "0";
-            
+
         }
         else
         {
@@ -144,37 +144,47 @@ public partial class Solicitud : System.Web.UI.Page
         {
             if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - SELECCIONE - -") && (!Convert.ToString(Lista_Tecnicos.SelectedItem).Equals(null)))
             {
+
                 if ((Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -") && (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SIN SERVICIOS - -") && (!Convert.ToString(Lista_Servicios.SelectedItem).Equals(null)))
                 {
-                    Controles_Objetos();
-                    var Guardar_Datos = -1;
-                    Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
-                    if (Guardar_Datos != -1)
+                    if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -") && (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -"))
                     {
-                        if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); Guarda_Tecnico_LogApla(); }
-                        Guardar_Notas();
-                        Guarda_Tecnico_Solicitud();
-                        Guarda_Servicio_Solicitud();
-                        Limpiar_Controles();
-                        Limpiar_Controles_Materiales();
-                        string script1 = "mensaje1();";
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
-                        Casos_Abiertos();
-                        Casos_Asignados();
-                        Casos_Agendados();
+                        Controles_Objetos();
+                        var Guardar_Datos = -1;
+                        Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
+                        if (Guardar_Datos != -1)
+                        {
+                            if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); Guarda_Tecnico_LogApla(); }
+                            Guardar_Notas();
+                            Guarda_Tecnico_Solicitud();
+                            Guarda_Servicio_Solicitud();
+                            Limpiar_Controles();
+                            Limpiar_Controles_Materiales();
+                            string script1 = "mensaje1();";
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
+                            Casos_Abiertos();
+                            Casos_Asignados();
+                            Casos_Agendados();
+                        }
+                        else
+                        {
+                            string script = "mensaje2();";
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                        }
                     }
                     else
                     {
-                        string script = "mensaje2();";
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                        string script = "alert('No se Puede Guardar un Nuevo Servicio sin Un Tecnico');";
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
                     }
                 }
+
                 else
                 {
-
                     string script = "mensaje15();";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje15", script, true);
                 }
+
             }
             else
             {
@@ -191,11 +201,53 @@ public partial class Solicitud : System.Web.UI.Page
 
     private void Guarda_Tecnico_LogApla()
     {
-        E_L_Aplazamientos.Id_Solicitud = E_Solicitud.Id;
-        E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
-        E_L_Aplazamientos.Trabajo = "EN TRABAJO";
-        var Guardar_Datos = -1;
-        Guardar_Datos = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+        if (Accion_Trabajo.Text == "INSERTAR")
+        {
+            E_L_Aplazamientos.Id_Solicitud = E_Solicitud.Id;
+            E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+            E_L_Aplazamientos.Trabajo = "EN TRABAJO";
+            var Guardar_Datos = -1;
+            Guardar_Datos = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+        }
+        else
+        {
+            if (Accion_Trabajo.Text == "EN TRABAJO")
+            {
+                if (Accion_Trabajo.Text != Estado_Usuario_Inicial.Text)
+                {
+                    E_L_Aplazamientos.Id_Solicitud = E_Solicitud.Id;
+                    E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+                    E_L_Aplazamientos.Trabajo = "EN TRABAJO";
+                    var Guardar_Datos = -1;
+                    Guardar_Datos = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+
+                    E_Usuarios.Cedula = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+                    E_Usuarios.Disponible = "OCUPADO";
+                    var Guardar_Datos1 = -1;
+                    Guardar_Datos1 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+
+                }
+            }
+            else
+            {
+                if (Accion_Trabajo.Text == "FINALIZADO")
+                {
+                    if (Accion_Trabajo.Text != Estado_Usuario_Inicial.Text)
+                    {
+                        E_L_Aplazamientos.Id_Solicitud = E_Solicitud.Id;
+                        E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+                        E_L_Aplazamientos.Trabajo = "FINALIZADO";
+                        var Guardar_Datos = -1;
+                        Guardar_Datos = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+
+                        E_Usuarios.Cedula = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
+                        E_Usuarios.Disponible = "DISPONIBLE";
+                        var Guardar_Datos1 = -1;
+                        Guardar_Datos1 = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+                    }
+                }
+            }
+        }
     }
 
     private void Guarda_Servicio_Solicitud()
@@ -209,7 +261,7 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            if (Lista_Tecnicos.SelectedValue != "- - NO HAY TÉCNICOS DISPONIBLES - -")
+            if ((Lista_Tecnicos.SelectedValue != "- - NO HAY TÉCNICOS DISPONIBLES - -"))
             {
                 var Guardar_Datos = -1;
                 Guardar_Datos = O_Neg_Solicitud.Abc_Servicio_Solicitud("UPDATE", E_Servicio_Solicitud);
@@ -404,6 +456,8 @@ public partial class Solicitud : System.Web.UI.Page
         Aplaza_Caso.Attributes.CssStyle.Add("display", "none");
         lblValorTotal.Attributes.CssStyle.Add("display", "none");
         txtValorTotal.Attributes.CssStyle.Add("display", "none");
+        Accion_Trabajo.Text = "";
+        Estado_Usuario_Inicial.Text = "";
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -484,6 +538,8 @@ public partial class Solicitud : System.Web.UI.Page
     {
         Listar_Tecnicos();
         Tipo_Servicios();
+        Accion_Trabajo.Text = "INSERTAR";
+
     }
 
     private void Guarda_Turno_Tecnico()
@@ -546,6 +602,7 @@ public partial class Solicitud : System.Web.UI.Page
                 Estado_Caso_Creacion.Text = "AGENDADO";
                 Carga_Tecnicos_solicitud();
                 Listar_Servicios_Solicitud_Cedula();
+                Carga_Ultimo_Trabajo_Cedula();
                 Accion.Text = "UPDATE";
                 Accion_Tecnico.Text = "UPDATE";
                 Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
@@ -558,7 +615,7 @@ public partial class Solicitud : System.Web.UI.Page
                 Historial_Solicitud();
                 Div_Agrega_Servicio.Attributes.CssStyle.Add("display", "none");
                 Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
-                if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
+                if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "EN TRABAJO")
                 {
                     Aplaza_Caso.Text = "APLAZAR";
                 }
@@ -598,6 +655,29 @@ public partial class Solicitud : System.Web.UI.Page
         }
     }
 
+    private void Carga_Ultimo_Trabajo_Cedula()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Selecciona_Ultimo_Trabajo_Cedula(Convert.ToInt32(ID_CASO.Text), Convert.ToInt32(Lista_Tecnicos.SelectedValue));
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "EN TRABAJO")
+            {
+                string script = "$('#Lib_Des').css('color', '#e20404');";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Color Icono Usuarios", script, true);
+                Accion_Trabajo.Text = "EN TRABAJO";
+                Estado_Usuario_Inicial.Text = dt.Tables[0].Rows[0]["TRABAJO"].ToString();
+            }
+            else
+            {
+                string script = "$('#Lib_Des').css('color', '#5d93a2');";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Color Icono Usuarios", script, true);
+                Accion_Trabajo.Text = "FINALIZADO";
+                Estado_Usuario_Inicial.Text = dt.Tables[0].Rows[0]["TRABAJO"].ToString();
+            }
+        }
+    }
+
     private void Listar_Servicios_Solicitud_Cedula()
     {
         DataSet dt = new DataSet();
@@ -632,14 +712,14 @@ public partial class Solicitud : System.Web.UI.Page
         {
             Lista_Tecnicos.Items.Clear();
         }
-        
+
     }
 
     protected void Cargar_Caso_Agendado_Click(object sender, EventArgs e)
     {
         E_Solicitud.Id = Convert.ToInt32(ID_CASO.Text);
         DataSet ds = new DataSet();
-        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id,  Session["Cedula"].ToString());
+        ds = O_Neg_Solicitud.Selecciona_Solicitud_Libre(E_Solicitud.Id, Session["Cedula"].ToString());
         Limpiar_Controles();
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -658,6 +738,7 @@ public partial class Solicitud : System.Web.UI.Page
                 Estado_Caso_Creacion.Text = "CERRADO";
                 Carga_Tecnicos_solicitud();
                 Listar_Servicios_Solicitud_Cedula();
+                Carga_Ultimo_Trabajo_Cedula();
                 Accion.Text = "UPDATE";
                 Accion_Tecnico.Text = "UPDATE";
                 Fecha_Agendamiento.Attributes.CssStyle.Add("display", "block");
@@ -687,7 +768,7 @@ public partial class Solicitud : System.Web.UI.Page
                     Valor_Trabajo.Attributes.Remove("ReadOnly");
                 }
                 Aplaza_Caso.Attributes.CssStyle.Add("display", "block");
-                if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "OCUPADO")
+                if (dt.Tables[0].Rows[0]["TRABAJO"].ToString() == "EN TRABAJO")
                 {
                     Aplaza_Caso.Text = "APLAZAR";
                 }
@@ -770,9 +851,9 @@ public partial class Solicitud : System.Web.UI.Page
                             if (dt1.Tables[0].Rows.Count > 0)
                             {
                                 var result = Convert.ToString(Convert.ToInt32(Valor_Trabajo.Text) + Convert.ToInt32(dt1.Tables[0].Rows[0]["VALOR_MATERIALES"].ToString()));
-                                string script = "Actualiza_Total("+result+");";
+                                string script = "Actualiza_Total(" + result + ");";
                                 ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza Total", script, true);
-                                
+
                             }
                             else
                             {
@@ -947,7 +1028,7 @@ public partial class Solicitud : System.Web.UI.Page
                     }
                     string script = "Oculta_Div_Actualiza();";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Oculta_Div_Actualiza", script, true);
-                    
+
                 }
                 else
                 {
@@ -1017,6 +1098,7 @@ public partial class Solicitud : System.Web.UI.Page
             Carga_Fecha_Asignada_Tecnico();
             Materiales_A_Agregar();
             Tabla_Materiales_Solicitud();
+            Carga_Ultimo_Trabajo_Cedula();
         }
         if ((Estado_Caso_Creacion.Text == "ABIERTO") || (Estado_Caso_Creacion.Text == "ASIGNADO") || (Convert.ToInt32(Lista_Servicios.SelectedValue) == 0))
         {
@@ -1026,7 +1108,7 @@ public partial class Solicitud : System.Web.UI.Page
         {
             Listar_Servicios_Solicitud_Cedula();
         }
-        
+
     }
     private void Historial_Solicitud()
     {
@@ -1070,51 +1152,51 @@ public partial class Solicitud : System.Web.UI.Page
     {
         if (Aplaza_Caso.Text == "APLAZAR")
         {
-            DataSet dt = new DataSet();
-            dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
-            int i = 0;
-            foreach (var l in dt.Tables[0].Rows)
-            {
-                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
-                E_Usuarios.Disponible = "DISPONIBLE";
-                var Guardar_Datos = -1;
-                Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+            //DataSet dt = new DataSet();
+            //dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
+            //int i = 0;
+            //foreach (var l in dt.Tables[0].Rows)
+            //{
+            //    E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+            //    E_Usuarios.Disponible = "DISPONIBLE";
+            //    var Guardar_Datos = -1;
+            //    Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
 
-                E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
-                E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
-                E_L_Aplazamientos.Trabajo = "APLAZADO";
-                var Guardar_Datos1 = -1;
-                Guardar_Datos1 = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+            //    E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
+            //    E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+            //    E_L_Aplazamientos.Trabajo = "APLAZADO";
+            //    var Guardar_Datos1 = -1;
+            //    Guardar_Datos1 = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
 
-                i++;
-            }
+            //    i++;
+            //}
             E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
             E_Turnos.Trabajo = "APLAZADO";
             var Guardar_Datos2 = -1;
             Guardar_Datos2 = O_Neg_Solicitud.abc_Turnos("UPDATE TRABAJO", E_Turnos);
-            
+
         }
         else
         {
-            DataSet dt = new DataSet();
-            dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
-            int i = 0;
-            foreach (var l in dt.Tables[0].Rows)
-            {
-                E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
-                E_Usuarios.Disponible = "OCUPADO";
-                var Guardar_Datos = -1;
+            //DataSet dt = new DataSet();
+            //dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("LISTAR", Convert.ToInt32(ID_CASO.Text), 0);
+            //int i = 0;
+            //foreach (var l in dt.Tables[0].Rows)
+            //{
+            //    //E_Usuarios.Cedula = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+            //    //E_Usuarios.Disponible = "OCUPADO";
+            //    //var Guardar_Datos = -1;
 
-                Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
+            //    //Guardar_Datos = O_Neg_Solicitud.Actualiza_Estado_Tecnico(E_Usuarios);
 
-                E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
-                E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
-                E_L_Aplazamientos.Trabajo = "RE-ABIERTO";
-                var Guardar_Datos1 = -1;
-                Guardar_Datos1 = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
+            //    //E_L_Aplazamientos.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
+            //    //E_L_Aplazamientos.Cedula_Tecnico = Convert.ToInt32(dt.Tables[0].Rows[i]["CEDULA_TECNICO"].ToString());
+            //    //E_L_Aplazamientos.Trabajo = "EN TRABAJO";
+            //    //var Guardar_Datos1 = -1;
+            //    //Guardar_Datos1 = O_Neg_Solicitud.Insertar_Log_Aplazamientos(E_L_Aplazamientos);
 
-                i++;
-            }
+            //    //i++;
+            //}
             E_Turnos.Num_Exp = Convert.ToInt32(ID_CASO.Text);
             E_Turnos.Trabajo = "EN TRABAJO";
             var Guardar_Datos2 = -1;
@@ -1122,7 +1204,7 @@ public partial class Solicitud : System.Web.UI.Page
         }
         string script = "window.location.href = 'Solicitud.aspx';";
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CallMyString", script, true);
-        
+
     }
 
     protected void Select_Materiales_SelectedIndexChanged(object sender, EventArgs e)
@@ -1162,7 +1244,7 @@ public partial class Solicitud : System.Web.UI.Page
         Guardar_Datos = O_Neg_Solicitud.Usuario_Eliminar_Gestionando_Caso(Session["Cedula"].ToString());
         string script = "window.location.href = 'Solicitud.aspx';";
         ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script, true);
-        
+
     }
 
     protected void GridView2_PageIndexChanging(object sender, GridViewPageEventArgs e)

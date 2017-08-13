@@ -17,6 +17,8 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
     {
         Listar_Tecnicos();
         Lista_Tecnicos.Attributes.Add("onchange", "Fijar_Tecnico();");
+        Session["Id"] = "";
+        Session["Estado_Caso"] = "";
     }
     private void Listar_Tecnicos()
     {
@@ -208,5 +210,14 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
         {
             Busqueda_Click(sender, e);
         }
+    }
+
+    protected void Redirecciona_Click(object sender, EventArgs e)
+    {
+        Session["Id"] = Id.Text;
+        Session["Estado_Caso"] = Estado_Caso.Text;
+        string script = "window.location.href = 'Solicitud.aspx';";
+        ScriptManager.RegisterStartupScript(this, typeof(Page), "Redireccion", script, true);
+        
     }
 }

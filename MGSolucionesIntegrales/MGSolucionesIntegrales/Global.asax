@@ -11,6 +11,7 @@
         BundleConfig.RegisterBundles(BundleTable.Bundles);
         if (System.Web.HttpContext.Current.Session != null)
         {
+               
             if (Session["Id_Rol"] == null)
             {
                 Response.Redirect("Inicio_Sesion.aspx");

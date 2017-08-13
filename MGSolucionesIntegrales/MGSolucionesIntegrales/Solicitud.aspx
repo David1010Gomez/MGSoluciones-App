@@ -110,7 +110,17 @@
     }
     function Liberar_Tecnico()
     {
-
+        
+        if ($('#<%=Accion_Trabajo.ClientID%>').val() == "FINALIZADO" || $('#<%=Accion_Trabajo.ClientID%>').val() == "APLAZADO") {
+            $("#Lib_Des").css("color", "#e20404");
+            $('#<%=Accion_Trabajo.ClientID%>').val('EN TRABAJO');
+        }
+        else {
+            if ($('#<%=Accion_Trabajo.ClientID%>').val() == "EN TRABAJO") {
+                $("#Lib_Des").css("color", "#5d93a2");
+                $('#<%=Accion_Trabajo.ClientID%>').val('FINALIZADO');
+            }
+        }
     }
     </script>
 
@@ -200,7 +210,7 @@
                                             <a href="#" id="Nuevo_Tecnico" onclick="Bucar_Tecni2();" ><i class="fa fa-plus-circle"></i></a>
                                         </div>
                                         <div runat="server" id="Div_Libera_Tecnico" style="float: right; margin-right: 5px; display:block;">
-                                            <a href="#" id="" onclick="Liberar_Tecnico();" ><i class="fa fa-users"></i></a>
+                                            <a href="#" id="Lib_Des" onclick="Liberar_Tecnico();" ><i class="fa fa-users"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -445,12 +455,14 @@
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Caso_Creacion">ABIERTO</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion">INSERTAR</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Trabajo"></asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Usuario_Inicial"></asp:TextBox>
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" /> 
     <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  />
-    <asp:Button runat="server" style="display:none;" ID="Desliberar_Caso" OnClick="Desliberar_Caso_Click"/> 
+    <asp:Button runat="server" style="display:none;" ID="Desliberar_Caso" OnClick="Desliberar_Caso_Click"/>
 
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor" style="margin-top: 80px;">

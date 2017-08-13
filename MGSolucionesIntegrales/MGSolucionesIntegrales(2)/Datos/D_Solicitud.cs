@@ -1097,5 +1097,30 @@ namespace Datos
             }
             return ds;
         }
+        public DataSet Selecciona_Ultimo_Trabajo_Cedula(int pIdSolicitud, int pCedula)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONAR_ULTIMO_TRABAJO_CEDULA]";
+                cmd.Parameters.AddWithValue("@ID_SOLICITUD", pIdSolicitud);
+                cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedula);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar la el ultimo trabajo por Solicitud y Cedula de Log Aplazamientos", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
     }
 }
