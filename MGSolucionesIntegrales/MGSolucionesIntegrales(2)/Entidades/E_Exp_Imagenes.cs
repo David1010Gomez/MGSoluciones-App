@@ -12,8 +12,9 @@ namespace Entidades
         private int _Id;
         private string _Fecha;
         private string _Nombre_Carpeta;
-        private string _Cantidad_Imagenes;
+        private int _Cantidad_Imagenes;
         private string _Estado;
+        private int _Usuario_Guardo_Imagenes;
         #endregion
         #region Constructor
         public E_Exp_Imagenes()
@@ -21,8 +22,9 @@ namespace Entidades
             _Id = 0;
             _Fecha = string.Empty;
             _Nombre_Carpeta = string.Empty;
-            _Cantidad_Imagenes = string.Empty;
+            _Cantidad_Imagenes = 0;
             _Estado = string.Empty;
+            _Usuario_Guardo_Imagenes = 0;
         }
         #endregion
         #region Encapsulamiento
@@ -65,7 +67,7 @@ namespace Entidades
             }
         }
 
-        public string Cantidad_Imagenes
+        public int Cantidad_Imagenes
         {
             get
             {
@@ -88,6 +90,19 @@ namespace Entidades
             set
             {
                 _Estado = value;
+            }
+        }
+
+        public int Usuario_Guardo_Imagenes
+        {
+            get
+            {
+                return _Usuario_Guardo_Imagenes;
+            }
+
+            set
+            {
+                _Usuario_Guardo_Imagenes = value;
             }
         }
         #endregion

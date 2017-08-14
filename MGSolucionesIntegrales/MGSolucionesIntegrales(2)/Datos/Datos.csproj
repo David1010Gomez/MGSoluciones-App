@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="D_Conexion_BD.cs" />
+    <Compile Include="D_Imagenes.cs" />
     <Compile Include="D_Materiales.cs" />
     <Compile Include="D_Solicitud.cs" />
     <Compile Include="D_Usuarios.cs" />

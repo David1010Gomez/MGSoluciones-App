@@ -24,7 +24,8 @@ namespace Datos
             cmd.Parameters.AddWithValue("@NOMBRE_CARPETA", Obj_Exp_Imagenes.Nombre_Carpeta);
             cmd.Parameters.AddWithValue("@CANTIDAD_IMAGENES", Obj_Exp_Imagenes.Cantidad_Imagenes);
             cmd.Parameters.AddWithValue("@ESTADO", Obj_Exp_Imagenes.Estado);
-            
+            cmd.Parameters.AddWithValue("@USUARIO_GUARDO_IMAGENES", Obj_Exp_Imagenes.Usuario_Guardo_Imagenes);
+
             try
             {
                 Abrir_Conexion();

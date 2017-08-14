@@ -11,6 +11,7 @@ public partial class Imagenes : System.Web.UI.Page
 {
     public N_Imagenes Obj_Neg_Imagenes = new N_Imagenes();
     public E_Exp_Imagenes obj_E_Exp_Imagenes = new E_Exp_Imagenes();
+    //public E_Exp_Imagenes obj_E_Exp_Imagenes = new E_Exp_Imagenes();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -32,10 +33,6 @@ public partial class Imagenes : System.Web.UI.Page
                     carpetaDestino.Create();
                     
                 }
-                else
-                {
-                    Accion = "UPDATE";
-                }
 
                 foreach (var archivo in Carga_Archivos.PostedFiles)
                 {
@@ -56,7 +53,7 @@ public partial class Imagenes : System.Web.UI.Page
                         var pathArchivoDestino = System.IO.Path.Combine(pathCarpetaDestino, nombreArchivo);
                         archivo.SaveAs(pathArchivoDestino);
 
-                        Nom_EXP.Text = "";
+                        
                         //ViewState["foto"] = System.IO.Path.GetFileName(archivo.FileName);
                         //archivo.SaveAs(MapPath("/Imagenes_Expedientes/") + ViewState["foto"]);
                     }
@@ -66,8 +63,12 @@ public partial class Imagenes : System.Web.UI.Page
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "", script, true);
                     }
                 }
+                
+                obj_E_Exp_Imagenes.Nombre_Carpeta = "Caso_" + Nom_EXP.Text;
+                obj_E_Exp_Imagenes.Cantidad_Imagenes = Carga_Archivos.PostedFiles.Count();
+                obj_E_Exp_Imagenes.Estado = "CARGADA";
+                obj_E_Exp_Imagenes.Usuario_Guardo_Imagenes = Convert.ToInt32(Session["CEDULA"].ToString());
 
-                Controles_Objetos();
                 var Guardar_Datos = -1;
                 Guardar_Datos = Obj_Neg_Imagenes.Abc_Exp_Imagenes(Accion, obj_E_Exp_Imagenes);
 
@@ -75,6 +76,7 @@ public partial class Imagenes : System.Web.UI.Page
                 {
                     string script = "alert('Registro Exitoso');";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+                    Nom_EXP.Text = "";
 
                 }
 
@@ -92,8 +94,4 @@ public partial class Imagenes : System.Web.UI.Page
         }
     }
 
-    private void Controles_Objetos()
-    {
-        throw new NotImplementedException();
-    }
 }

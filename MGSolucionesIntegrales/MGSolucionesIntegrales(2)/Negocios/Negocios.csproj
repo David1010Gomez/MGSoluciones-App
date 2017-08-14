@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="N_Imagenes.cs" />
     <Compile Include="N_Materiales.cs" />
     <Compile Include="N_Solicitud.cs" />
     <Compile Include="N_Usuarios.cs" />
