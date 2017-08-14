@@ -45,6 +45,13 @@
                 $('#<%=Accion_Servicio.ClientID%>').val('DELETE');
             }
         }
+        function Descargar(obj)
+        {
+            $('#<%=Nom_Carpeta.ClientID%>').val(obj);
+            var x = document.getElementById('<%=Descarga_Carpeta_Imagenes.ClientID%>');
+            x.click();
+            
+        }
     </script>
 
     <div id="main">
@@ -95,20 +102,36 @@
                         </div>
                         <br /><br /><br />
                         <h3 style="text-transform: none; font-weight: bold; text-align: center;" >Lista de Imágenes en Servidor</h3>
-                        <%--<a onclick="Limpiar_Campos();" style="margin-left: 80%; text-decoration: none; cursor: pointer;">Limpiar</a>--%>
-                        <div class="Div_Table">
-                            <table>
-                                <tr>
-                                    <td colspan="2">
-                                        <asp:Label runat="server">Material:</asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox CssClass="inp_form" ID="TextBox1" runat="server"></asp:TextBox>
-                                    </td>
-                                </tr>
+                        <br />
+                        <asp:GridView ID="GridView3" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid"
+                            BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" AllowPaging="true"
+                            Style="border-collapse: collapse; width: 100%; text-align: center;" >
+                            <Columns>
+
+                                <asp:BoundField DataField="NOMBRE_CARPETA" HeaderText="Material" />
                                 
-                            </table>
-                        </div>
+                                <asp:TemplateField ShowHeader="False" HeaderText="Descargar">
+                                    <ItemTemplate>
+                                        <a href='javascript:Descargar("<%# Eval("NOMBRE_CARPETA") %>");' style="color:black;">
+                                            <i class="fa fa-cloud-download"></i>
+                                            <%--<img class="c1" id='imageningreso_<%# Eval("NOMBRE_CARPETA") %>' alt="" src="images/edit.png" />--%>
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <EmptyDataTemplate>No existen Carpetas Cargadas</EmptyDataTemplate>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <RowStyle BackColor="White" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#808080" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#383838" />
+                        </asp:GridView>
+                        <asp:TextBox runat="server" ID="Nom_Carpeta" style="display:none;"></asp:TextBox>
+                        <asp:Button runat="server" ID="Descarga_Carpeta_Imagenes" style="display:none" OnClick="Descarga_Carpeta_Imagenes_Click" />
                     </section>
                 </div>
                 <div class="6u 12u(mobile) important(mobile)" style="text-align: justify;">

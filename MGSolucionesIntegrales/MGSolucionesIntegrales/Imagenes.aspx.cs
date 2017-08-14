@@ -11,7 +11,6 @@ public partial class Imagenes : System.Web.UI.Page
 {
     public N_Imagenes Obj_Neg_Imagenes = new N_Imagenes();
     public E_Exp_Imagenes obj_E_Exp_Imagenes = new E_Exp_Imagenes();
-    //public E_Exp_Imagenes obj_E_Exp_Imagenes = new E_Exp_Imagenes();
 
     protected void Page_Load(object sender, EventArgs e)
     {

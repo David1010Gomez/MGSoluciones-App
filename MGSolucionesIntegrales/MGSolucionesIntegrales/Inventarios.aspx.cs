@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,12 +14,32 @@ public partial class Inventarios : System.Web.UI.Page
     public N_Materiales Obj_Neg_Materiales = new N_Materiales();
     public E_Materiales obj_E_Materiales = new E_Materiales();
     public E_Tipo_Servicio obj_E_Tipo_Servicio= new E_Tipo_Servicio();
+    public N_Imagenes Obj_Neg_Imagenes = new N_Imagenes();
+    public E_Exp_Imagenes obj_E_Exp_Imagenes = new E_Exp_Imagenes();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         EstadoEliminar.Attributes.Add("onchange", "Cambia_Estado();");
         Selecciona_Materiales();
         Selecciona_Servicios();
+        Selecciona_Carpetas_Imagenes();
+    }
+
+    private void Selecciona_Carpetas_Imagenes()
+    {
+        DataSet dt = new DataSet();
+        dt = Obj_Neg_Materiales.Selecciona_Lista_Imagenes();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            GridView3.DataSource = dt.Tables[0];
+            GridView3.DataBind();
+        }
+        else
+        {
+            GridView3.DataSource = null;
+            GridView3.DataBind();
+        }
     }
 
     private void Selecciona_Materiales()
@@ -207,5 +228,44 @@ public partial class Inventarios : System.Web.UI.Page
             Servicio.Text = dt.Tables[0].Rows[0]["SERVICIO"].ToString();
             Eliminar.Attributes.CssStyle.Add("display","block");
         }
+    }
+
+    protected void Descarga_Carpeta_Imagenes_Click(object sender, EventArgs e)
+    {
+        string sourcePath = System.IO.Path.Combine(Server.MapPath("/Imagenes_Expedientes/"), Nom_Carpeta.Text+"/");
+        string pathPC = System.IO.Path.GetFullPath("C:/"+ Nom_Carpeta.Text);
+        if (!System.IO.Directory.Exists(pathPC))
+        {
+            System.IO.Directory.CreateDirectory(pathPC);
+        }
+
+        string[] files = System.IO.Directory.GetFiles(sourcePath);
+
+        foreach (string s in files)
+        {
+            var fileName = System.IO.Path.GetFileName(s);
+            var destFile = System.IO.Path.Combine(pathPC, fileName);
+            System.IO.File.Copy(s, destFile, true);
+        }
+        System.IO.Directory.Delete(sourcePath, true);
+
+        obj_E_Exp_Imagenes.Nombre_Carpeta = Nom_Carpeta.Text;
+        obj_E_Exp_Imagenes.Estado = "DESCARGADA";
+        var Guardar_Datos = -1;
+        Guardar_Datos = Obj_Neg_Imagenes.Abc_Exp_Imagenes("UPDATE", obj_E_Exp_Imagenes);
+
+        if (Guardar_Datos != -1)
+        {
+            string script = "alert('Descarga Exitosa'); ";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+
+            Nom_Carpeta.Text = "";
+            Selecciona_Materiales();
+            Selecciona_Servicios();
+            Limpia_Controles();
+            Selecciona_Carpetas_Imagenes();
+
+        }
+
     }
 }

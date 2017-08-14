@@ -37,5 +37,9 @@ namespace Negocios
         {
             return DN_Materiales.Selecciona_Tipo_Servicio_Id(pId);
         }
+        public DataSet Selecciona_Lista_Imagenes()
+        {
+            return DN_Materiales.Selecciona_Lista_Imagenes();
+        }
     }
 }

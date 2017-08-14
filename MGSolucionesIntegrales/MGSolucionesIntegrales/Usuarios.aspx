@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Administrador.master" AutoEventWireup="true" CodeFile="Usuarios.aspx.cs" Inherits="Usuarios" %>
+﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/Administrador.master" AutoEventWireup="true" CodeFile="Usuarios.aspx.cs" Inherits="Usuarios" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -103,7 +103,7 @@
                                         <asp:Label runat="server">Nombre:</asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Nombre_Usuario" runat="server"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Nombre_Usuario" runat="server" AutoCompleteType="None"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
