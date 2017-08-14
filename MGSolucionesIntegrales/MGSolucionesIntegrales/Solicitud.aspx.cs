@@ -144,10 +144,42 @@ public partial class Solicitud : System.Web.UI.Page
         {
             if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - SELECCIONE - -") && (!Convert.ToString(Lista_Tecnicos.SelectedItem).Equals(null)))
             {
-
                 if ((Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -") && (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SIN SERVICIOS - -") && (!Convert.ToString(Lista_Servicios.SelectedItem).Equals(null)))
                 {
-                    if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -") && (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -"))
+                    if (Estado_Caso_Actual.Text != "ABIERTO")
+                    {
+                        if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -") && (Convert.ToString(Lista_Servicios.SelectedItem) != "- - SELECCIONE - -"))
+                        {
+                            Controles_Objetos();
+                            var Guardar_Datos = -1;
+                            Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
+                            if (Guardar_Datos != -1)
+                            {
+                                if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); Guarda_Tecnico_LogApla(); }
+                                Guardar_Notas();
+                                Guarda_Tecnico_Solicitud();
+                                Guarda_Servicio_Solicitud();
+                                Limpiar_Controles();
+                                Limpiar_Controles_Materiales();
+                                string script1 = "mensaje1();";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
+                                Casos_Abiertos();
+                                Casos_Asignados();
+                                Casos_Agendados();
+                            }
+                            else
+                            {
+                                string script = "mensaje2();";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                            }
+                        }
+                        else
+                        {
+                            string script = "alert('No se Puede Guardar un Nuevo Servicio sin Un Tecnico');";
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+                        }
+                    }
+                    else
                     {
                         Controles_Objetos();
                         var Guardar_Datos = -1;
@@ -171,11 +203,6 @@ public partial class Solicitud : System.Web.UI.Page
                             string script = "mensaje2();";
                             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
                         }
-                    }
-                    else
-                    {
-                        string script = "alert('No se Puede Guardar un Nuevo Servicio sin Un Tecnico');";
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
                     }
                 }
 
@@ -458,6 +485,7 @@ public partial class Solicitud : System.Web.UI.Page
         txtValorTotal.Attributes.CssStyle.Add("display", "none");
         Accion_Trabajo.Text = "";
         Estado_Usuario_Inicial.Text = "";
+        Estado_Caso_Actual.Text = "ABIERTO";
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -482,6 +510,7 @@ public partial class Solicitud : System.Web.UI.Page
                 Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
                 Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
                 Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
+                Estado_Caso_Actual.Text = dt.Tables[0].Rows[0]["ESTADO_CASO"].ToString();
                 Listar_Tecnicos();
                 Listar_Tipo_Servicios();
                 Accion.Text = "UPDATE";
@@ -599,6 +628,7 @@ public partial class Solicitud : System.Web.UI.Page
                 Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
                 Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
                 Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
+                Estado_Caso_Actual.Text = dt.Tables[0].Rows[0]["ESTADO_CASO"].ToString();
                 Estado_Caso_Creacion.Text = "AGENDADO";
                 Carga_Tecnicos_solicitud();
                 Listar_Servicios_Solicitud_Cedula();
@@ -735,6 +765,7 @@ public partial class Solicitud : System.Web.UI.Page
                 Contacto.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
                 Fact.Text = dt.Tables[0].Rows[0]["FACT"].ToString();
                 Direccion.Text = dt.Tables[0].Rows[0]["DIRECCION"].ToString();
+                Estado_Caso_Actual.Text = dt.Tables[0].Rows[0]["ESTADO_CASO"].ToString();
                 Estado_Caso_Creacion.Text = "CERRADO";
                 Carga_Tecnicos_solicitud();
                 Listar_Servicios_Solicitud_Cedula();

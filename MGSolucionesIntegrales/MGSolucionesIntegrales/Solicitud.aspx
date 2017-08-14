@@ -457,6 +457,7 @@
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Tecnico">INSERTAR</asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Accion_Trabajo"></asp:TextBox>
     <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Usuario_Inicial"></asp:TextBox>
+    <asp:TextBox runat="server" type="text" style="display:none;" ID="Estado_Caso_Actual">ABIERTO</asp:TextBox>
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Abierto" OnClick="Cargar_Caso_Abierto_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Asignado" OnClick="Cargar_Caso_Asignado_Click" />
     <asp:Button runat="server" style="display:none;" ID="Cargar_Caso_Agendado" OnClick="Cargar_Caso_Agendado_Click" />

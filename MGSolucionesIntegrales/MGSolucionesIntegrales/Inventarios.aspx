@@ -93,9 +93,22 @@
                                 </tr>
                             </table>
                         </div>
-
-
-
+                        <br /><br /><br />
+                        <h3 style="text-transform: none; font-weight: bold; text-align: center;" >Lista de Imágenes en Servidor</h3>
+                        <%--<a onclick="Limpiar_Campos();" style="margin-left: 80%; text-decoration: none; cursor: pointer;">Limpiar</a>--%>
+                        <div class="Div_Table">
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:Label runat="server">Material:</asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox CssClass="inp_form" ID="TextBox1" runat="server"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
                     </section>
                 </div>
                 <div class="6u 12u(mobile) important(mobile)" style="text-align: justify;">
