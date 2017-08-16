@@ -188,5 +188,13 @@ namespace Negocios
         {
             return DN_Solicitud.Selecciona_Ultimo_Trabajo_Cedula(pIdSolicitud,pCedula);
         }
+        public DataSet Consulta_Tecnicos_Solicitudes_Exp(int pExp)
+        {
+            return DN_Solicitud.Consulta_Tecnicos_Solicitudes_Exp(pExp);
+        }
+        public DataSet Consulta_Tecnicos_Solicitudes_Fecha(string pFecha_Inicial, string pFecha_Final)
+        {
+            return DN_Solicitud.Consulta_Tecnicos_Solicitudes_Fecha(pFecha_Inicial, pFecha_Final);
+        }
     }
 }

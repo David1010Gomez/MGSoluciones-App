@@ -22,11 +22,11 @@
     <script>
         function Fijar_Tecnico()
         {
-            var control = document.getElementById("<%=Lista_Tecnicos.ClientID%>");
+            <%--var control = document.getElementById("<%=Lista_Tecnicos.ClientID%>");
             var Tecnico = control.options[control.selectedIndex].text;
             $('#<%=Nombre_Tecnico.ClientID%>').val(Tecnico)
             var x = document.getElementById('<%=Busqueda.ClientID%>');
-            x.click();
+            x.click();--%>
         }
         function editar(obj, obj2) {
             if (obj2 != 'CERRADO') {
@@ -58,9 +58,9 @@
                                     <td style="border-right: 3px solid #f9f9f9;">
                                         <p class="comments">Búsqueda por Exp:</p>
                                     </td>
-                                    <td>
+<%--                                    <td>
                                         <p class="comments">Búsqueda por Técnico:</p>
-                                    </td>
+                                    </td>--%>
                                 </tr>
                                 <tr>
                                     <td>
@@ -74,11 +74,10 @@
                                     </td>
                                     <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                    <td>
+                                    <%--<td>
                                          <asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos"  style="width: 125%;"  runat="server" >
-                                            
                                         </asp:DropDownList>
-                                    </td>
+                                    </td>--%>
                                     </ContentTemplate></asp:UpdatePanel>
                                     <asp:TextBox runat="server" ID="Nombre_Tecnico" style="display:none;"></asp:TextBox>
                                     <asp:Button ID="Busqueda" runat="server" style="display:none;" OnClick="Busqueda_Click"/>
@@ -105,10 +104,10 @@
                                 <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualización" />
                                 <asp:BoundField DataField="VALOR_TRABAJO" HeaderText="Valor Trabajo" />
                                 <asp:BoundField DataField="VALOR_TOTAL" HeaderText="Valor Total" />
-                                <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cédula Técnico" />
+                                <%--<asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cédula Técnico" />
                                 <asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Tecnico" />
                                 <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
-                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />
+                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />--%>
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
                                         <a href='javascript:editar("<%# Eval("ID") %>", "<%# Eval("ESTADO_CASO") %>");'>

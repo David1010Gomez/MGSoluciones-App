@@ -23,7 +23,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Listar_Tecnicos();
-        Lista_Tecnicos.Attributes.Add("onchange", "Fijar_Tecnico();");
+        //Lista_Tecnicos.Attributes.Add("onchange", "Fijar_Tecnico();");
         Lista_Tecnicos_Materiales.Attributes.Add("onchange", "Fijar_Tecnico3();");
         Reabrir.Attributes.Add("onchange", "Cambia_Estado();");
         Valor_Trabajo_Mod.Attributes.Add("onchange", "Cambia_Valor();");
@@ -36,11 +36,11 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
 
         if (dt.Tables[0].Rows.Count > 0)
         {
-            Lista_Tecnicos.DataSource = dt;
-            Lista_Tecnicos.DataTextField = "NOMBRE";
-            Lista_Tecnicos.DataValueField = "CEDULA";
-            Lista_Tecnicos.DataBind();
-            Lista_Tecnicos.Items.Insert(0, "- - SELECCIONE - -");
+            //Lista_Tecnicos.DataSource = dt;
+            //Lista_Tecnicos.DataTextField = "NOMBRE";
+            //Lista_Tecnicos.DataValueField = "CEDULA";
+            //Lista_Tecnicos.DataBind();
+            //Lista_Tecnicos.Items.Insert(0, "- - SELECCIONE - -");
 
             Lista_Tecnicos_Materiales.DataSource = dt;
             Lista_Tecnicos_Materiales.DataTextField = "NOMBRE";
@@ -50,8 +50,8 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         }
         else
         {
-            Lista_Tecnicos.Items.Clear();
-            Lista_Tecnicos.Items.Insert(0, new ListItem("- - NO EXISTEN TECNICOS - -", "0"));
+            //Lista_Tecnicos.Items.Clear();
+            //Lista_Tecnicos.Items.Insert(0, new ListItem("- - NO EXISTEN TECNICOS - -", "0"));
 
             Lista_Tecnicos_Materiales.Items.Clear();
             Lista_Tecnicos_Materiales.Items.Insert(0, new ListItem("- - NO EXISTEN TECNICOS - -", "0"));
@@ -763,5 +763,129 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
     {
         var Guardar_Datos = -1;
         Guardar_Datos = O_Neg_Solicitud.Usuario_Gestionando_Caso(Convert.ToInt32(Id_Caso.Text), Session["Cedula"].ToString());
+    }
+
+    protected void GridView4_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView4.PageIndex = e.NewPageIndex;
+        if (Fecha_Inicial_Tecnicos.Text != "" && Fecha_Final_Tecnicos.Text != "")
+        {
+            Fecha_Final_Tecnicos_TextChanged(sender, e);
+        }
+        if (Exp_Tecnicos.Text != "")
+        {
+            Exp_Tecnicos_TextChanged(sender, e);
+        }
+    }
+
+    protected void Descraga_Base_Tecnicos_Click(object sender, EventArgs e)
+    {
+        if (Exp_Tecnicos.Text != "")
+        {
+            DataSet ds = new DataSet();
+
+            ds = O_Neg_Solicitud.Consulta_Tecnicos_Solicitudes_Exp(Convert.ToInt32(Exp_Tecnicos.Text));
+            GridView gv = new GridView();
+            gv.DataSource = ds;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=Base_Tecnicos_Solicitudes-" + DateTime.Now.ToShortDateString() + ".xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+        }
+        if (Fecha_Inicial_Tecnicos.Text != "" && Fecha_Final_Tecnicos.Text != "")
+        {
+            DataSet ds = new DataSet();
+            var FecIni = Fecha_Inicial_Tecnicos.Text;
+            var FecFin = Fecha_Final_Tecnicos.Text;
+
+            ds = O_Neg_Solicitud.Consulta_Tecnicos_Solicitudes_Fecha(FecIni, FecFin);
+            GridView gv = new GridView();
+            gv.DataSource = ds;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=Base_Tecnicos_Solicitudes-" + DateTime.Now.ToShortDateString() + ".xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+        }
+    }
+
+    protected void Fecha_Inicial_Tecnicos_TextChanged(object sender, EventArgs e)
+    {
+        if (Fecha_Inicial_Tecnicos.Text != "")
+        {
+            Fecha_Final_Tecnicos_TextChanged(sender, e);
+        }
+    }
+
+    protected void Fecha_Final_Tecnicos_TextChanged(object sender, EventArgs e)
+    {
+        DataSet dt = new DataSet();
+        var FecIni = Fecha_Inicial_Tecnicos.Text;
+        var FecFin = Fecha_Final_Tecnicos.Text;
+
+        dt = O_Neg_Solicitud.Consulta_Tecnicos_Solicitudes_Fecha(FecIni, FecFin);
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            GridView4.DataSource = dt.Tables[0];
+            GridView4.DataBind();
+        }
+        else
+        {
+            GridView4.DataSource = null;
+            GridView4.DataBind();
+        }
+        Exp_Tecnicos.Text = string.Empty;
+        //Nombre_Tecnico_Materiales.Text = string.Empty;
+        Listar_Tecnicos();
+        TotalFilas4.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
+    }
+
+    protected void Exp_Tecnicos_TextChanged(object sender, EventArgs e)
+    {
+        if (Exp_Tecnicos.Text != "")
+        {
+            DataSet dt = new DataSet();
+
+            dt = O_Neg_Solicitud.Consulta_Tecnicos_Solicitudes_Exp(Convert.ToInt32(Exp_Tecnicos.Text));
+
+            if (dt.Tables[0].Rows.Count > 0)
+            {
+                GridView4.DataSource = dt.Tables[0];
+                GridView4.DataBind();
+            }
+            else
+            {
+                GridView4.DataSource = null;
+                GridView4.DataBind();
+            }
+            Fecha_Inicial_Tecnicos.Text = string.Empty;
+            Fecha_Final_Tecnicos.Text = string.Empty;
+            //Nombre_Tecnico_Materiales.Text = string.Empty;
+            Listar_Tecnicos();
+            TotalFilas4.Text = "Total de Resultados: " + Convert.ToString(dt.Tables[0].Rows.Count);
+        }
+        else
+        {
+            string script = "alert('Este Campo No Puede Ser Vacio');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+        }
     }
 }

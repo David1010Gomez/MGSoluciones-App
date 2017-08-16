@@ -1122,5 +1122,54 @@ namespace Datos
             }
             return ds;
         }
+        public DataSet Consulta_Tecnicos_Solicitudes_Exp(int pExp)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_TECNICOS_EXP]";
+                cmd.Parameters.AddWithValue("@NUM_EXP", pExp);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los tecnicos por Exp", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Consulta_Tecnicos_Solicitudes_Fecha(string pFecha_Inicial, string pFecha_Final)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_TECNICOS_FECHA]";
+                cmd.Parameters.AddWithValue("@FECHA_INICIAL", pFecha_Inicial);
+                cmd.Parameters.AddWithValue("@FECHA_FINAL", pFecha_Final);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los tecnicos por Fechas", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
     }
 }

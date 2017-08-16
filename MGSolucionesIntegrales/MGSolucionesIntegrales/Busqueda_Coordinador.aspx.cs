@@ -16,29 +16,29 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Listar_Tecnicos();
-        Lista_Tecnicos.Attributes.Add("onchange", "Fijar_Tecnico();");
+        //Lista_Tecnicos.Attributes.Add("onchange", "Fijar_Tecnico();");
         Session["Id"] = "";
         Session["Estado_Caso"] = "";
     }
     private void Listar_Tecnicos()
     {
-        DataSet dt = new DataSet();
+        //DataSet dt = new DataSet();
 
-        dt = O_Neg_Solicitud.Tecnicos();
+        //dt = O_Neg_Solicitud.Tecnicos();
 
-        if (dt.Tables[0].Rows.Count > 0)
-        {
-            Lista_Tecnicos.DataSource = dt;
-            Lista_Tecnicos.DataTextField = "NOMBRE";
-            Lista_Tecnicos.DataValueField = "CEDULA";
-            Lista_Tecnicos.DataBind();
-            Lista_Tecnicos.Items.Insert(0, "- - SELECCIONE - -");
-        }
-        else
-        {
-            Lista_Tecnicos.Items.Clear();
-            Lista_Tecnicos.Items.Insert(0, new ListItem("- - NO EXISTEN TECNICOS - -", "0"));
-        }
+        //if (dt.Tables[0].Rows.Count > 0)
+        //{
+        //    Lista_Tecnicos.DataSource = dt;
+        //    Lista_Tecnicos.DataTextField = "NOMBRE";
+        //    Lista_Tecnicos.DataValueField = "CEDULA";
+        //    Lista_Tecnicos.DataBind();
+        //    Lista_Tecnicos.Items.Insert(0, "- - SELECCIONE - -");
+        //}
+        //else
+        //{
+        //    Lista_Tecnicos.Items.Clear();
+        //    Lista_Tecnicos.Items.Insert(0, new ListItem("- - NO EXISTEN TECNICOS - -", "0"));
+        //}
     }
 
     protected void Fecha_Inicial_TextChanged(object sender, EventArgs e)

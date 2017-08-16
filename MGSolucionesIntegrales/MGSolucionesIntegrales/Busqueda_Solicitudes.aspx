@@ -20,11 +20,11 @@
         document.getElementById('C4').classList.remove('current-page-item');
 
         function Fijar_Tecnico() {
-            var control = document.getElementById("<%=Lista_Tecnicos.ClientID%>");
+            <%--var control = document.getElementById("<%=Lista_Tecnicos.ClientID%>");
             var Tecnico = control.options[control.selectedIndex].text;
             $('#<%=Nombre_Tecnico.ClientID%>').val(Tecnico)
             var x = document.getElementById('<%=Busqueda.ClientID%>');
-            x.click();
+            x.click();--%>
         }
         <%--function Fijar_Tecnico2()
         {
@@ -264,6 +264,80 @@
                     </section>
                     <br />
                     <br />
+                    <section>
+                        <h2 style="text-transform: none; font-weight: bold">Consulta Tecnicos Solicitudes</h2>
+                        <div class="Div_Table">
+                            <table style="width: 95%;">
+                                <tr>
+                                    <td colspan="2" style="border-right: 3px solid #f9f9f9;">
+                                        <p class="comments">Busqueda por rango de fechas:</p>
+                                    </td>
+                                    <td style="border-right: 3px solid #f9f9f9;">
+                                        <p class="comments">Búsqueda por Exp:</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="Fecha_Inicial_Tecnicos" CssClass="inp_form" placeholder="Fecha Inicial" runat="server" AutoPostBack="true" OnTextChanged="Fecha_Inicial_Tecnicos_TextChanged"></asp:TextBox>
+                                    </td>
+                                    <td style="border-right: 3px solid #f9f9f9;">
+                                        <asp:TextBox ID="Fecha_Final_Tecnicos" CssClass="inp_form" placeholder="Fecha Final" runat="server" AutoPostBack="true" OnTextChanged="Fecha_Final_Tecnicos_TextChanged"></asp:TextBox>
+                                    </td>
+                                    <td style="border-right: 3px solid #f9f9f9;">
+                                        <asp:TextBox ID="Exp_Tecnicos" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_Tecnicos_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                            <script>
+                                $('#<%=Fecha_Inicial_Tecnicos.ClientID%>').datetimepicker({
+                                    format: 'Y-m-d',
+                                    minDate: '2017/06/01',
+                                    maxDate: '+0d',
+                                    timepicker: false
+                                });
+
+                                $('#<%=Fecha_Final_Tecnicos.ClientID%>').datetimepicker({
+                                    format: 'Y-m-d',
+                                    onShow: function (ct) {
+                                        this.setOptions({
+                                            minDate: $('#<%=Fecha_Inicial_Tecnicos.ClientID%>').val() ? $('#<%=Fecha_Inicial_Tecnicos.ClientID%>').val() : false
+                                    })
+                                },
+                                maxDate: '+0d',
+                                timepicker: false
+                            });
+                            </script>
+                        </div>
+                        <br />
+                        <asp:GridView ID="GridView4" runat="server" BackColor="#CCCCCC" BorderColor="#999999" AllowPaging="true"
+                            OnPageIndexChanging="GridView4_PageIndexChanging" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" 
+                            ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: 
+                            collapse; width: 100%; text-align: center;">
+                            <Columns>
+                                <%--<asp:BoundField DataField="FECHA_INGRESO" HeaderText="Fecha de Ingreso" />--%>
+                                <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cedula" />
+                                <asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Técnico" />
+                                <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
+
+                            </Columns>
+                            <EmptyDataTemplate>La Consulta No Arrojo Ningun Resultado</EmptyDataTemplate>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                            <RowStyle BackColor="White" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#808080" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#383838" />
+                        </asp:GridView>
+                        <asp:label runat="server" ID="TotalFilas4" style="float: right;"></asp:label>
+                        <br /><br />
+                        <asp:Button runat="server" ID="Descraga_Base_Tecnicos" CssClass="button" Text="Descargar" OnClick="Descraga_Base_Tecnicos_Click" Style="text-transform: none; float: right;" />
+                    </section>
+                    <br />
+                    <br />
                 </div>
                 <div class="8u 12u(mobile) important(mobile)" style="text-align: justify;">
                     <section class="right-content">
@@ -277,9 +351,9 @@
                                     <td style="border-right: 3px solid #f9f9f9;">
                                         <p class="comments">Búsqueda por Exp:</p>
                                     </td>
-                                    <td>
+                                    <%--<td>
                                         <p class="comments">Búsqueda por técnico:</p>
-                                    </td>
+                                    </td>--%>
                                 </tr>
 
                                 <tr>
@@ -292,14 +366,14 @@
                                     <td style="border-right: 3px solid #f9f9f9;">
                                         <asp:TextBox ID="Exp" CssClass="inp_form" runat="server" placeholder="Exp" AutoPostBack="true" OnTextChanged="Exp_TextChanged" onkeypress="return justNumbers(event);" MaxLength="9"></asp:TextBox>
                                     </td>
-                                    <asp:UpdatePanel runat="server">
+                                    <%--<asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <td>
                                                 <asp:DropDownList ID="Lista_Tecnicos" CssClass="Lista_Tecnicos" Style="width: 125%;" runat="server">
                                                 </asp:DropDownList>
                                             </td>
                                         </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                    </asp:UpdatePanel>--%>
                                     <asp:TextBox runat="server" ID="Nombre_Tecnico" Style="display: none;"></asp:TextBox>
                                     <asp:Button ID="Busqueda" runat="server" OnClick="Busqueda_Click" Style="display: none;" />
                                 </tr>
@@ -346,9 +420,9 @@
                                 <asp:BoundField DataField="VALOR_TRABAJO" HeaderText="Valor Trabajo" />
                                 <asp:BoundField DataField="VALOR_TOTAL" HeaderText="Valor Total" />
                                 <%--<asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cédula Técnico" />--%>
-                                <asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Tecnico" />
+                                <%--<asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Tecnico" />
                                 <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
-                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />
+                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />--%>
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
                                         <a href='javascript:editar("<%# Eval("ID") %>");'>
