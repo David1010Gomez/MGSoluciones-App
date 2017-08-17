@@ -367,12 +367,13 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Usuario_Ultima_Actualizacion = Convert.ToInt32(Session["Cedula"].ToString());
         E_Solicitud.Valor_Trabajo = Valor_Trabajo.Text;
         E_Solicitud.Valor_Total = Convert.ToInt32(txtValorTotal2.Text);
-        E_Solicitud.Usuario_Gestionando = Session["Cedula"].ToString();
+        E_Solicitud.Usuario_Gestionando = Convert.ToString(0);
 
         E_Tecni_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Tecni_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
         if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Tecni_Solicitudes.Nombre_Tecnico = Convert.ToString(Lista_Tecnicos.SelectedItem); }
         else { E_Tecni_Solicitudes.Nombre_Tecnico = string.Empty; }
+        E_Tecni_Solicitudes.Liquidado = "";
 
         E_Turnos.Id = Convert.ToInt32(ID_TURNO.Text);
         if ((Convert.ToString(Lista_Tecnicos.SelectedItem) != "- - NO HAY TÉCNICOS DISPONIBLES - -")) { E_Turnos.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue); }
@@ -480,6 +481,7 @@ public partial class Solicitud : System.Web.UI.Page
         Lista_Servicios.ClearSelection();
         Lista_Servicios.Items.Clear();
         Valor_Trabajo.Text = "0";
+        txtValorTotal2.Text = "0";
         Aplaza_Caso.Attributes.CssStyle.Add("display", "none");
         lblValorTotal.Attributes.CssStyle.Add("display", "none");
         txtValorTotal.Attributes.CssStyle.Add("display", "none");

@@ -9,5 +9,10 @@
         document.getElementById('C3').classList.remove('current-page-item');
         document.getElementById('C4').classList.remove('current-page-item');
     </script>
+    <div id="main">
+            <div class="container">
+                <h2 style="text-transform: none; font-weight: bold">Inicio Coordinador</h2>
+            </div>
+        </div>
 </asp:Content>
 

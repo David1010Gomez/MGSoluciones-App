@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <asp:Button runat="server" ID="Salir" OnClick="Salir_Click" />
+    <asp:Button runat="server" ID="Salir" OnClick="Salir_Click" style="display:none;" />
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/skel.min.js"></script>

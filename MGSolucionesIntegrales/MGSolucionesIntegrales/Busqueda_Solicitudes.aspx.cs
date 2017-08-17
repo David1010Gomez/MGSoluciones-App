@@ -653,7 +653,6 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
                 Id_Solicitud_Mod.Text = dt.Tables[0].Rows[0]["ID"].ToString();
                 Id_Solicitud_Mod2.Text = dt.Tables[0].Rows[0]["ID"].ToString();
                 Num_Exp_Mod.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
-                Num_Exp_Mod2.Text = dt.Tables[0].Rows[0]["NUM_EXP"].ToString();
                 Poliza_Mod.Text = dt.Tables[0].Rows[0]["POLIZA"].ToString();
                 Asegurado_Mod.Text = dt.Tables[0].Rows[0]["ASEGURADO"].ToString();
                 Contacto_Mod.Text = dt.Tables[0].Rows[0]["CONTACTO"].ToString();
@@ -828,7 +827,7 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
 
     protected void Fecha_Inicial_Tecnicos_TextChanged(object sender, EventArgs e)
     {
-        if (Fecha_Inicial_Tecnicos.Text != "")
+        if (Fecha_Final_Tecnicos.Text != "")
         {
             Fecha_Final_Tecnicos_TextChanged(sender, e);
         }
@@ -886,6 +885,24 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         {
             string script = "alert('Este Campo No Puede Ser Vacio');";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+        }
+    }
+
+    protected void Liquidar_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void LiquidarAccion_Click(object sender, EventArgs e)
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("INSERTAR", Convert.ToInt32(Id_Solicitud_Liquida.Text), Convert.ToInt32(Cedula_Liquidado.Text));
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            //Cedula_Liquidado.Text = dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString();
+            Nombre_Liquidado.Text = dt.Tables[0].Rows[0]["NOMBRE_TECNICO"].ToString();
+            Liquidado.Text = dt.Tables[0].Rows[0]["LIQUIDADO"].ToString();
+            LiqTecni.Attributes.CssStyle.Add("display","block");
         }
     }
 }

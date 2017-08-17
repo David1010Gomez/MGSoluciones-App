@@ -13,6 +13,7 @@ namespace Entidades
         private int _Id_Solicitud;
         private int _Cedula_Tecnico;
         private string _Nombre_Tecnico;
+        private string _Liquidado;
         #endregion
         #region Constructor
         public E_Tecnicos_Solicitudes()
@@ -21,6 +22,7 @@ namespace Entidades
             _Id_Solicitud = 0;
             _Cedula_Tecnico = 0;
             _Nombre_Tecnico = string.Empty;
+            _Liquidado = string.Empty;
         }
         #endregion
         #region Encapsulamiento
@@ -73,6 +75,19 @@ namespace Entidades
             set
             {
                 _Nombre_Tecnico = value;
+            }
+        }
+
+        public string Liquidado
+        {
+            get
+            {
+                return _Liquidado;
+            }
+
+            set
+            {
+                _Liquidado = value;
             }
         }
         #endregion

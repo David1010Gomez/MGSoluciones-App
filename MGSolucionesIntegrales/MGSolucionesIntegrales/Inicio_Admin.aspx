@@ -21,7 +21,7 @@
         </div>--%>
         <div id="main">
             <div class="container">
-                <h2 style="text-transform: none; font-weight: bold">Pagina de Inicio Perfil Administrador</h2>
+                <h2 style="text-transform: none; font-weight: bold">Inicio Administrador</h2>
             </div>
         </div>
 </asp:Content>

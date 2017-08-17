@@ -82,6 +82,20 @@
         {
             document.getElementById("<%=Modifica_Caso.ClientID%>").style.display = "none";
         }
+        function LiquidarFunc(obj, obj2)
+        {
+            $('#<%=Id_Solicitud_Liquida.ClientID%>').val(obj2);
+            $('#<%=Cedula_Liquidado.ClientID%>').val(obj);
+            var x = document.getElementById('<%=LiquidarAccion.ClientID%>');
+            x.click();
+            
+            
+        }
+        function CancelaLiquidarFunc(obj, obj2)
+        {
+            $('#<%=LiqTecni.ClientID%>').css("display","none");
+            
+        }
     </script>
     <link href="Content/Busqueda_Coordinador.css?1.0.3" rel="stylesheet" />
     <script src="assets/js/jquery-1.11.1.js"></script>
@@ -146,8 +160,7 @@
                                     })
                                 },
                                 maxDate: '+0d',
-                                timepicker: false
-                            });
+                                timepicker: false});
                             </script>
                         </div>
                         <br />
@@ -315,10 +328,20 @@
                             ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: 
                             collapse; width: 100%; text-align: center;">
                             <Columns>
-                                <%--<asp:BoundField DataField="FECHA_INGRESO" HeaderText="Fecha de Ingreso" />--%>
+                                <asp:BoundField DataField="ID_SOLICITUD" HeaderText="Id Solicitud" />
+                                <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
                                 <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cedula" />
                                 <asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Técnico" />
                                 <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
+                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno." />
+                                <asp:BoundField DataField="LIQUIDADO" HeaderText="Liquidado" />
+                                <asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                                    <ItemTemplate>
+                                        <a href='javascript:LiquidarFunc("<%# Eval("CEDULA_TECNICO") %>", "<%# Eval("ID_SOLICITUD") %>");'>
+                                            <img class="c1" id='imageningreso_<%# Eval("ID_SOLICITUD") %>' alt="" src="images/edit.png" />
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
                             </Columns>
                             <EmptyDataTemplate>La Consulta No Arrojo Ningun Resultado</EmptyDataTemplate>
@@ -338,6 +361,41 @@
                     </section>
                     <br />
                     <br />
+                    <section id="LiqTecni" style="display:none;" runat="server">
+                        <h3 style="text-transform: none; font-weight: bold">Liquidar Técnico</h3>
+                        <a onclick="CancelaLiquidarFunc();" style="margin-left: 90%; text-decoration: none; cursor: pointer;">Cancelar</a>
+                        <div class="Div_Table" style="background-color: rgba(0,0,0,0.4);">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td>
+                                        <p class="comments">Cédula:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Nombre:</p>
+                                    </td>
+                                    <td>
+                                        <p class="comments">Liquidado:</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox runat="server" ID="Cedula_Liquidado" CssClass="inp_form"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox runat="server" ID="Nombre_Liquidado" CssClass="inp_form"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox runat="server" ID="Liquidado" CssClass="inp_form"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <asp:Button ID="Liquidar" runat="server" CssClass="button" Text="Actualiza Liquidar" OnClick="Liquidar_Click"
+                             Style="text-transform: none; font-size: 0.9em; padding: 7px; float: right;" />
+                        <asp:TextBox runat="server" ID="Id_Solicitud_Liquida" style="display:none;"></asp:TextBox>
+                        <asp:Button ID="LiquidarAccion" runat="server" Style="display:none;" OnClick="LiquidarAccion_Click" />
+                    </section>
                 </div>
                 <div class="8u 12u(mobile) important(mobile)" style="text-align: justify;">
                     <section class="right-content">
@@ -548,7 +606,7 @@
                                     </td>
                                     <td>
                                         <asp:TextBox ID="Num_Exp_Mod" CssClass="inp_form" runat="server" ReadOnly="true"></asp:TextBox>
-                                        <asp:TextBox ID="Num_Exp_Mod2" CssClass="inp_form" runat="server" ReadOnly="true"></asp:TextBox>
+                                        
                                     </td>
                                     <td>
                                         <asp:TextBox ID="Poliza_Mod" CssClass="inp_form" runat="server" ></asp:TextBox>
