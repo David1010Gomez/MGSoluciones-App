@@ -1,0 +1,7 @@
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Release\Datos.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Release\Datos.pdb
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Release\Entidades.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\bin\Release\Entidades.pdb
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Release\Datos.csprojResolveAssemblyReference.cache
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Release\Datos.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Datos\obj\Release\Datos.pdb

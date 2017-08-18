@@ -1,0 +1,9 @@
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Release\Negocios.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Release\Negocios.pdb
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Release\Datos.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Release\Entidades.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Release\Datos.pdb
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\bin\Release\Entidades.pdb
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Release\Negocios.csprojResolveAssemblyReference.cache
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Release\Negocios.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Negocios\obj\Release\Negocios.pdb

@@ -1,0 +1,4 @@
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Release\Entidades.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Release\Entidades.pdb
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Release\Entidades.dll
+C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Release\Entidades.pdb

@@ -1171,5 +1171,30 @@ namespace Datos
             }
             return ds;
         }
+        public int Liquida_Tecnicos_Solicitudes(int pIdSolicitud, int pCedulaTecnico, string pLiquidado)
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("[LIQUIDA_TECNICO_SOLICITUDES]", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_SOLICITUD", pIdSolicitud);
+            cmd.Parameters.AddWithValue("@CEDULA_TECNICO", pCedulaTecnico);
+            cmd.Parameters.AddWithValue("@LIQUIDADO", pLiquidado);
+
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al intentar Actualizar liquidado de la tabla tecnicos solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
     }
 }

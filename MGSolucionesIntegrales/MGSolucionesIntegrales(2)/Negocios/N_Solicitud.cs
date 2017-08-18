@@ -196,5 +196,9 @@ namespace Negocios
         {
             return DN_Solicitud.Consulta_Tecnicos_Solicitudes_Fecha(pFecha_Inicial, pFecha_Final);
         }
+        public int Liquida_Tecnicos_Solicitudes(int pIdSolicitud, int pCedulaTecnico, string pLiquidado)
+        {
+            return DN_Solicitud.Liquida_Tecnicos_Solicitudes(pIdSolicitud, pCedulaTecnico, pLiquidado);
+        }
     }
 }

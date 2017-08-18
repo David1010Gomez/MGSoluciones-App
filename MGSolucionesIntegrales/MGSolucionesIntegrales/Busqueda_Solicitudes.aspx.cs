@@ -890,7 +890,14 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
 
     protected void Liquidar_Click(object sender, EventArgs e)
     {
-
+        var Guardar_Datos = -1;
+        Guardar_Datos = O_Neg_Solicitud.Liquida_Tecnicos_Solicitudes(Convert.ToInt32(Id_Solicitud_Liquida.Text), Convert.ToInt32(Cedula_Liquidado.Text), Liquidado.Text);
+        if (Guardar_Datos != -1)
+        {
+            string script = "alert('Actualizacion Exitosa');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+            LiqTecni.Attributes.CssStyle.Add("display", "none");
+        }
     }
 
     protected void LiquidarAccion_Click(object sender, EventArgs e)
@@ -899,7 +906,6 @@ public partial class Busqueda_Solicitudes : System.Web.UI.Page
         dt = O_Neg_Solicitud.Busca_Tecnicos_Solicitud("INSERTAR", Convert.ToInt32(Id_Solicitud_Liquida.Text), Convert.ToInt32(Cedula_Liquidado.Text));
         if (dt.Tables[0].Rows.Count > 0)
         {
-            //Cedula_Liquidado.Text = dt.Tables[0].Rows[0]["CEDULA_TECNICO"].ToString();
             Nombre_Liquidado.Text = dt.Tables[0].Rows[0]["NOMBRE_TECNICO"].ToString();
             Liquidado.Text = dt.Tables[0].Rows[0]["LIQUIDADO"].ToString();
             LiqTecni.Attributes.CssStyle.Add("display","block");
