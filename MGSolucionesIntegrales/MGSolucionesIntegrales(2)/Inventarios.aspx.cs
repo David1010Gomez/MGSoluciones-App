@@ -232,13 +232,17 @@ public partial class Inventarios : System.Web.UI.Page
 
     protected void Descarga_Carpeta_Imagenes_Click(object sender, EventArgs e)
     {
-        string sourcePath = System.IO.Path.Combine(Server.MapPath("/Imagenes_Expedientes/"), Nom_Carpeta.Text+"/");
+        string dlDir = @"Imagenes_Expedientes/";
+        string sourcePath = Server.MapPath(dlDir + Nom_Carpeta.Text + "/"); 
         string pathPC = System.IO.Path.GetFullPath("C:/"+ Nom_Carpeta.Text);
 
-        string script1 = "alert(''+"+ sourcePath + "); ";
-        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script1, true);
-        string script2 = "alert(''+"+ pathPC + "); ";
-        ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script2, true);
+        //string script1 = "alert(''+" + sourcePath + "); ";
+        //ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script1, true);
+        //string script2 = "alert(''+" + pathPC + "); ";
+        //ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script2, true);
+
+        Prueba.Text = sourcePath;
+        Prueba2.Text = pathPC;
 
         if (!System.IO.Directory.Exists(pathPC))
         {
