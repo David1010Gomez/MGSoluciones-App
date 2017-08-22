@@ -536,6 +536,7 @@ namespace Datos
             cmd.Parameters.AddWithValue("@ID_SOLICITUD", Obj_Tecnicos_Solicitudes.Id_Solicitud);
             cmd.Parameters.AddWithValue("@CEDULA_TECNICO", Obj_Tecnicos_Solicitudes.Cedula_Tecnico);
             cmd.Parameters.AddWithValue("@NOMBRE_TECNICO", Obj_Tecnicos_Solicitudes.Nombre_Tecnico);
+            cmd.Parameters.AddWithValue("@LIQUIDADO", Obj_Tecnicos_Solicitudes.Liquidado);
 
             try
             {

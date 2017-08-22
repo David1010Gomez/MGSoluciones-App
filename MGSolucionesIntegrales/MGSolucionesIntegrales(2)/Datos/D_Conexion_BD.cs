@@ -16,7 +16,7 @@ namespace Datos
 
         public D_Conexion_BD()
         {
-            Conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["MG_PRODUCCION"].ConnectionString);
+            Conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["MG_PRUEBA"].ConnectionString);
         }
         public void Abrir_Conexion()
         {

@@ -240,41 +240,38 @@ public partial class Inventarios : System.Web.UI.Page
         string script2 = "alert(''+"+ pathPC + "); ";
         ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script2, true);
 
-        Prueba.Text = sourcePath;
-        Prueba2.Text = pathPC;
+        if (!System.IO.Directory.Exists(pathPC))
+        {
+            System.IO.Directory.CreateDirectory(pathPC);
+        }
 
-        //if (!System.IO.Directory.Exists(pathPC))
-        //{
-        //    System.IO.Directory.CreateDirectory(pathPC);
-        //}
+        string[] files = System.IO.Directory.GetFiles(sourcePath);
 
-        //string[] files = System.IO.Directory.GetFiles(sourcePath);
+        foreach (string s in files)
+        {
+            var fileName = System.IO.Path.GetFileName(s);
+            var destFile = System.IO.Path.Combine(pathPC, fileName);
+            System.IO.File.Copy(s, destFile, true);
+        }
+        System.IO.Directory.Delete(sourcePath, true);
 
-        //foreach (string s in files)
-        //{
-        //    var fileName = System.IO.Path.GetFileName(s);
-        //    var destFile = System.IO.Path.Combine(pathPC, fileName);
-        //    System.IO.File.Copy(s, destFile, true);
-        //}
-        //System.IO.Directory.Delete(sourcePath, true);
+        obj_E_Exp_Imagenes.Nombre_Carpeta = Nom_Carpeta.Text;
+        obj_E_Exp_Imagenes.Estado = "DESCARGADA";
+        var Guardar_Datos = -1;
+        Guardar_Datos = Obj_Neg_Imagenes.Abc_Exp_Imagenes("UPDATE", obj_E_Exp_Imagenes);
 
-        //obj_E_Exp_Imagenes.Nombre_Carpeta = Nom_Carpeta.Text;
-        //obj_E_Exp_Imagenes.Estado = "DESCARGADA";
-        //var Guardar_Datos = -1;
-        //Guardar_Datos = Obj_Neg_Imagenes.Abc_Exp_Imagenes("UPDATE", obj_E_Exp_Imagenes);
+        if (Guardar_Datos != -1)
+        {
+            string script = "alert('Descarga Exitosa'); ";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
 
-        //if (Guardar_Datos != -1)
-        //{
-        //    string script = "alert('Descarga Exitosa'); ";
-        //    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+            Nom_Carpeta.Text = "";
+            Selecciona_Materiales();
+            Selecciona_Servicios();
+            Limpia_Controles();
+            Selecciona_Carpetas_Imagenes();
 
-        //    Nom_Carpeta.Text = "";
-        //    Selecciona_Materiales();
-        //    Selecciona_Servicios();
-        //    Limpia_Controles();
-        //    Selecciona_Carpetas_Imagenes();
-
-        //}
+        }
 
     }
 }

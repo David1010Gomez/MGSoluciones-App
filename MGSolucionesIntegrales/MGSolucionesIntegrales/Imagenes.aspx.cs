@@ -24,6 +24,7 @@ public partial class Imagenes : System.Web.UI.Page
         {
             if (Carga_Archivos.HasFile)
             {
+                Sube_Archivos.Enabled = false;
                 var Accion = "INSERTAR";
                 var pathCarpetaDestino = System.IO.Path.Combine(Server.MapPath("/Imagenes_Expedientes/"), "Caso_" + Nom_EXP.Text);
                 var carpetaDestino = new System.IO.DirectoryInfo(pathCarpetaDestino);
@@ -78,7 +79,7 @@ public partial class Imagenes : System.Web.UI.Page
                     Nom_EXP.Text = "";
 
                 }
-
+                Sube_Archivos.Enabled = true;
             }
             else
             {
