@@ -12,6 +12,12 @@ public partial class Inicio_Sesion : System.Web.UI.Page
     N_Usuarios obj_Neg_Usuarios = new N_Usuarios();
     protected void Page_Load(object sender, EventArgs e)
     {
+        Session["Cedula"] = "";
+        Session["Nombre"] = "";
+        Session["Cargo"] = "";
+        Session["Id_Rol"] = "";
+        //Cedula.Text = "";
+        //Contraseña.Text = "";
         Cedula.Attributes.Add("autocomplete", "off");
         Contraseña.Attributes.Add("autocomplete", "off");
     }

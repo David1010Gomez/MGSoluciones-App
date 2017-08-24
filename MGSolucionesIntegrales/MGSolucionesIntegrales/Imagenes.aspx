@@ -51,7 +51,7 @@
                         <asp:Button runat="server" ID="Sube_Archivos" CssClass="button" Text="Subir Imagenes" OnClick="Sube_Archivos_Click" Style="text-transform: none;" />
                         <%--</div>--%>
                     </section>
-                    <asp:TextBox runat="server" ID="prueba"></asp:TextBox>
+                    
                 </div>
             </div>
         </div>

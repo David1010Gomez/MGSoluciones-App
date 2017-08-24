@@ -53,10 +53,6 @@ public partial class Imagenes : System.Web.UI.Page
                         var nombreArchivo = System.IO.Path.GetFileName(archivo.FileName);
                         var pathArchivoDestino = System.IO.Path.Combine(pathCarpetaDestino, nombreArchivo);
                         archivo.SaveAs(pathArchivoDestino);
-                        prueba.Text = pathArchivoDestino;
-
-                        //ViewState["foto"] = System.IO.Path.GetFileName(archivo.FileName);
-                        //archivo.SaveAs(MapPath("/Imagenes_Expedientes/") + ViewState["foto"]);
                     }
                     else
                     {

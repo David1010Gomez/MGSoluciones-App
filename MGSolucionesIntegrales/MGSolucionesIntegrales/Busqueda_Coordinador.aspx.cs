@@ -168,6 +168,7 @@ public partial class Busqueda_Coordinador : System.Web.UI.Page
 
             StringWriter sw = new StringWriter();
             HtmlTextWriter htw = new HtmlTextWriter(sw);
+
             gv.RenderControl(htw);
             Response.Output.Write(sw.ToString());
             Response.Flush();

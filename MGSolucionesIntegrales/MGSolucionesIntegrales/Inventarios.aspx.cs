@@ -1,13 +1,17 @@
 ﻿using Entidades;
+using Ionic.Zip;
 using Negocios;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 
 public partial class Inventarios : System.Web.UI.Page
 {
@@ -233,32 +237,18 @@ public partial class Inventarios : System.Web.UI.Page
     protected void Descarga_Carpeta_Imagenes_Click(object sender, EventArgs e)
     {
         string dlDir = @"Imagenes_Expedientes/";
-        string sourcePath = Server.MapPath(dlDir + Nom_Carpeta.Text + "/"); 
-        string pathPC = System.IO.Path.GetFullPath(@"C:/"+ Nom_Carpeta.Text);
+        string sourcePath = Server.MapPath(dlDir + Nom_Carpeta.Text + "/");
 
-        //string script1 = "alert(''+" + sourcePath + "); ";
-        //ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script1, true);
-        //string script2 = "alert(''+" + pathPC + "); ";
-        //ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script2, true);
+        DirectoryInfo directorySelected = new DirectoryInfo(sourcePath);
 
-        Prueba.Text = sourcePath;
-        Prueba2.Text = pathPC;
+        using (ZipFile zip = new ZipFile())
+        {
+            zip.AddDirectory(sourcePath, Nom_Carpeta.Text);
+            zip.Save(Response.OutputStream);
+        }
+        Response.AddHeader("Content-Disposition", "attachment; filename=" + Nom_Carpeta.Text + ".zip");
+        Response.ContentType = "application/octet-stream";
 
-        System.IO.Directory.CreateDirectory(pathPC);
-
-        //if (!System.IO.Directory.Exists(pathPC))
-        //{
-        //    System.IO.Directory.CreateDirectory(pathPC);
-        //}
-
-        //string[] files = System.IO.Directory.GetFiles(sourcePath);
-
-        //foreach (string s in files)
-        //{
-        //    var fileName = System.IO.Path.GetFileName(s);
-        //    var destFile = System.IO.Path.Combine(pathPC, fileName);
-        //    System.IO.File.Copy(s, destFile, true);
-        //}
         System.IO.Directory.Delete(sourcePath, true);
 
         obj_E_Exp_Imagenes.Nombre_Carpeta = Nom_Carpeta.Text;
@@ -278,6 +268,6 @@ public partial class Inventarios : System.Web.UI.Page
             Selecciona_Carpetas_Imagenes();
 
         }
-
+        Response.End();
     }
 }
