@@ -171,6 +171,7 @@
 
                                 <asp:BoundField DataField="NUM_EXP" HeaderText="Num Exp." />
                                 <asp:BoundField DataField="FECHA_NOTA" HeaderText="Fecha Nota" />
+                                <asp:BoundField DataField="NOMBRE" HeaderText="Nombre Usuario" />
                                 <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
 
                             </Columns>
@@ -257,8 +258,8 @@
                                 <asp:BoundField DataField="MATERIAL" HeaderText="Material" />
                                 <asp:BoundField DataField="CANTIDAD" HeaderText="Cantidad" />
                                 <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cedula Técnico" />
+                                <asp:BoundField DataField="NOMBRE" HeaderText="Nombre Técnico" />
                                 <asp:BoundField DataField="PRECIO_TOTAL" HeaderText="Precio Total" />
-
                             </Columns>
                             <EmptyDataTemplate>La Consulta No Arrojo Ningun Resultado</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
@@ -681,6 +682,6 @@
         </div>
     </div>
     <asp:TextBox runat="server" ID="Id_Caso" style="display:none;">0</asp:TextBox>
-    <asp:Button runat="server" ID="Busqueda_Caso_Id" OnClick="Busqueda_Caso_Id_Click" />
+    <asp:Button runat="server" ID="Busqueda_Caso_Id" OnClick="Busqueda_Caso_Id_Click" style="display:none;" />
 </asp:Content>
 

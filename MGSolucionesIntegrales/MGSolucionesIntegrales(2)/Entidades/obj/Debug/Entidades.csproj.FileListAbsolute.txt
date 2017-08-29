@@ -17,6 +17,5 @@ C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSoluci
 C:\Users\dagom\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.pdb
 C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.dll
 C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\bin\Debug\Entidades.pdb
-C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.csprojResolveAssemblyReference.cache
 C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.dll
 C:\Users\Robinson\Documents\GitHub\MGSoluciones-App\MGSolucionesIntegrales\MGSolucionesIntegrales(2)\Entidades\obj\Debug\Entidades.pdb

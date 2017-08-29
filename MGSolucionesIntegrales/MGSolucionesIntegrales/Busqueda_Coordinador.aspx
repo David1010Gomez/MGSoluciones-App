@@ -108,16 +108,12 @@
                                 <asp:BoundField DataField="FACT" HeaderText="Fact." />
                                 <asp:BoundField DataField="DIRECCION" HeaderText="Dirección" />
                                 <asp:BoundField DataField="ESTADO_CASO" HeaderText="Estado Caso" />
-                                <asp:BoundField DataField="CEDULA_USUARIO_CREACION" HeaderText="Cedula Usuario Creacion" />
+                                <asp:BoundField DataField="NOMBRE_USUARIO_CREACION" HeaderText="Nombre Usuario Creacion" />
                                 <asp:BoundField DataField="FECHA_CIERRE" HeaderText="Fecha de Cierre" />
-                                <asp:BoundField DataField="CEDULA_USUARIO_CIERRE" HeaderText="Cédula Usuario Cierre" />
-                                <asp:BoundField DataField="USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualización" />
+                                <asp:BoundField DataField="NOMBRE_USUARIO_CIERRE" HeaderText="Nombre Usuario Cierre" />
+                                <asp:BoundField DataField="NOMBRE_USUARIO_ULTIMA_ACTUALIZACION" HeaderText="Usuario Ultima Actualización" />
                                 <asp:BoundField DataField="VALOR_TRABAJO" HeaderText="Valor Trabajo" />
                                 <asp:BoundField DataField="VALOR_TOTAL" HeaderText="Valor Total" />
-                                <%--<asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cédula Técnico" />
-                                <asp:BoundField DataField="NOMBRE_TECNICO" HeaderText="Nombre Tecnico" />
-                                <asp:BoundField DataField="SERVICIO" HeaderText="Servicio" />
-                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />--%>
                                 <asp:TemplateField ShowHeader="False" HeaderText="Editar">
                                     <ItemTemplate>
                                         <a href='javascript:editar("<%# Eval("ID") %>", "<%# Eval("ESTADO_CASO") %>");'>
@@ -225,6 +221,7 @@
 
                                         <asp:BoundField DataField="NUM_EXP" HeaderText="Num Exp." />
                                         <asp:BoundField DataField="FECHA_NOTA" HeaderText="Fecha Nota" />
+                                        <asp:BoundField DataField="NOMBRE" HeaderText="Nombre Usuario" />
                                         <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
 
                                     </Columns>
@@ -315,7 +312,8 @@
                                     <Columns>
                                         <asp:BoundField DataField="MATERIAL" HeaderText="Material" />
                                         <asp:BoundField DataField="CANTIDAD" HeaderText="Cantidad" />
-                                        <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cedula Técnico" />
+                                        <asp:BoundField DataField="CEDULA_TECNICO" HeaderText="Cedula" />
+                                        <asp:BoundField DataField="NOMBRE" HeaderText="Nombre Técnico" />
                                         <asp:BoundField DataField="PRECIO_TOTAL" HeaderText="Precio Total" />
 
                                     </Columns>

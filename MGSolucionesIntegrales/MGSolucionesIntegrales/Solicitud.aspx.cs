@@ -1275,7 +1275,7 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            var result = 0;
+            var result = Convert.ToString(Convert.ToInt32(Valor_Trabajo.Text));
             string script2 = "Actualiza_Total(" + result + ");";
             ScriptManager.RegisterStartupScript(this, typeof(Page), "Actualiza_Total", script2, true);
         }

@@ -39,7 +39,7 @@
                 <table style="width:100%;">
                     <tr>
                         <td>
-                            <asp:TextBox CssClass="input" ID="Cedula" runat="server" placeholder="Cédula" Required="true" onkeypress="return justNumbers(event);"></asp:TextBox><i class="fa fa-user" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
+                            <asp:TextBox CssClass="input" ID="Cedula" runat="server" placeholder="Cédula" Required="true" onkeypress="return justNumbers(event);" MaxLength="10"></asp:TextBox><i class="fa fa-user" style="float: right; right: 15px; position: absolute; margin-top: 5px;"></i>
                         </td>
                     </tr>
                 </table>
