@@ -11,7 +11,7 @@
     <link href="Content/fa_icons.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-    <link rel="stylesheet" href="assets/css/main.css?1.0.3" />
+    <link rel="stylesheet" href="assets/css/main.css?1.0.4" />
     <script src="Scripts/Adminsitrador.js"></script>
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <asp:ContentPlaceHolder id="head" runat="server">
@@ -32,7 +32,8 @@
                     <div class="12u">
                         <header id="header">
                             
-                            <h1 style="text-transform:none; font-weight:bold"><a id="logo" href="Inicio_Coordinador.aspx" >MG Soluciones</a></h1>
+                            <a id="logo" class="Logo" href="Inicio_Coordinador.aspx"><h1 style="text-transform: none; font-weight: bold; font-size:22px; color:white; margin-left:50px;">MG Soluciones Integrales LTDA <img class="imgLogo" src="images/Logo_MGSoluciones.png" /></h1></a>
+                            <%--<h1 style="text-transform:none; font-weight:bold"><a id="logo" href="Inicio_Coordinador.aspx" >MG Soluciones</a></h1>--%>
                             
                             <nav style="text-transform: none; width:70%; right:0%; font-size:22px;" id="nav">
                                 <a id="C1" href="Inicio_Coordinador.aspx">Inicio</a>

@@ -18,6 +18,7 @@
 
     </script>
     <script type="text/javascript">
+        setTimeout(function () { $('#<%=UserGestion.ClientID%>').css('display','none'); }, 5000);
         function editar(obj) {
             $('#<%=ID_CASO.ClientID%>').val(obj);
             var x = document.getElementById('<%=Cargar_Caso_Abierto.ClientID%>');
@@ -166,6 +167,7 @@
                 <div class="6u 12u(mobile) important(mobile)" style="text-align: justify;">
                     <section class="middle-content">
                         <h2 style="text-transform: none; font-weight: bold;">Solicitud</h2>
+                        <asp:Label runat="server" ID="UserGestion" style="color:darkred; font-weight:bold; text-align:left;"></asp:Label>
                         <a onclick="Limpiar_Campos();" style="margin-left: 90%; text-decoration: none; cursor: pointer;">Limpiar</a>
                         <div class="Div_Table">
                             <table>
@@ -356,6 +358,7 @@
                             <Columns>
                                 <asp:BoundField DataField="ID" HeaderText="Id" />
                                 <asp:BoundField DataField="FECHA_NOTA" HeaderText="Fecha de Nota" />
+                                <asp:BoundField DataField="NOMBRE" HeaderText="Nombre Usuario" />
                                 <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
                             </Columns>
                             <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>

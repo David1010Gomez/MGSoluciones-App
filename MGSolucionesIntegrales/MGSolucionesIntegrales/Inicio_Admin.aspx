@@ -19,6 +19,7 @@
 
             </div>
         </div>--%>
+    <br />
         <div id="main">
             <div class="container">
                 <h2 style="text-transform: none; font-weight: bold">Inicio Administrador</h2>

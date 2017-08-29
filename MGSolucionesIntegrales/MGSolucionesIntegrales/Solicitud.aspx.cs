@@ -488,6 +488,7 @@ public partial class Solicitud : System.Web.UI.Page
         Accion_Trabajo.Text = "";
         Estado_Usuario_Inicial.Text = "";
         Estado_Caso_Actual.Text = "ABIERTO";
+        UserGestion.Text = "";
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -535,9 +536,10 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            string script3 = "mensaje16();";
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje16", script3, true);
-
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+            var UsuarioGestionando = dt.Tables[0].Rows[0]["USUARIO_GESTIONANDO"].ToString();
+            UserGestion.Text = "El caso esta siendo gestionado por el usuario " + UsuarioGestionando;
         }
 
     }
@@ -670,6 +672,10 @@ public partial class Solicitud : System.Web.UI.Page
                     txtValorTotal.Text = "0";
                     txtValorTotal2.Text = "0";
                 }
+                lblCerrarCaso.Attributes.CssStyle.Add("display", "block");
+                CHCerrarCaso.Attributes.CssStyle.Add("display", "block");
+                lblValorTrabajo.Attributes.CssStyle.Add("display", "block");
+                Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
                 Gestionando_Caso();
             }
             else
@@ -681,8 +687,10 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            string script3 = "mensaje16();";
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje16", script3, true);
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+            var UsuarioGestionando = dt.Tables[0].Rows[0]["USUARIO_GESTIONANDO"].ToString();
+            UserGestion.Text = "El caso esta siendo gestionado por el usuario " + UsuarioGestionando;
 
         }
     }
@@ -835,8 +843,10 @@ public partial class Solicitud : System.Web.UI.Page
         }
         else
         {
-            string script3 = "mensaje16();";
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje16", script3, true);
+            DataSet dt = new DataSet();
+            dt = O_Neg_Solicitud.Selecciona_Solicitudes(E_Solicitud.Id);
+            var UsuarioGestionando = dt.Tables[0].Rows[0]["USUARIO_GESTIONANDO"].ToString();
+            UserGestion.Text = "El caso esta siendo gestionado por el usuario " + UsuarioGestionando;
 
         }
     }
