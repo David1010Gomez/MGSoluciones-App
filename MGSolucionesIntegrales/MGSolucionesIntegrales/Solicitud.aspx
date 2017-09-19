@@ -123,6 +123,11 @@
             }
         }
     }
+        function Liberar_Casos()
+    {
+        var x = document.getElementById('<%=Liberar_Casos.ClientID%>');
+        x.click();        
+    }
     </script>
 
     <div id="main">
@@ -151,7 +156,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
-                            <EmptyDataTemplate>No Existen Casos Para Agendar</EmptyDataTemplate>
+                            <EmptyDataTemplate>No Existen Casos Asignados</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="center" />
@@ -260,7 +265,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" runat="server" Style="display: none"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form" ID="Fecha_Agendamiento" placeholder="Seleccion Fecha" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
                                     <td>
                                         <asp:TextBox CssClass="inp_form"  ID="Valor_Trabajo" runat="server" Style="display: none" OnTextChanged="Valor_Trabajo_TextChanged"  AutoPostBack="true">0</asp:TextBox>
@@ -273,11 +278,23 @@
                                     <td>
                                         <asp:Label ID="lblValorTotal" runat="server" Style="display: none">Valor Total:</asp:Label>
                                     </td>
+                                    <td>
+                                        <asp:Label ID="lblRelacionado" runat="server" Style="display: none">Relacionado:</asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblAcabados" runat="server" Style="display: none">Técnico Acabados:</asp:Label>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <asp:TextBox CssClass="inp_form"  ID="txtValorTotal" runat="server" Style="display: none" ReadOnly="true">0</asp:TextBox>
                                         <asp:TextBox CssClass="inp_form"  ID="txtValorTotal2" runat="server" Style="display: none">0</asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox CssClass="inp_form"  ID="Relacionado" runat="server" Style="display: none" ReadOnly="true"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox CssClass="inp_form"  ID="Acabados" runat="server" Style="display: none" ReadOnly="true"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -289,6 +306,9 @@
                                     minDate: '0',
                                     timepicker: true,
                                     allowTimes: [
+                                        '04:00',
+                                            '05:00',
+                                            '06:00',
                                            '07:00',
                                            '08:00',
                                            '09:00',
@@ -300,7 +320,17 @@
                                            '15:00',
                                            '16:00',
                                            '17:00',
-                                           '18:00']
+                                           '18:00',
+                                           '19:00',
+                                            '20:00',
+                                            '21:00',
+                                            '22:00',
+                                            '23:00',
+                                            '00:00',
+                                            '01:00',
+                                            '02:00',
+                                            '03:00'
+                                    ]
                                     
                                     //onShow: function (ct) {
                                     //    this.setOptions({
@@ -351,6 +381,8 @@
                             
                         </div>
                         <br />
+                        <a onclick="Liberar_Casos();" style="margin-left: 43%; text-decoration: none; cursor: pointer;">Liberar Casos</a>
+                        <br /><br />
                         <div runat="server" id="Div_Historial" class="Div_Table" style="display:none;">
                             <asp:GridView ID="GridView5" AllowPaging="True" OnPageIndexChanging="GridView5_PageIndexChanging" runat="server" BackColor="#CCCCCC" BorderColor="#999999" 
                                 BorderStyle="Solid" BorderWidth="3px" CellPadding="4" ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; 
@@ -361,7 +393,7 @@
                                 <asp:BoundField DataField="NOMBRE" HeaderText="Nombre Usuario" />
                                 <asp:BoundField DataField="OBSERVACIONES" HeaderText="Observaciones" />
                             </Columns>
-                            <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                            <EmptyDataTemplate>No Existe Historial</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
@@ -393,7 +425,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
-                            <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                            <EmptyDataTemplate>No Existen casos Abiertos</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="center" />
@@ -404,6 +436,36 @@
                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                             <SortedDescendingHeaderStyle BackColor="#383838" />
                         </asp:GridView>
+                        <br /><br />
+                        <h3 style="text-transform: none; color: #007294; text-decoration: underline;"> Citas</h3>
+                        <asp:GridView ID="GridView6" AllowPaging="true" OnPageIndexChanging="GridView6_PageIndexChanging" runat="server" 
+                            BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" 
+                            ForeColor="Black" AutoGenerateColumns="False" CellSpacing="2" Style="border-collapse: collapse; width: 100%; text-align: center;">
+                            <Columns>
+                                <%--<asp:BoundField DataField="ID" HeaderText="Id" />--%>
+                                <asp:BoundField DataField="NOMBRE" HeaderText="Nombre" />
+                                <asp:BoundField DataField="FECHA_TURNO" HeaderText="Fecha Turno" />
+                                <asp:BoundField DataField="NUM_EXP" HeaderText="Exp." />
+                                <%--<asp:TemplateField ShowHeader="False" HeaderText="Editar">
+                                    <ItemTemplate>
+                                        <a href='javascript:editar("<%# Eval("ID") %>");'>
+                                            <img class="c1" id='imageningreso_<%# Eval("ID") %>' alt="" src="images/edit.png" />
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                            </Columns>
+                            <EmptyDataTemplate>No Existen Citas</EmptyDataTemplate>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="center" />
+                            <RowStyle BackColor="White" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#808080" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#383838" />
+                        </asp:GridView>
+
                     </section>
                 </div>
                 <div class="12u">
@@ -436,7 +498,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
-                            <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                            <EmptyDataTemplate>No Existen casos Agendados</EmptyDataTemplate>
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="center" />
@@ -467,6 +529,7 @@
     <asp:Button runat="server" style="display:none;" ID="Cargar_Tecnicos" OnClick="Cargar_Tecnicos_Click" /> 
     <asp:Button runat="server" style="display:none;" ID="AplazaCaso" OnClick="AplazaCaso_Click"  />
     <asp:Button runat="server" style="display:none;" ID="Desliberar_Caso" OnClick="Desliberar_Caso_Click"/>
+    <asp:Button runat="server" style="display:none;" ID="Liberar_Casos" OnClick="Liberar_Casos_Click"/>
 
     <div class="modal-wrapper" id="Materiales">
         <div class="Materiales-contenedor" style="margin-top: 80px;">
@@ -533,7 +596,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <EmptyDataTemplate>No Existen casos para asignar</EmptyDataTemplate>
+                        <EmptyDataTemplate>No Existe Material para esta Solicitud</EmptyDataTemplate>
                         <FooterStyle BackColor="#CCCCCC" />
                         <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
                         <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />

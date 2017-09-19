@@ -66,6 +66,7 @@ public partial class Solicitud : System.Web.UI.Page
         Casos_Abiertos();
         Casos_Asignados();
         Casos_Agendados();
+        Citas();
 
     }
 
@@ -181,27 +182,65 @@ public partial class Solicitud : System.Web.UI.Page
                     }
                     else
                     {
-                        Controles_Objetos();
-                        var Guardar_Datos = -1;
-                        Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
-                        if (Guardar_Datos != -1)
+                        if (Estado_Caso_Creacion.Text == "ABIERTO")
                         {
-                            if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); Guarda_Tecnico_LogApla(); }
-                            Guardar_Notas();
-                            Guarda_Tecnico_Solicitud();
-                            Guarda_Servicio_Solicitud();
-                            Limpiar_Controles();
-                            Limpiar_Controles_Materiales();
-                            string script1 = "mensaje1();";
-                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
-                            Casos_Abiertos();
-                            Casos_Asignados();
-                            Casos_Agendados();
+                            DataSet dt = new DataSet();
+                            dt = O_Neg_Solicitud.Exp_Repetido(Convert.ToInt32(Exp.Text));
+                            if (dt.Tables[0].Rows.Count == 0)
+                            {
+                                Controles_Objetos();
+                                var Guardar_Datos = -1;
+                                Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
+                                if (Guardar_Datos != -1)
+                                {
+                                    if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); Guarda_Tecnico_LogApla(); }
+                                    Guardar_Notas();
+                                    Guarda_Tecnico_Solicitud();
+                                    Guarda_Servicio_Solicitud();
+                                    Limpiar_Controles();
+                                    Limpiar_Controles_Materiales();
+                                    string script1 = "mensaje1();";
+                                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
+                                    Casos_Abiertos();
+                                    Casos_Asignados();
+                                    Casos_Agendados();
+                                }
+                                else
+                                {
+                                    string script = "mensaje2();";
+                                    ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                                }
+                            }
+                            else
+                            {
+                                string script = "alert('Este Número de Expediente Ya Existe');";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje", script, true);
+                            }
                         }
                         else
                         {
-                            string script = "mensaje2();";
-                            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                            Controles_Objetos();
+                            var Guardar_Datos = -1;
+                            Guardar_Datos = O_Neg_Solicitud.abc_Solicitudes(Accion.Text, E_Solicitud);
+                            if (Guardar_Datos != -1)
+                            {
+                                if (E_Tecni_Solicitudes.Nombre_Tecnico != string.Empty) { Guarda_Turno_Tecnico(); Guarda_Tecnico_LogApla(); }
+                                Guardar_Notas();
+                                Guarda_Tecnico_Solicitud();
+                                Guarda_Servicio_Solicitud();
+                                Limpiar_Controles();
+                                Limpiar_Controles_Materiales();
+                                string script1 = "mensaje1();";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje1", script1, true);
+                                Casos_Abiertos();
+                                Casos_Asignados();
+                                Casos_Agendados();
+                            }
+                            else
+                            {
+                                string script = "mensaje2();";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+                            }
                         }
                     }
                 }
@@ -368,6 +407,8 @@ public partial class Solicitud : System.Web.UI.Page
         E_Solicitud.Valor_Trabajo = Valor_Trabajo.Text;
         E_Solicitud.Valor_Total = Convert.ToInt32(txtValorTotal2.Text);
         E_Solicitud.Usuario_Gestionando = Convert.ToString(0);
+        E_Solicitud.Relacionado = Relacionado.Text;
+        E_Solicitud.Acabados_Tecnicos = Acabados.Text;
 
         E_Tecni_Solicitudes.Id_Solicitud = Convert.ToInt32(ID_CASO.Text);
         E_Tecni_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
@@ -400,6 +441,23 @@ public partial class Solicitud : System.Web.UI.Page
         E_Materiales_Solicitudes.Cedula_Tecnico = Convert.ToInt32(Lista_Tecnicos.SelectedValue);
         E_Materiales_Solicitudes.Precio_Unidad = Convert.ToInt32(Convert.ToInt32(Costo_Unidad.Text));
         E_Materiales_Solicitudes.Precio_Total = Convert.ToInt32(Convert.ToInt32(Costo_Unidad.Text) * Convert.ToInt32(CantidadMaterial.Text));
+    }
+
+    private void Citas()
+    {
+        DataSet dt = new DataSet();
+        dt = O_Neg_Solicitud.Citas();
+
+        if (dt.Tables[0].Rows.Count > 0)
+        {
+            GridView6.DataSource = dt.Tables[0];
+            GridView6.DataBind();
+        }
+        else
+        {
+            GridView6.DataSource = null;
+            GridView6.DataBind();
+        }
     }
 
     private void Casos_Abiertos()
@@ -489,6 +547,10 @@ public partial class Solicitud : System.Web.UI.Page
         Estado_Usuario_Inicial.Text = "";
         Estado_Caso_Actual.Text = "ABIERTO";
         UserGestion.Text = "";
+        lblRelacionado.Attributes.CssStyle.Add("display","none");
+        lblAcabados.Attributes.CssStyle.Add("display", "none");
+        Relacionado.Attributes.CssStyle.Add("display", "none");
+        Acabados.Attributes.CssStyle.Add("display", "none");
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -676,6 +738,10 @@ public partial class Solicitud : System.Web.UI.Page
                 CHCerrarCaso.Attributes.CssStyle.Add("display", "block");
                 lblValorTrabajo.Attributes.CssStyle.Add("display", "block");
                 Valor_Trabajo.Attributes.CssStyle.Add("display", "block");
+                lblRelacionado.Attributes.CssStyle.Add("display", "block");
+                lblAcabados.Attributes.CssStyle.Add("display", "block");
+                Relacionado.Attributes.CssStyle.Add("display", "block");
+                Acabados.Attributes.CssStyle.Add("display", "block");
                 Gestionando_Caso();
             }
             else
@@ -832,6 +898,10 @@ public partial class Solicitud : System.Web.UI.Page
                     txtValorTotal.Text = "0";
                     txtValorTotal2.Text = "0";
                 }
+                lblRelacionado.Attributes.CssStyle.Add("display", "block");
+                lblAcabados.Attributes.CssStyle.Add("display", "block");
+                Relacionado.Attributes.CssStyle.Add("display", "block");
+                Acabados.Attributes.CssStyle.Add("display", "block");
                 Gestionando_Caso();
             }
             else
@@ -1306,5 +1376,27 @@ public partial class Solicitud : System.Web.UI.Page
     {
         GridView3.PageIndex = e.NewPageIndex;
         Casos_Agendados();
+    }
+
+    protected void GridView6_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView6.PageIndex = e.NewPageIndex;
+        Citas();
+    }
+
+    protected void Liberar_Casos_Click(object sender, EventArgs e)
+    {
+        var Guardar_Datos = -1;
+        Guardar_Datos = O_Neg_Solicitud.Liberar_Casos();
+        if (Guardar_Datos != -1)
+        {
+            string script = "alert('Todos los Casos se Han Liberado');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+        }
+        else
+        {
+            string script = "alert('Error al liberar los Casos');";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "mensaje2", script, true);
+        }
     }
 }

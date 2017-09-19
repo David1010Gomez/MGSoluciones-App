@@ -200,5 +200,17 @@ namespace Negocios
         {
             return DN_Solicitud.Liquida_Tecnicos_Solicitudes(pIdSolicitud, pCedulaTecnico, pLiquidado);
         }
+        public DataSet Citas()
+        {
+            return DN_Solicitud.Citas();
+        }
+        public DataSet Exp_Repetido(int pExp)
+        {
+            return DN_Solicitud.Exp_Repetido(pExp);
+        }
+        public int Liberar_Casos()
+        {
+            return DN_Solicitud.Liberar_Casos();
+        }
     }
 }

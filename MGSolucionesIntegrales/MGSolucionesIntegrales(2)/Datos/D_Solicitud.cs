@@ -55,6 +55,8 @@ namespace Datos
             cmd.Parameters.AddWithValue("@VALOR_TRABAJO", Obj_Solicitudes.Valor_Trabajo);
             cmd.Parameters.AddWithValue("@VALOR_TOTAL", Obj_Solicitudes.Valor_Total);
             cmd.Parameters.AddWithValue("@USUARIO_GESTIONANDO", Obj_Solicitudes.Usuario_Gestionando);
+            cmd.Parameters.AddWithValue("@RELACIONADO", Obj_Solicitudes.Relacionado);
+            cmd.Parameters.AddWithValue("@ACABADOS_TECNICO", Obj_Solicitudes.Acabados_Tecnicos);
 
             try
             {
@@ -1189,6 +1191,75 @@ namespace Datos
             catch (Exception e)
             {
                 throw new Exception("Error al intentar Actualizar liquidado de la tabla tecnicos solicitudes", e);
+            }
+            finally
+            {
+                Cerrar_Conexion();
+                cmd.Dispose();
+            }
+            return Resultado;
+        }
+        public DataSet Citas()
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[SELECCIONA_CITAS]";
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar las citas", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public DataSet Exp_Repetido(int pExp)
+        {
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter dt = new SqlDataAdapter();
+            try
+            {
+                Abrir_Conexion();
+                cmd.Connection = Conexion;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[dbo].[CONSULTA_EXP_REPETIDO]";
+                cmd.Parameters.AddWithValue("@NUM_EXP", pExp);
+                dt.SelectCommand = cmd;
+                dt.Fill(ds);
+            }
+            catch (Exception e)
+            { throw new Exception("Error al seleccionar los exp_repetidos", e); }
+            finally
+            {
+                Conexion.Close();
+                cmd.Dispose();
+            }
+            return ds;
+        }
+        public int Liberar_Casos()
+        {
+            int Resultado = 0;
+            SqlCommand cmd = new SqlCommand("LIBERAR_CASOS", Conexion);
+            cmd.CommandType = CommandType.StoredProcedure;
+            
+            try
+            {
+                Abrir_Conexion();
+                Resultado = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al Actualizar Los Casos", e);
             }
             finally
             {
