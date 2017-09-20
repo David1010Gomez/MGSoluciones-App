@@ -551,6 +551,8 @@ public partial class Solicitud : System.Web.UI.Page
         lblAcabados.Attributes.CssStyle.Add("display", "none");
         Relacionado.Attributes.CssStyle.Add("display", "none");
         Acabados.Attributes.CssStyle.Add("display", "none");
+        Acabados.Text = "";
+        Relacionado.Text = "";
     }
 
     protected void Cargar_Caso_Abierto_Click(object sender, EventArgs e)
@@ -742,6 +744,8 @@ public partial class Solicitud : System.Web.UI.Page
                 lblAcabados.Attributes.CssStyle.Add("display", "block");
                 Relacionado.Attributes.CssStyle.Add("display", "block");
                 Acabados.Attributes.CssStyle.Add("display", "block");
+                Acabados.Text = dt.Tables[0].Rows[0]["RELACIONADO"].ToString();
+                Relacionado.Text = dt.Tables[0].Rows[0]["ACABADOS_TECNICO"].ToString();
                 Gestionando_Caso();
             }
             else
@@ -902,6 +906,8 @@ public partial class Solicitud : System.Web.UI.Page
                 lblAcabados.Attributes.CssStyle.Add("display", "block");
                 Relacionado.Attributes.CssStyle.Add("display", "block");
                 Acabados.Attributes.CssStyle.Add("display", "block");
+                Acabados.Text = dt.Tables[0].Rows[0]["RELACIONADO"].ToString();
+                Relacionado.Text = dt.Tables[0].Rows[0]["ACABADOS_TECNICO"].ToString();
                 Gestionando_Caso();
             }
             else
