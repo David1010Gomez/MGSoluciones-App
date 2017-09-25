@@ -291,10 +291,10 @@
                                         <asp:TextBox CssClass="inp_form"  ID="txtValorTotal2" runat="server" Style="display: none">0</asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form"  ID="Relacionado" runat="server" Style="display: none" ReadOnly="true"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form"  ID="Relacionado" runat="server" Style="display: none"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox CssClass="inp_form"  ID="Acabados" runat="server" Style="display: none" ReadOnly="true"></asp:TextBox>
+                                        <asp:TextBox CssClass="inp_form"  ID="Acabados" runat="server" Style="display: none" ></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
